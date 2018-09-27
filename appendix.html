@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>master thesis template</title>
+  <meta name="description" content="Generalized linear mixed models, MCMC algorithms, Spatial generalized linear mixed models, Stan platform.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="master thesis template" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/logo.png" />
+  <meta property="og:description" content="Generalized linear mixed models, MCMC algorithms, Spatial generalized linear mixed models, Stan platform." />
+  <meta name="github-repo" content="XiangyunHuang/Thesis-Template-Bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="master thesis template" />
+  
+  <meta name="twitter:description" content="Generalized linear mixed models, MCMC algorithms, Spatial generalized linear mixed models, Stan platform." />
+  <meta name="twitter:image" content="images/logo.png" />
+
+<meta name="author" content="Xiang-Yun Huang">
+
+
+<meta name="date" content="2018-09-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="prev" href="author.html">
+<link rel="next" href="References.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">空间广义线性混合效应模型及其应用</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 绪论</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#motivations"><i class="fa fa-check"></i><b>1.1</b> 研究意义</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#reviews"><i class="fa fa-check"></i><b>1.2</b> 文献综述</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#stracture"><i class="fa fa-check"></i><b>1.3</b> 论文结构</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#Conventions-Colophon"><i class="fa fa-check"></i><b>1.4</b> 符号说明</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prepare.html"><a href="prepare.html"><i class="fa fa-check"></i><b>2</b> 基础知识</a><ul>
+<li class="chapter" data-level="2.1" data-path="prepare.html"><a href="prepare.html#sec:exp"><i class="fa fa-check"></i><b>2.1</b> 指数族</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare.html"><a href="prepare.html#lse"><i class="fa fa-check"></i><b>2.2</b> 最小二乘估计</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare.html"><a href="prepare.html#def-mle"><i class="fa fa-check"></i><b>2.3</b> 极大似然估计</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare.html"><a href="prepare.html#section-2.4"><i class="fa fa-check"></i><b>2.4</b> 随机过程的连续性和可微性</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#stationary-gaussian-process"><i class="fa fa-check"></i><b>2.5</b> 平稳高斯过程</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#Modified-Bessel-functions"><i class="fa fa-check"></i><b>2.6</b> 修正的第三类贝塞尔函数</a></li>
+<li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#Laplace-approximation"><i class="fa fa-check"></i><b>2.7</b> 拉普拉斯近似</a></li>
+<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#Jeffreys-prior"><i class="fa fa-check"></i><b>2.8</b> Jeffreys 先验分布</a></li>
+<li class="chapter" data-level="2.9" data-path="prepare.html"><a href="prepare.html#bayes-methods"><i class="fa fa-check"></i><b>2.9</b> 贝叶斯理论</a></li>
+<li class="chapter" data-level="2.10" data-path="prepare.html"><a href="prepare.html#bayesian-data-analysis"><i class="fa fa-check"></i><b>2.10</b> 贝叶斯数据分析</a></li>
+<li class="chapter" data-level="2.11" data-path="prepare.html"><a href="prepare.html#Curse-of-Dimensionality"><i class="fa fa-check"></i><b>2.11</b> 维数灾难与蒙特卡罗积分</a></li>
+<li class="chapter" data-level="2.12" data-path="prepare.html"><a href="prepare.html#Samplers"><i class="fa fa-check"></i><b>2.12</b> 采样器与 Stan</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
+<li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 线性模型</a></li>
+<li class="chapter" data-level="3.2" data-path="models.html"><a href="models.html#Generalized-Linear-Models"><i class="fa fa-check"></i><b>3.2</b> 广义线性模型</a></li>
+<li class="chapter" data-level="3.3" data-path="models.html"><a href="models.html#Linear-Mixed-Effects-Models"><i class="fa fa-check"></i><b>3.3</b> 线性混合效应模型</a></li>
+<li class="chapter" data-level="3.4" data-path="models.html"><a href="models.html#Generalized-Linear-Mixed-Effects-Models"><i class="fa fa-check"></i><b>3.4</b> 广义线性混合效应模型</a></li>
+<li class="chapter" data-level="3.5" data-path="models.html"><a href="models.html#section-3.5"><i class="fa fa-check"></i><b>3.5</b> 空间线性混合效应模型</a></li>
+<li class="chapter" data-level="3.6" data-path="models.html"><a href="models.html#Spatial-Generalized-linear-mixed-effects-models"><i class="fa fa-check"></i><b>3.6</b> 空间广义线性混合效应模型</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="models.html"><a href="models.html#intro-sglmm"><i class="fa fa-check"></i><b>3.6.1</b> 模型结构</a></li>
+<li class="chapter" data-level="3.6.2" data-path="models.html"><a href="models.html#covariance-function"><i class="fa fa-check"></i><b>3.6.2</b> 协方差函数</a></li>
+<li class="chapter" data-level="3.6.3" data-path="models.html"><a href="models.html#identify"><i class="fa fa-check"></i><b>3.6.3</b> 模型识别</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>4</b> 参数估计</a><ul>
+<li class="chapter" data-level="4.1" data-path="algorithms.html"><a href="algorithms.html#mle"><i class="fa fa-check"></i><b>4.1</b> 极大似然估计</a></li>
+<li class="chapter" data-level="4.2" data-path="algorithms.html"><a href="algorithms.html#profile-likelihood"><i class="fa fa-check"></i><b>4.2</b> 剖面似然估计</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithms.html"><a href="algorithms.html#maximum-likelihood-estimates"><i class="fa fa-check"></i><b>4.3</b> 极大似然估计</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#algrithms"><i class="fa fa-check"></i><b>4.4</b> 参数估计的算法</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#LA"><i class="fa fa-check"></i><b>4.4.1</b> 拉普拉斯近似算法</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#MCML"><i class="fa fa-check"></i><b>4.4.2</b> 蒙特卡罗极大似然算法</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#MCMC"><i class="fa fa-check"></i><b>4.4.3</b> 贝叶斯 MCMC 算法</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.4.4</b> 低秩近似算法</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#STAN-MCMC"><i class="fa fa-check"></i><b>4.5</b> 贝叶斯 STAN-MCMC 算法</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="algorithms.html"><a href="algorithms.html#section-4.5.1"><i class="fa fa-check"></i><b>4.5.1</b> 算法提出的背景和意义</a></li>
+<li class="chapter" data-level="4.5.2" data-path="algorithms.html"><a href="algorithms.html#STANMCMC"><i class="fa fa-check"></i><b>4.5.2</b> STAN-MCMC 算法实现过程</a></li>
+<li class="chapter" data-level="4.5.3" data-path="algorithms.html"><a href="algorithms.html#-r-"><i class="fa fa-check"></i><b>4.5.3</b> 求解模型的 R 包</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulations.html"><a href="simulations.html"><i class="fa fa-check"></i><b>5</b> 数值模拟</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulations.html"><a href="simulations.html#section-5.1"><i class="fa fa-check"></i><b>5.1</b> 一维空间高斯过程</a></li>
+<li class="chapter" data-level="5.2" data-path="simulations.html"><a href="simulations.html#sim-gp"><i class="fa fa-check"></i><b>5.2</b> 平稳空间高斯过程</a></li>
+<li class="chapter" data-level="5.3" data-path="simulations.html"><a href="simulations.html#sim-sglmm"><i class="fa fa-check"></i><b>5.3</b> 空间广义线性混合效应模型</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="simulations.html"><a href="simulations.html#binomal-sglmm"><i class="fa fa-check"></i><b>5.3.1</b> 响应变量服从二项分布</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simulations.html"><a href="simulations.html#possion-sglmm"><i class="fa fa-check"></i><b>5.3.2</b> 响应变量服从泊松分布</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> 数据分析</a><ul>
+<li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#sptial-random-effects"><i class="fa fa-check"></i><b>6.1</b> 空间线性混合效应模型</a></li>
+<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#loaloa"><i class="fa fa-check"></i><b>6.2</b> 喀麦隆及周边地区盘尾丝虫病的空间分布</a></li>
+<li class="chapter" data-level="6.3" data-path="applications.html"><a href="applications.html#rongelap"><i class="fa fa-check"></i><b>6.3</b> 朗格拉普岛放射性残留物的空间分布</a></li>
+<li class="chapter" data-level="6.4" data-path="applications.html"><a href="applications.html#section-6.4"><i class="fa fa-check"></i><b>6.4</b> 冈比亚儿童疟疾流行强度的空间分布</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> 总结展望</a></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录</a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sessioninfo"><i class="fa fa-check"></i>软件信息</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#random-number-generation"><i class="fa fa-check"></i>随机数生成</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compare-algrithms"><i class="fa fa-check"></i>算法比较</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="References.html"><a href="References.html"><i class="fa fa-check"></i>参考文献</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">master thesis template</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendix" class="section level1 unnumbered">
+<h1>附录</h1>
+
+<div id="sessioninfo" class="section level2 unnumbered">
+<h2>软件信息</h2>
+<pre class="sourceCode r"><code class="sourceCode r">xfun<span class="op">::</span><span class="kw">session_info</span>(<span class="dt">packages =</span> <span class="kw">c</span>(<span class="st">&quot;rmarkdown&quot;</span>, <span class="st">&quot;bookdown&quot;</span>), <span class="dt">dependencies =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; R version 3.5.1 (2018-07-02)</span>
+<span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
+<span class="co">#&gt; Running under: Ubuntu 18.04.1 LTS</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Locale:</span>
+<span class="co">#&gt;   LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span>
+<span class="co">#&gt;   LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span>
+<span class="co">#&gt;   LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span>
+<span class="co">#&gt;   LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span>
+<span class="co">#&gt;   LC_ADDRESS=C               LC_TELEPHONE=C            </span>
+<span class="co">#&gt;   LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Package version:</span>
+<span class="co">#&gt;   bookdown_0.7.19   rmarkdown_1.10.13</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Pandoc version: 2.3</span></code></pre>
+</div>
+<div id="random-number-generation" class="section level2 unnumbered">
+<h2>随机数生成</h2>
+<p>基于空间广义线性混合效应模型生成随机数的函数：
+<code>generate_sim_data</code> 函数可生成响应变量服从泊松分布或二项分布，平稳高斯过程的自相关函数为二次幂指数族或梅隆族的随机数</p>
+<pre class="sourceCode r"><code class="sourceCode r">generate_sim_data &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="dv">49</span>, <span class="dt">intercept =</span> <span class="fl">-1.0</span>, 
+                              <span class="dt">slope1 =</span> <span class="fl">1.0</span>, <span class="dt">slope2 =</span> <span class="fl">0.5</span>,
+                              <span class="dt">lscale =</span> <span class="dv">1</span>, <span class="dt">sdgp =</span> <span class="dv">1</span>, 
+                              <span class="dt">cov.model =</span> <span class="st">&quot;exp_quad&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;binomal&quot;</span>) {
+  <span class="co"># set.seed(2018) </span>
+  <span class="co">## 单位区域上采样</span>
+  d &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(
+    <span class="dt">d1 =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">l =</span> <span class="kw">sqrt</span>(N)),
+    <span class="dt">d2 =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">l =</span> <span class="kw">sqrt</span>(N))
+  )
+  D &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(d)) <span class="co"># 计算采样点之间的欧氏距离</span>
+  <span class="cf">switch</span> (cov.model,
+          <span class="dt">matern =</span> {
+            phi =<span class="st"> </span>lscale
+            corr_m =<span class="st"> </span>geoR<span class="op">::</span><span class="kw">matern</span>(D, <span class="dt">phi =</span> phi, <span class="dt">kappa =</span> <span class="dv">2</span>) <span class="co"># 固定的 kappa = 2 </span>
+            m  =<span class="st"> </span>sdgp<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>corr_m 
+          },
+          <span class="dt">exp_quad =</span> {
+            phi &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>lscale<span class="op">^</span><span class="dv">2</span>
+            m &lt;-<span class="st"> </span>sdgp<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>D<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>phi) <span class="co"># 多元高斯分布的协方差矩阵</span>
+          }
+  )
+  <span class="co"># powered.exponential (or stable)</span>
+  <span class="co"># rho(h) = exp[-(h/phi)^kappa] if 0 &lt; kappa &lt;= 2 此处 kappa 固定为 2</span>
+  S &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, <span class="kw">rep</span>(<span class="dv">0</span>, N), m) <span class="co"># 产生服从多元高斯分布的随机数</span>
+  <span class="co"># 模拟两个固定效应</span>
+  x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">1</span>)
+  x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">4</span>)
+  <span class="cf">switch</span>(type,
+         <span class="dt">binomal =</span> {
+           units.m &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">100</span>, N) <span class="co"># N 个 100</span>
+           pred &lt;-<span class="st"> </span>intercept <span class="op">+</span><span class="st"> </span>slope1 <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>slope2 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>S
+           mu &lt;-<span class="st"> </span><span class="kw">exp</span>(pred) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(pred))
+           y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(N, <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">prob =</span> mu) <span class="co"># 每个采样点抽取100个样本</span>
+           <span class="kw">data.frame</span>(d, y, units.m, x1, x2)
+         },
+         <span class="dt">poisson =</span> {
+           pred &lt;-<span class="st"> </span>intercept <span class="op">+</span><span class="st"> </span>slope1 <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>slope2 <span class="op">*</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>S
+           y &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dt">lambda =</span> <span class="kw">exp</span>(pred)) <span class="co"># lambda 是泊松分布的期望  </span>
+           <span class="co"># Y ~ Possion(lambda) g(u) = ln(u) u = lambda = exp(g(u))</span>
+           <span class="kw">data.frame</span>(d, y, x1, x2)
+         }
+  )
+}</code></pre>
+</div>
+<div id="compare-algrithms" class="section level2 unnumbered">
+<h2>算法比较</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 加载程序包</span>
+<span class="kw">library</span>(rstan)
+<span class="kw">library</span>(brms)
+<span class="co"># 以并行方式运行STAN-MCMC算法，指定CPU的核心数</span>
+<span class="kw">options</span>(<span class="dt">mc.cores =</span> parallel<span class="op">::</span><span class="kw">detectCores</span>())
+<span class="co"># 将编译后的模型写入磁盘，可防止重新编译</span>
+<span class="kw">rstan_options</span>(<span class="dt">auto_write =</span> <span class="ot">TRUE</span>)
+<span class="kw">theme_set</span>(<span class="kw">theme_default</span>())
+prior &lt;-<span class="st"> </span><span class="kw">c</span>(
+  <span class="kw">set_prior</span>(<span class="st">&quot;normal(0,10)&quot;</span>, <span class="dt">class =</span> <span class="st">&quot;b&quot;</span>), <span class="co"># 均值0 标准差 10 的先验</span>
+  <span class="kw">set_prior</span>(<span class="st">&quot;lognormal(0,1)&quot;</span>, <span class="dt">class =</span> <span class="st">&quot;lscale&quot;</span>),
+  <span class="kw">set_prior</span>(<span class="st">&quot;lognormal(0,1)&quot;</span>, <span class="dt">class =</span> <span class="st">&quot;sdgp&quot;</span>)
+)
+sim_binom_data &lt;-<span class="st"> </span><span class="kw">generate_sim_data</span>(<span class="dt">type =</span> <span class="st">&quot;binomal&quot;</span>)
+benchmark.binomal &lt;-<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>({
+  fit.binomal &lt;-<span class="st"> </span><span class="kw">brm</span>(y <span class="op">|</span><span class="st"> </span><span class="kw">trials</span>(units.m) <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>intercept <span class="op">+</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">gp</span>(d1, d2),
+    sim_binom_data,
+    <span class="dt">prior =</span> prior,
+    <span class="dt">chains =</span> <span class="dv">4</span>, <span class="dt">thin =</span> <span class="dv">5</span>, <span class="dt">iter =</span> <span class="dv">15000</span>, <span class="dt">warmup =</span> <span class="dv">5000</span>,
+    <span class="dt">algorithm =</span> <span class="st">&quot;sampling&quot;</span>, <span class="dt">family =</span> <span class="kw">binomial</span>()
+  )
+}, <span class="dt">times =</span> 10L)
+<span class="kw">summary</span>(fit.binomal)
+
+sim_poisson_data &lt;-<span class="st"> </span><span class="kw">generate_sim_data</span>(<span class="dt">type =</span> <span class="st">&quot;poisson&quot;</span>)
+benchmark.poisson &lt;-<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>({
+  fit.poisson &lt;-<span class="st"> </span><span class="kw">brm</span>(y <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>intercept <span class="op">+</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span><span class="kw">gp</span>(d1, d2),
+    sim_poisson_data,
+    <span class="dt">prior =</span> prior,
+    <span class="dt">chains =</span> <span class="dv">4</span>, <span class="dt">thin =</span> <span class="dv">5</span>, <span class="dt">iter =</span> <span class="dv">15000</span>, <span class="dt">warmup =</span> <span class="dv">5000</span>, 
+    <span class="dt">algorithm =</span> <span class="st">&quot;sampling&quot;</span>, <span class="dt">family =</span> <span class="kw">poisson</span>()
+  )
+}, <span class="dt">times =</span> 10L)
+<span class="kw">summary</span>(fit.poisson)
+<span class="kw">plot</span>(fit.poisson)</code></pre>
+<p>STAN 代码模拟高斯过程，自协方差函数见方程 </p>
+<pre><code>data {
+  int&lt;lower=1&gt; N;
+  real x[N];
+}
+transformed data {
+  matrix[N, N] K;
+  vector[N] mu = rep_vector(0, N);
+  for (i in 1:(N - 1)) {
+    K[i, i] = 1 + 0.1;
+    for (j in (i + 1):N) {
+      K[i, j] = exp(-0.5 * square(x[i] - x[j]));
+      K[j, i] = K[i, j];
+    }
+  }
+  K[N, N] = 1 + 0.1;
+}
+parameters {
+  vector[N] y;
+}
+model {
+  y ~ multi_normal(mu, K);
+}</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="author.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="References.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/XiangyunHuang/Thesis-Template-Bookdown/edit/master/08-appendix.Rmd",
+"text": "编辑"
+},
+"download": ["Thesis-Template-Bookdown.pdf", "Thesis-Template-Bookdown.epub", "Thesis-Template-Bookdown.mobi"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

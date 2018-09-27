@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>master thesis template</title>
+  <meta name="description" content="Generalized linear mixed models, MCMC algorithms, Spatial generalized linear mixed models, Stan platform.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="master thesis template" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/logo.png" />
+  <meta property="og:description" content="Generalized linear mixed models, MCMC algorithms, Spatial generalized linear mixed models, Stan platform." />
+  <meta name="github-repo" content="XiangyunHuang/Thesis-Template-Bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="master thesis template" />
+  
+  <meta name="twitter:description" content="Generalized linear mixed models, MCMC algorithms, Spatial generalized linear mixed models, Stan platform." />
+  <meta name="twitter:image" content="images/logo.png" />
+
+<meta name="author" content="Xiang-Yun Huang">
+
+
+<meta name="date" content="2018-09-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+<link rel="next" href="prepare.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">空间广义线性混合效应模型及其应用</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 绪论</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#motivations"><i class="fa fa-check"></i><b>1.1</b> 研究意义</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#reviews"><i class="fa fa-check"></i><b>1.2</b> 文献综述</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#stracture"><i class="fa fa-check"></i><b>1.3</b> 论文结构</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#Conventions-Colophon"><i class="fa fa-check"></i><b>1.4</b> 符号说明</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prepare.html"><a href="prepare.html"><i class="fa fa-check"></i><b>2</b> 基础知识</a><ul>
+<li class="chapter" data-level="2.1" data-path="prepare.html"><a href="prepare.html#sec:exp"><i class="fa fa-check"></i><b>2.1</b> 指数族</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare.html"><a href="prepare.html#lse"><i class="fa fa-check"></i><b>2.2</b> 最小二乘估计</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare.html"><a href="prepare.html#def-mle"><i class="fa fa-check"></i><b>2.3</b> 极大似然估计</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare.html"><a href="prepare.html#section-2.4"><i class="fa fa-check"></i><b>2.4</b> 随机过程的连续性和可微性</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#stationary-gaussian-process"><i class="fa fa-check"></i><b>2.5</b> 平稳高斯过程</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#Modified-Bessel-functions"><i class="fa fa-check"></i><b>2.6</b> 修正的第三类贝塞尔函数</a></li>
+<li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#Laplace-approximation"><i class="fa fa-check"></i><b>2.7</b> 拉普拉斯近似</a></li>
+<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#Jeffreys-prior"><i class="fa fa-check"></i><b>2.8</b> Jeffreys 先验分布</a></li>
+<li class="chapter" data-level="2.9" data-path="prepare.html"><a href="prepare.html#bayes-methods"><i class="fa fa-check"></i><b>2.9</b> 贝叶斯理论</a></li>
+<li class="chapter" data-level="2.10" data-path="prepare.html"><a href="prepare.html#bayesian-data-analysis"><i class="fa fa-check"></i><b>2.10</b> 贝叶斯数据分析</a></li>
+<li class="chapter" data-level="2.11" data-path="prepare.html"><a href="prepare.html#Curse-of-Dimensionality"><i class="fa fa-check"></i><b>2.11</b> 维数灾难与蒙特卡罗积分</a></li>
+<li class="chapter" data-level="2.12" data-path="prepare.html"><a href="prepare.html#Samplers"><i class="fa fa-check"></i><b>2.12</b> 采样器与 Stan</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
+<li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 线性模型</a></li>
+<li class="chapter" data-level="3.2" data-path="models.html"><a href="models.html#Generalized-Linear-Models"><i class="fa fa-check"></i><b>3.2</b> 广义线性模型</a></li>
+<li class="chapter" data-level="3.3" data-path="models.html"><a href="models.html#Linear-Mixed-Effects-Models"><i class="fa fa-check"></i><b>3.3</b> 线性混合效应模型</a></li>
+<li class="chapter" data-level="3.4" data-path="models.html"><a href="models.html#Generalized-Linear-Mixed-Effects-Models"><i class="fa fa-check"></i><b>3.4</b> 广义线性混合效应模型</a></li>
+<li class="chapter" data-level="3.5" data-path="models.html"><a href="models.html#section-3.5"><i class="fa fa-check"></i><b>3.5</b> 空间线性混合效应模型</a></li>
+<li class="chapter" data-level="3.6" data-path="models.html"><a href="models.html#Spatial-Generalized-linear-mixed-effects-models"><i class="fa fa-check"></i><b>3.6</b> 空间广义线性混合效应模型</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="models.html"><a href="models.html#intro-sglmm"><i class="fa fa-check"></i><b>3.6.1</b> 模型结构</a></li>
+<li class="chapter" data-level="3.6.2" data-path="models.html"><a href="models.html#covariance-function"><i class="fa fa-check"></i><b>3.6.2</b> 协方差函数</a></li>
+<li class="chapter" data-level="3.6.3" data-path="models.html"><a href="models.html#identify"><i class="fa fa-check"></i><b>3.6.3</b> 模型识别</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>4</b> 参数估计</a><ul>
+<li class="chapter" data-level="4.1" data-path="algorithms.html"><a href="algorithms.html#mle"><i class="fa fa-check"></i><b>4.1</b> 极大似然估计</a></li>
+<li class="chapter" data-level="4.2" data-path="algorithms.html"><a href="algorithms.html#profile-likelihood"><i class="fa fa-check"></i><b>4.2</b> 剖面似然估计</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithms.html"><a href="algorithms.html#maximum-likelihood-estimates"><i class="fa fa-check"></i><b>4.3</b> 极大似然估计</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#algrithms"><i class="fa fa-check"></i><b>4.4</b> 参数估计的算法</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#LA"><i class="fa fa-check"></i><b>4.4.1</b> 拉普拉斯近似算法</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#MCML"><i class="fa fa-check"></i><b>4.4.2</b> 蒙特卡罗极大似然算法</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#MCMC"><i class="fa fa-check"></i><b>4.4.3</b> 贝叶斯 MCMC 算法</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.4.4</b> 低秩近似算法</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#STAN-MCMC"><i class="fa fa-check"></i><b>4.5</b> 贝叶斯 STAN-MCMC 算法</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="algorithms.html"><a href="algorithms.html#section-4.5.1"><i class="fa fa-check"></i><b>4.5.1</b> 算法提出的背景和意义</a></li>
+<li class="chapter" data-level="4.5.2" data-path="algorithms.html"><a href="algorithms.html#STANMCMC"><i class="fa fa-check"></i><b>4.5.2</b> STAN-MCMC 算法实现过程</a></li>
+<li class="chapter" data-level="4.5.3" data-path="algorithms.html"><a href="algorithms.html#-r-"><i class="fa fa-check"></i><b>4.5.3</b> 求解模型的 R 包</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulations.html"><a href="simulations.html"><i class="fa fa-check"></i><b>5</b> 数值模拟</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulations.html"><a href="simulations.html#section-5.1"><i class="fa fa-check"></i><b>5.1</b> 一维空间高斯过程</a></li>
+<li class="chapter" data-level="5.2" data-path="simulations.html"><a href="simulations.html#sim-gp"><i class="fa fa-check"></i><b>5.2</b> 平稳空间高斯过程</a></li>
+<li class="chapter" data-level="5.3" data-path="simulations.html"><a href="simulations.html#sim-sglmm"><i class="fa fa-check"></i><b>5.3</b> 空间广义线性混合效应模型</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="simulations.html"><a href="simulations.html#binomal-sglmm"><i class="fa fa-check"></i><b>5.3.1</b> 响应变量服从二项分布</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simulations.html"><a href="simulations.html#possion-sglmm"><i class="fa fa-check"></i><b>5.3.2</b> 响应变量服从泊松分布</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> 数据分析</a><ul>
+<li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#sptial-random-effects"><i class="fa fa-check"></i><b>6.1</b> 空间线性混合效应模型</a></li>
+<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#loaloa"><i class="fa fa-check"></i><b>6.2</b> 喀麦隆及周边地区盘尾丝虫病的空间分布</a></li>
+<li class="chapter" data-level="6.3" data-path="applications.html"><a href="applications.html#rongelap"><i class="fa fa-check"></i><b>6.3</b> 朗格拉普岛放射性残留物的空间分布</a></li>
+<li class="chapter" data-level="6.4" data-path="applications.html"><a href="applications.html#section-6.4"><i class="fa fa-check"></i><b>6.4</b> 冈比亚儿童疟疾流行强度的空间分布</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> 总结展望</a></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录</a><ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sessioninfo"><i class="fa fa-check"></i>软件信息</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#random-number-generation"><i class="fa fa-check"></i>随机数生成</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compare-algrithms"><i class="fa fa-check"></i>算法比较</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="References.html"><a href="References.html"><i class="fa fa-check"></i>参考文献</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">master thesis template</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">master thesis template</h1>
+<p class="author"><em>Xiang-Yun Huang</em></p>
+<p class="date"><em>2018-09-27</em></p>
+</div>
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">第 1 章</span> 绪论</h1>
+<p>空间广义线性混合效应模型 (Spatial Generalized Linear Mixed Models，简称 SGLMM)</p>
+<p>空间统计的内容非常丰富， 主要分为地质统计 (geostatistics)、 离散空间变差 (discrete spatial variation) 和空间点过程 (spatial point processes) 三大块 <span class="citation">(Cressie <a href="#ref-Cressie1993">1993</a>)</span>。 其中， 地质统计这个术语最初来自南非的采矿业 <span class="citation">(Krige <a href="#ref-Krige1951">1951</a>)</span>， 并由 Georges Matheron 及其同事继承和发展， 用以预测黄金的矿藏含量和质量， 而空间广义线性混合效应模型作为地质统计的重要内容， 除了采矿业， 还可应用于卫生统计、 气象统计和空间经济统计等领域， 如分析地区范围内的疟疾分布， 有限气象站点条件下， 预测地区的污染物浓度分布等具有非常广泛的应用。</p>
+<div id="motivations" class="section level2">
+<h2><span class="header-section-number">1.1</span> 研究意义</h2>
+<p>研究意义分两个方面：其一是应用层面， SGLMM 模型在地质统计中有着广泛的应用， 如评估岩心样本石油含量， 分析核污染物浓度的空间分布 <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span>， 预测冈比亚儿童疟疾流行度的空间分布， 冈比亚疟疾空间分布 <span class="citation">(Thomson et al. <a href="#ref-Thomson1999">1999</a>)</span> <span class="citation">(P. Diggle et al. <a href="#ref-Diggle2002Childhood">2002</a>)</span> 和喀麦隆及其周边地区的热带眼线虫流行病的的空间分布 <span class="citation">(P. J. Diggle et al. <a href="#ref-Diggle2007ATMP">2007</a>)</span>， 对消除淋巴丝虫病和盘尾丝虫病的项目 (Lymphatic Filariasis and Onchocerciasis Elimination Programs) 提供决策支持 <span class="citation">(Schlüter et al. <a href="#ref-Schl2016Using">2016</a>)</span>。 在热带地区，淋巴丝虫病和盘尾丝虫病是严峻的公共卫生问题， 据世界卫生组织统计， 在非洲撒哈拉以南、 阿拉伯半岛和南美洲的 34 个国家约 2000 <span class="math inline">\(\sim\)</span> 4000 万人感染河盲病 <span class="citation">(Takougang et al. <a href="#ref-Takougang2002Rapid">2002</a>)</span>。 例如， 喀麦隆中部省份 Loa loa 是导致河盲病的寄生虫， 它感染强度与疾病流行度之间存在线性关系， 即 Loa loa 感染强度越大流行度越高 <span class="citation">(Boussinesq et al. <a href="#ref-Boussinesq2001">2001</a>)</span>。 1997 年，研究表明 Loa loa 流行度对应的高感染强度的临界值为 20% <span class="citation">(Gardon et al. <a href="#ref-Gardon1997Serious">1997</a>)</span>， 而研究个体水平的感染情况与群体水平流行度之间的关系有助于大规模给药 <span class="citation">(Schlüter et al. <a href="#ref-Schl2016Using">2016</a>)</span>。 其二是算法研究和高效实现层面， 实际上， SGLMM 模型是一种比较复杂的广义线性混合效应模型， 参数估计的计算方法一直在不断的发展。 1998 年 Peter J. Diggle 实现基于马尔科夫链蒙特卡罗算法的贝叶斯估计， 2004 年 Ole F Christensen 实现的蒙特卡罗最大似然估计， Håvard Rue 等（2009 年） 实现集成嵌套拉普拉斯算法。 提出更加高效的算法或算法的实现可以更加快速准确有效地做疾病预防和医疗资源分配。</p>
+</div>
+<div id="reviews" class="section level2">
+<h2><span class="header-section-number">1.2</span> 文献综述</h2>
+<!--  空间广义线性混合效应模型在这个地统计领域内通常又叫广义线性地统计模型。 地质统计因其包含的广泛科学内容， 逐渐被接受为空间统计的三大主流分支之一， 其余两个是离散空间变差（discrete spatial variation）和空间点过程（spatial point processes）[@Cressie1993]。  -->
+<p>1994 年 Charles J. Geyer 在最大似然估计指数族中的参数时， 用蒙特卡罗积分近似参数的对数似然函数， 提出并证明了蒙特卡罗最大似然 (MCML) 算法的收敛性和相应估计的相合性和渐近正态性 <span class="citation">(Geyer <a href="#ref-Geyer1994On">1994</a>)</span>， 这为算法的应用打开了局面。 2002年 Hao Zhang 将 MCML 算法应用到 SGLMM 模型中， 同样证明了参数估计的相合性和渐近正态性 <span class="citation">(Zhang <a href="#ref-Zhang2002On">2002</a>)</span>。 1998 年 Peter J. Diggle 等人在贝叶斯方法下，将基于 Metropolis-Hastings 采样器的 MCMC 算法应用于 SGLMM 模型的参数估计， 通过该模型和算法分析了南太平洋朗格拉普岛上的核残留分布情况（SGLMM 模型的响应变量服从泊松分布）， 北拉纳克郡和南坎布里亚郡的弯曲杆菌感染情况（SGLMM 模型的响应变量服从二项分布）<span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span>。 随后， 似然估计的统计性质和随机模拟算法的收敛性和应用成为研究的重点， 2004 年 Ole F Christensen 将 MCML 方法继续应用于朗格拉普岛的数据分析， 但是添加了非空间的随机效应， 取得了更好的拟合效果 <span class="citation">(Christensen <a href="#ref-Christensen2004">2004</a>)</span>。 2016年 Peter J. Diggle 和 Emanuele Giorgi 在 SGLMM 模型的基础上进行了扩展， 其一将响应变量的范围扩大到混合分布， 其二在模型中使用了多源数据， 组合了来源于随机和非随机的调查数据（即潜在有偏的数据）， 数据分别来自学校和社区的调查， 以分析肯尼亚疟疾流行情况； 其三将时间因素考虑进模型， 建立时空广义线性混合效应模型， 并分析了马拉维 2010 年 5 月至 2013 年 6 月的疟疾流行数据 <span class="citation">(Diggle and Giorgi <a href="#ref-Diggle2016">2016</a>)</span>。</p>
+<!-- 近年来，在大数据的背景下， 寻求高效的算法成为一个新的方向，2009 年 Rue 等人提出基于近似贝叶斯推断的集成嵌套拉普拉斯算法，简称 INLA[@INLA2009]， 并将其应用于空间数据建模[@INLA2015]，还推广到一般的贝叶斯计算[@INLA2017]。2013年，Liang 等人将重抽样的技术用于大规模地质统计数据分析，相比贝叶斯方法[@Diggle1998]，它可以更加快速地获得准确的结果[@Resampling2013]。同时， 涉及空间数据分析和建模的书籍也越来越多， 用于空间数据分析的分层模型[@Banerjee2015]和基于 `R-INLA` 软件的空间和时空贝叶斯模型 [@Blangiardo2015]。 -->
+<!-- 2016 年 Bonat 和 Ribeiro Jr. 综合比较了 MCML、贝叶斯 MCMC 和 近似拉普拉斯算法 方法[@Bonat2016Practical]。 -->
+<p>文献综述分三个方向： 基于似然的频率学派，基于随机模拟的贝叶斯学派，计算和实践问题</p>
+</div>
+<div id="stracture" class="section level2">
+<h2><span class="header-section-number">1.3</span> 论文结构</h2>
+<p>在下面的章节中，第 <a href="index.html#intro">1</a> 章介绍空间广义线性混合效应模型的相关背景和研究意义， 综述了目前广泛使用的贝叶斯 MCMC 算法、 MCML 算法研究现状。 第 <a href="models.html#models">3</a> 章回顾了一般线性模型到 SGLMM 模型的结构， 指出了模型从简单到复杂的变化过程中的区别和联系， 尤其是指出了模型求解的不同方法和基于 R 实现的软件包。第 <a href="algorithms.html#algorithms">4</a> 章介绍了求解 SGLMM 模型的三类算法细节， 分别是 MCML 算法、 低秩近似算法和贝叶斯 MCMC 算法， 并在贝叶斯 MCMC 算法的基础上，提出基于 Stan 程序库实现的贝叶斯 MCMC 算法， 简记为贝叶斯 STAN-MCMC 方法。 此外， 还补充介绍了 Stan 程序及相关 R 包。 第 <a href="simulations.html#simulations">5</a> 章详细介绍了模拟的过程， 比较了 MCML、 Low-Rank、 贝叶斯 MCMC 和贝叶斯 STAN-MCMC 算法的优劣， 如算法的准确度、效率， 还给出实际数据分析时的建议。 第 <a href="applications.html#applications">6</a> 章使用贝叶斯 STAN-MCMC 算法给出基于 SGLMM 模型的案例分析， 分别是喀麦隆周边地区人群感染 Loa loa 的流行度分析和冈比亚 5 岁以下儿童感染疟疾的流行度分析。 第 <a href="summary.html#summary">7</a> 章总结论文的主要工作和结论， 不足之处，以及有待研究的方向。</p>
+</div>
+<div id="Conventions-Colophon" class="section level2">
+<h2><span class="header-section-number">1.4</span> 符号说明</h2>
+<p>重要说明：凡是论文中公式、图表与文字之间的距离明显变大，就是该在附近添加一两行话填充一下
+公式中加粗表示向量，如 <span class="math inline">\(\mathbf{u},\boldsymbol{\beta}\)</span></p>
+<p>参考 <a href="https://stefvanbuuren.name/fimd/symbol-description.html" class="uri">https://stefvanbuuren.name/fimd/symbol-description.html</a></p>
+<ol style="list-style-type: decimal">
+<li>数学公式：随机过程 <span class="math inline">\(\mathcal{S}\)</span> 大写字母 <code>\mathcal</code> 花体，</li>
+<li>随机向量 <span class="math inline">\(\boldsymbol{\theta,\beta},\mathbf{x,y}\)</span> 向量，矩阵都大写加粗，将向量看作一维的矩阵， 用加粗方式分别表示未知参数，</li>
+<li>模型回归参数向量 <code>\boldsymbol</code>，数据向量/矩阵 <code>\mathbf</code>，</li>
+<li>矩阵 <span class="math inline">\(\mathbf{X}\)</span> 用大写字母加粗表示；</li>
+<li><span class="math inline">\(n\)</span> 维实（复）数域 <span class="math inline">\(\mathbb{R}^n, \mathbb{C}^2\)</span> 大写字母空心体；</li>
+<li>期望方差 <span class="math inline">\(\mathsf{E,Var}\)</span> 用 <code>\mathsf</code> 表示</li>
+<li>正文： R 包和 LaTeX 包名加粗 <strong>nlme</strong></li>
+<li>代码： 等宽字体，输出 <code>#&gt;</code> ，代码注释 <code>#</code></li>
+<li>转置 <span class="math inline">\(A^{\top}\)</span> 和多元函数求二阶导 <span class="math inline">\(Q&#39;&#39;(\mathbf{s})\)</span></li>
+<li>在贝叶斯环境下，术语混合效应模型用贝叶斯分层模型替换</li>
+<li>章引用 <code>#chap:自定义名称</code> 节引用 <code>#sec:自定义名称</code> 小节引用 <code>#subsec:</code> 即都加上前缀 章节的自定义名称要尽可能短，可读性差关系不大，因为引用次数不多且集中</li>
+</ol>
+<p>论文当中出现的符号和相应的描述，及在论文中首次出现的位置，见表 <a href="index.html#tab:math-symbols">1.1</a></p>
+<table>
+<caption><span id="tab:math-symbols">表 1.1: </span> 论文中出现的数学符号及说明</caption>
+<colgroup>
+<col width="16%" />
+<col width="68%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">符号</th>
+<th align="left">描述</th>
+<th align="center">章.节</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\mathbf{y}\)</span></td>
+<td align="left">响应变量的观测向量</td>
+<td align="center"><a href="prepare.html#sec:exp">2.1</a></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\mathbf{X}\)</span></td>
+<td align="left">协变量数据矩阵</td>
+<td align="center"><a href="prepare.html#sec:exp">2.1</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\boldsymbol{\beta}\)</span></td>
+<td align="left">模型回归系数向量，如 <span class="math inline">\(\boldsymbol{\beta} = (\beta_0,\beta_1,\beta_2)\)</span></td>
+<td align="center"><a href="prepare.html#sec:exp">2.1</a></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\boldsymbol{\theta}\)</span></td>
+<td align="left">模型其它参数集，如 <span class="math inline">\(\boldsymbol{\theta} = (\phi,\tau^2,\sigma^2)\)</span></td>
+<td align="center"><a href="prepare.html#sec:exp">2.1</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\top\)</span></td>
+<td align="left">向量或矩阵转置，如 <span class="math inline">\(\mathbf{y}^{\top},\mathbf{X}^\top\)</span></td>
+<td align="center"><a href="prepare.html#sec:exp">2.1</a></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(&#39;\)</span></td>
+<td align="left">撇号表示一元函数求导，如 <span class="math inline">\(b&#39;(\theta),b&#39;&#39;(\theta)\)</span></td>
+<td align="center"><a href="prepare.html#sec:exp">2.1</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\mathbb{R}^n\)</span></td>
+<td align="left"><span class="math inline">\(n\)</span> 维实数域</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\mathcal{S}(x),x \in \mathbb{R}^2\)</span></td>
+<td align="left">二维空间随机过程 <span class="math inline">\(\mathcal{S}(x)\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\mathsf{E}(\mathbf{Y})\)</span></td>
+<td align="left">随机向量 <span class="math inline">\(\mathbf{Y}\)</span> 的期望</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\mathsf{Var}(\mathbf{Y})\)</span></td>
+<td align="left">随机向量 <span class="math inline">\(\mathbf{Y}\)</span> 的方差</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\mathsf{Cov}(\mathbf{X},\mathbf{Y})\)</span></td>
+<td align="left">随机向量 <span class="math inline">\(\mathbf{X}\)</span> 与 <span class="math inline">\(\mathbf{Y}\)</span> 的协方差</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<h3>参考文献</h3>
+<div id="refs" class="references">
+<div id="ref-Cressie1993">
+<p>Cressie, Noel A. C. 1993. <em>Statistics for Spatial Data</em>. Revised. London: John Wiley; Sons Inc.</p>
+</div>
+<div id="ref-Krige1951">
+<p>Krige, D. G. 1951. “A Statistical Approach to Some Basic Mine Valuation Problems on the Witwatersrand.” <em>Journal of the Chemical, Metallurgical and Mining Society of South Africa</em> 52: 119–39.</p>
+</div>
+<div id="ref-Diggle1998">
+<p>Diggle, Peter J., J. A. Tawn, and R. A. Moyeed. 1998. “Model-Based Geostatistics.” <em>Journal of the Royal Statistical Society, Series C</em> 47 (3): 299–350.</p>
+</div>
+<div id="ref-Thomson1999">
+<p>Thomson, M C, S J Connor, U D’Alessandro, B Rowlingson, P Diggle, M Cresswell, and B Greenwood. 1999. “Predicting Malaria Infection in Gambian Children from Satellite Data and Bed Net Use Surveys: The Importance of Spatial Correlation in the Interpretation of Results.” <em>The American Journal of Tropical Medicine and Hygiene</em> 61 (1): 2–8.</p>
+</div>
+<div id="ref-Diggle2002Childhood">
+<p>Diggle, Peter, Rana Moyeed, Barry Rowlingson, and Madeleine Thomson. 2002. “Childhood Malaria in the Gambia: A Case-Study in Model-Based Geostatistics.” <em>Journal of the Royal Statistical Society, Series C</em> 51 (4): 493–506.</p>
+</div>
+<div id="ref-Diggle2007ATMP">
+<p>Diggle, P. J., M. C. Thomson, O. F. Christensen, B. Rowlingson, V. Obsomer, J. Gardon, S. Wanji, et al. 2007. “Spatial Modelling and the Prediction of Loa Loa Risk: Decision Making Under Uncertainty.” <em>Annals of Tropical Medicine and Parasitology</em> 101 (6): 499–509.</p>
+</div>
+<div id="ref-Schl2016Using">
+<p>Schlüter, Daniela K, Martial L Ndeffombah, Innocent Takougang, and et al. 2016. “Using Community-Level Prevalence of Loa Loa Infection to Predict the Proportion of Highly-Infected Individuals: Statistical Modelling to Support Lymphatic Filariasis and Onchocerciasis Elimination Programs.” <em>Plos Neglected Tropical Diseases</em> 10 (12): 1–15.</p>
+</div>
+<div id="ref-Takougang2002Rapid">
+<p>Takougang, I, M Meremikwu, S Wandji, E. V. Yenshu, B Aripko, S. B. Lamlenn, B. L. Eka, P Enyong, J Meli, and O Kale. 2002. “Rapid Assessment Method for Prevalence and Intensity of Loa Loa Infection.” <em>Bulletin of the World Health Organization</em> 80 (11): 852–58.</p>
+</div>
+<div id="ref-Boussinesq2001">
+<p>Boussinesq, M, J Gardon, J Kamgno, S. D. Pion, N Gardonwendel, and J. P. Chippaux. 2001. “Relationships Between the Prevalence and Intensity of Loa Loa Infection in the Central Province of Cameroon.” <em>Annals of Tropical Medicine and Parasitology</em> 95 (5): 495–507.</p>
+</div>
+<div id="ref-Gardon1997Serious">
+<p>Gardon, J, N Gardon-Wendel, Demanga-Ngangue, J Kamgno, J. P. Chippaux, and M Boussinesq. 1997. “Serious Reactions After Mass Treatment of Onchocerciasis with Ivermectin in an Area Endemic for Loa Loa Infection.” <em>Lancet</em> 350 (9070): 18–22.</p>
+</div>
+<div id="ref-Geyer1994On">
+<p>Geyer, Charles J. 1994. “On the Convergence of Monte Carlo Maximum Likelihood Calculations.” <em>Journal of the Royal Statistical Society, Series B</em> 56 (1): 261–74.</p>
+</div>
+<div id="ref-Zhang2002On">
+<p>Zhang, Hao. 2002. “On Estimation and Prediction for Spatial Generalized Linear Mixed Models.” <em>Biometrics</em> 58 (1): 129–36.</p>
+</div>
+<div id="ref-Christensen2004">
+<p>Christensen, Ole F. 2004. “Monte Carlo Maximum Likelihood in Model-Based Geostatistics.” <em>Journal of Computational and Graphical Statistics</em> 13 (3): 702–18.</p>
+</div>
+<div id="ref-Diggle2016">
+<p>Diggle, Peter J., and Emanuele Giorgi. 2016. “Model-Based Geostatistics for Prevalence Mapping in Low-Resource Settings.” <em>Journal of the American Statistical Association</em> 111 (515): 1096–1120.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="prepare.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/XiangyunHuang/Thesis-Template-Bookdown/edit/master/index.Rmd",
+"text": "编辑"
+},
+"download": ["Thesis-Template-Bookdown.pdf", "Thesis-Template-Bookdown.epub", "Thesis-Template-Bookdown.mobi"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
