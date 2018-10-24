@@ -1,7 +1,7 @@
 
 # 统计模型 {#models}
 
-在实际数据分析过程中，并不是一上来就套用复杂的空间广义线性混合效应模型，就模型的应用来说，如果能用简单模型描述主要的数据特征，那么模型不必往复杂的方向上靠，但是，在提高少量精度却能带来巨大收益的情况下，模型可以适当增加复杂度。从空间数据建模的角度，我们首先应考虑带空间效应的线性模型和广义线性模型，有时候也叫线性混合效应模型和广义线性混合效应模型，为了突出空间效应，我们把它统一地称作空间线性混合效应模型和空间广义线性混合效应模型。因此，在第 \@ref(sec:Linear-Models) 节，第 \@ref(sec:Generalized-Linear-Models) 节和第 \@ref(sec:Generalized-Linear-Mixed-Effects-Models) 节分别回顾了简单线性模型， 广义线性模型和广义线性混合效应模型的结构及其数学表示，并随同模型给出了模型求解的 R 包或函数。第 \@ref(sec:Spatial-Generalized-linear-mixed-effects-models) 节作为重点介绍了空间广义线性混合效应模型(简称 SGLMM)，分四个小节介绍模型中的重要成分， 第  \@ref(subsec:structure-sglmm) 小节介绍 SGLMM 模型的各个成分，协变量相关的固定效应和空间位置相关的随机效应，从而引出平稳空间高斯过程，第 \@ref(subsec:covariance-function) 小节介绍决定平稳空间高斯过程的关键部分 --- 自协方差函数或自相关函数， 第 \@ref(subsec:identify) 小节介绍非空间的随机效应，在地质统计中常称为块金效应，以及它带来的 SGLMM 模型可识别问题与相应处理方式，第\@ref(subsec:prior-sglmm)节介绍文献中使用的先验分布。
+在实际数据分析过程中，并不是一上来就套用复杂的空间广义线性混合效应模型，就模型的应用来说，如果能用简单模型描述主要的数据特征，那么模型不必往复杂的方向上靠，但是，在提高少量精度却能带来巨大收益的情况下，模型可以适当增加复杂度。从空间数据建模的角度，我们首先应考虑带空间效应的线性模型和广义线性模型，有时候也叫线性混合效应模型和广义线性混合效应模型，为了突出空间效应，我们把它统一地称作空间线性混合效应模型和空间广义线性混合效应模型。因此，在第 \@ref(sec:Linear-Models) 节，第 \@ref(sec:Generalized-Linear-Models) 节和第 \@ref(sec:Generalized-Linear-Mixed-Effects-Models) 节分别回顾了简单线性模型， 广义线性模型和广义线性混合效应模型的结构及其数学表示，并随同模型给出了模型求解的 R 包或函数。第 \@ref(sec:Spatial-Generalized-linear-mixed-effects-models) 节作为重点介绍了空间广义线性混合效应模型（简称 SGLMM），分四个小节介绍模型中的重要成分， 第  \@ref(subsec:structure-sglmm) 小节介绍 SGLMM 模型的各个成分，协变量相关的固定效应和空间位置相关的随机效应，从而引出平稳空间高斯过程，第 \@ref(subsec:covariance-function) 小节介绍决定平稳空间高斯过程的关键部分 --- 自协方差函数或自相关函数， 第 \@ref(subsec:identify) 小节介绍非空间的随机效应，在地质统计中常称为块金效应，以及它带来的 SGLMM 模型可识别问题与相应处理方式，第\@ref(subsec:prior-sglmm)节介绍文献中使用的先验分布。
 
 
 ## 简单线性模型 {#sec:Linear-Models}
@@ -19,7 +19,7 @@ Y = X^{\top}\beta + \epsilon, \mathsf{E}(\epsilon) = 0, \mathsf{Cov}(\epsilon) =
 \begin{equation}
 g(\mu) = X^{\top}\beta  (\#eq:GLM)
 \end{equation}
-\noindent 其中，$\mu \equiv \mathsf{E}(Y)$， $g$ 代表联系函数，特别地，当 $Y \sim \mathcal{N}(\mu,\sigma^2)$ 时，联系函数 $g(x) = x$，模型 \@ref(eq:GLM) 变为一般线性模型 \@ref(eq:LM)。当 $Y \sim \mathrm{Binomial}(n,p)$ 时，响应变量 $Y$ 的期望 $\mu =\mathsf{E}(Y) = np$， 联系函数 $g(x)=\ln(\frac{x}{1-x})$，模型 \@ref(eq:GLM) 变为$\log(\frac{p}{1-p})=X^{\top}\beta$。 当 $Y \sim \mathrm{Poisson}(\lambda)$ 时，响应变量 $Y$ 的期望 $\mu =\mathsf{E}(Y) = \lambda$， 联系函数$g(x) = \ln(x)$， 模型 \@ref(eq:GLM) 变为 $\log(\lambda) = X^{\top}\beta$。 指数族下其余分布对应的联系函数此处不一一列举， 完整列表可以参看 1989 年 McCullagh 和 Nelder 所著的《广义线性模型》 [@McCullagh1989]。 模型 \@ref(eq:GLM) 最早由 Nelder 和 Wedderburn 在1972年提出[@Nelder1972]，它弥补了模型 \@ref(eq:LM) 的两个重要缺点： 一是因变量只能取连续值的情况， 二是期望与自变量只能用线性关系联系 [@Chen2011]。 求解广义线性模型 \@ref(eq:GLM) 的 R 函数是 `glm`， 常用拟似然法去估计模型 \@ref(eq:GLM) 的参数。
+\noindent 其中，$\mu \equiv \mathsf{E}(Y)$， $g$ 代表联系函数，特别地，当 $Y \sim \mathcal{N}(\mu,\sigma^2)$ 时，联系函数 $g(x) = x$，模型 \@ref(eq:GLM) 变为一般线性模型 \@ref(eq:LM)。当 $Y \sim \mathrm{Binomial}(n,p)$ 时，响应变量 $Y$ 的期望 $\mu =\mathsf{E}(Y) = np$， 联系函数 $g(x)=\ln(\frac{x}{1-x})$，模型 \@ref(eq:GLM) 变为$\log(\frac{p}{1-p})=X^{\top}\beta$。 当 $Y \sim \mathrm{Poisson}(\lambda)$ 时，响应变量 $Y$ 的期望 $\mu =\mathsf{E}(Y) = \lambda$， 联系函数$g(x) = \ln(x)$， 模型 \@ref(eq:GLM) 变为 $\log(\lambda) = X^{\top}\beta$。 指数族下其余分布对应的联系函数此处不一一列举， 完整列表可以参看 1989 年 McCullagh 和 Nelder 所著的《广义线性模型》 [@McCullagh1989]。 模型 \@ref(eq:GLM) 最早由 Nelder 和 Wedderburn 在 1972 年提出 [@Nelder1972]，它弥补了模型 \@ref(eq:LM) 的两个重要缺点： 一是因变量只能取连续值的情况， 二是期望与自变量只能用线性关系联系 [@Chen2011]。 求解广义线性模型 \@ref(eq:GLM) 的 R 函数是 `glm`， 常用拟似然法去估计模型 \@ref(eq:GLM) 的参数。
 
 ## 广义线性混合效应模型 {#sec:Generalized-Linear-Mixed-Effects-Models}
 
@@ -27,7 +27,7 @@ g(\mu) = X^{\top}\beta  (\#eq:GLM)
 \begin{equation}
 g(\mu) = X^{\top}\boldsymbol{\beta} + Z^{\top}\mathbf{b}  (\#eq:GLMM)
 \end{equation}
-\noindent 其中， $Z^{\top}$ 是 $q$ 维随机效应 $\mathbf{b}$ 的 $n \times q$ 的数据矩阵，其它符号含义如前所述。广义线性混合效应模型中既包含固定效应 $\boldsymbol{\beta}$ 又包含随机效应 $\mathbf{b}$ 。 线性模型 \@ref(eq:LM) 和广义线性模型 \@ref(eq:GLM) 中的协变量都是固定效应， 而随机效应是那些不能直接观察到的潜效应， 但是对响应变量却产生显著影响。 特别是在基因变异位点与表现型的关系研究中， 除了用最新科技做全基因组扫描获取显著的基因位点， 还应该把那些看似不显著， 联合在一起却显著的位点作为随机效应去考虑 [@Yang2010Common]。求解模型 \@ref(eq:GLMM)的 R 包有 **nlme** ，**mgcv**  和 **lme4**， 参数估计的方法一般有限制极大似然法。 除了求解模型 \@ref(eq:GLMM) 外， **nlme** 可以拟合一些非线性混合效应模型， **mgcv** 可以拟合广义可加混合效应模型， **lme4** 使用了高性能的 Eigen 数值代数库，可以加快模型的求解过程。
+\noindent 其中， $Z^{\top}$ 是 $q$ 维随机效应 $\mathbf{b}$ 的 $n \times q$ 的数据矩阵，其它符号含义如前所述。广义线性混合效应模型中既包含固定效应 $\boldsymbol{\beta}$ 又包含随机效应 $\mathbf{b}$ 。 线性模型 \@ref(eq:LM) 和广义线性模型 \@ref(eq:GLM) 中的协变量都是固定效应， 而随机效应是那些不能直接观察到的潜效应， 但是对响应变量却产生显著影响。 特别是在基因变异位点与表现型的关系研究中， 除了用最新科技做全基因组扫描获取显著的基因位点， 还应该把那些看似不显著， 联合在一起却显著的位点作为随机效应去考虑 [@Yang2010Common]。求解模型 \@ref(eq:GLMM)的 R 包有 nlme ，mgcv  和 lme4， 参数估计的方法一般有限制极大似然法。 除了求解模型 \@ref(eq:GLMM) 外， nlme 可以拟合一些非线性混合效应模型， mgcv 可以拟合广义可加混合效应模型， lme4 使用了高性能的 Eigen 数值代数库，可以加快模型的求解过程。
 
 ## 空间广义线性混合效应模型 {#sec:Spatial-Generalized-linear-mixed-effects-models}
 
@@ -37,7 +37,7 @@ g(\mu) = X^{\top}\boldsymbol{\beta} + Z^{\top}\mathbf{b}  (\#eq:GLMM)
 \begin{equation}
 g(\mu_i) = d(x_i)^{\top}\beta + S(x_i) + Z_i (\#eq:SGLMM)
 \end{equation}
-\noindent 其中，$d^{\top}(x_i)$ 表示协变量对应的观测数据向量，即 $p$ 个协变量在第 $i$ 个位置 $x_i$ 的观察值。 此外， 假定 $\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}$ 是均值为0， 方差为 $\sigma^2$，平稳且各向同性的空间高斯过程， $\rho(x,x') = \mathsf{Corr}\{S(x),S(x')\} \equiv \rho(\|x,x'\|)$， $\|\cdot\|$ 表示距离， 样本之间的位置间隔不大就用欧氏距离， 间隔很大可以考虑用球面距离； $S(x_i)$ 代表了与空间位置 $x_i$ 相关的随机效应， 简称空间效应； 这里， $Z_i \stackrel{i.i.d}{\sim} \mathcal{N}(0,\tau^2)$ 的非空间随机效应， 也称块金效应 (nugget effect)， 一般解释为测量误差 (measurement error) 或微观变化 (micro-scale variation) [@Christensen2004]， 即 $\tau^2=\mathsf{Var}(Y_{i}|S(x_{i})),\forall i = 1,2, \ldots, N$， $N$ 是采样点的数目， 其它符号含义不变。
+\noindent 其中，$d^{\top}(x_i)$ 表示协变量对应的观测数据向量，即 $p$ 个协变量在第 $i$ 个位置 $x_i$ 的观察值。 此外， 假定 $\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}$ 是均值为0， 方差为 $\sigma^2$，平稳且各向同性的空间高斯过程， $\rho(x,x') = \mathsf{Corr}\{S(x),S(x')\} \equiv \rho(\|x,x'\|)$， $\|\cdot\|$ 表示距离， 样本之间的位置间隔不大就用欧氏距离， 间隔很大可以考虑用球面距离； $S(x_i)$ 代表了与空间位置 $x_i$ 相关的随机效应， 简称空间效应； 这里， $Z_i \stackrel{i.i.d}{\sim} \mathcal{N}(0,\tau^2)$ 的非空间随机效应， 也称块金效应 （nugget effect）， 一般解释为测量误差 （measurement error） 或微观变化 （micro-scale variation） [@Christensen2004]， 即 $\tau^2=\mathsf{Var}(Y_{i}|S(x_{i})),\forall i = 1,2, \ldots, N$， $N$ 是采样点的数目， 其它符号含义不变。
 
 
 ### 自协方差函数 {#subsec:covariance-function}
@@ -81,7 +81,7 @@ V_{T}(u_{ij})
 \begin{equation}
 \rho_{0}(u)=\{2^{\kappa -1}\Gamma(\kappa)\}^{-1}(u)^{\kappa}\mathcal{K}_{\kappa}(u),u > 0 (\#eq:matern2)
 \end{equation}
-\noindent 其中，$\mathcal{K}_{\kappa}(\cdot)$ 是阶数为 $\kappa$ 的第二类修正的贝塞尔函数(详见第 \@ref(prepare) 章第\@ref(sec:modified-bessel-function) 节)， $\kappa(>0)$ 是平滑参数，满足这些条件的空间过程 $\mathcal{S}$ 是 $\lceil\kappa\rceil-1$ 次均方可微的。值得注意的是 Matérn 族其实包含幂指数族
+\noindent 其中，$\mathcal{K}_{\kappa}(\cdot)$ 是阶数为 $\kappa$ 的第二类修正的贝塞尔函数（详见第 \@ref(prepare) 章第\@ref(sec:modified-bessel-function) 节）， $\kappa(>0)$ 是平滑参数，满足这些条件的空间过程 $\mathcal{S}$ 是 $\lceil\kappa\rceil-1$ 次均方可微的。值得注意的是 Matérn 族其实包含幂指数族
 \noindent 当 $\kappa = 0.5$时，$\rho_{0}(u) = \exp(-u)$， $S(x)$ 均方连续但是不可微，当 $\kappa \to \infty$ 时， $\rho_{0}(u) = \exp(-u^2)$， $S(x)$ 无限次均方可微[@Diggle2007]。
 
 在实际数据分析中，估计 $\kappa$ 时，为了节省计算，又不失一般性，经验做法是取离散的 $\kappa$ 值，如 $\kappa = 0.5, 1.5, 2.5$， 这样，平稳空间高斯过程就分别具有均方连续不可微、一次可微和二次可微三种不同程度的光滑性。根据第 \@ref(prepare) 章第 \@ref(sec:stationary-gaussian-process) 节定理 \@ref(thm:stationary-mean-square-properties)，自相关函数 $\rho(u)$ 的可微性表示了空间过程 $\mathcal{S}$ 的曲面平滑程度。为更加直观地观察 $\rho(u)$，作图 \@ref(fig:matern-2d) 和图 \@ref(fig:matern-3d)。
@@ -103,11 +103,11 @@ V_{T}(u_{ij})
 \caption{自相关函数 $\rho(u)$ 随贝塞尔函数的阶 $\kappa$ 和尺度参数 $\phi$ 的变化，横轴表示尺度参数 $\phi$，纵轴表示贝塞尔函数的阶$\kappa$，我们用 从蓝到红的颜色变化表示自相关函数 $\rho(u)$ 值由小到大，即表示相关性由弱变强}(\#fig:matern-3d)
 \end{figure}
 
-从图\@ref(fig:matern-2d)可以看出，相比于贝塞尔函数的阶 $\kappa$， 尺度参数 $\phi$ 对相关函数的影响大些，由图\@ref(fig:matern-2d)看出随着空间距离的增加，相关性减弱地特别快。在实际应用中，先固定下 $\kappa$ 是可以接受的，为简化编程和表述，Peter J. Diggle 等 (1998年) [@Diggle1998] 在真实数据分析中使用幂指数型自相关函数 $\rho_{0}(u) = \exp(-(\alpha u)^{\delta}), \alpha > 0, 0 < \delta \leq 2$。 虽然其形式大大简化， 但函数图像和性质却与梅隆型有相似之处， 即当 $0 < \delta < 2$ 时， $S(x)$ 均方连续但不可微，当 $\delta = 2$ 时， $S(x)$ 无限次可微。
+从图\@ref(fig:matern-2d)可以看出，相比于贝塞尔函数的阶 $\kappa$， 尺度参数 $\phi$ 对相关函数的影响大些，由图\@ref(fig:matern-2d)看出随着空间距离的增加，相关性减弱地特别快。在实际应用中，先固定下 $\kappa$ 是可以接受的，为简化编程和表述，Diggle 等 （1998年） [@Diggle1998] 在真实数据分析中使用幂指数型自相关函数 $\rho_{0}(u) = \exp(-(\alpha u)^{\delta}), \alpha > 0, 0 < \delta \leq 2$。 虽然其形式大大简化， 但函数图像和性质却与梅隆型有相似之处， 即当 $0 < \delta < 2$ 时， $S(x)$ 均方连续但不可微，当 $\delta = 2$ 时， $S(x)$ 无限次可微。
 
 ### 模型识别 {#subsec:identify}
 
-在 SGLMM 模型的实际应用当中，一般先不添加非空间的随机效应，而是基于模型 \@ref(eq:no-nugget-SGLMM) 估计参数，估计完参数，代入模型，观察线性预测 $\hat{T(x_{i})}$ 和真实的 $T(x_i)$ 之间的残差，如残差表现不平稳，说明还有非空间的随机效应没有提取，因此添加块金效应是合理的，此时在模型 \@ref(eq:SGLMM) 中有两个来源不同的随机效应 $Z_{i}$ 与 $S(x_i)$。
+在 SGLMM 模型的实际应用当中，一般先不添加非空间的随机效应，而是基于模型 \@ref(eq:no-nugget-SGLMM) 估计参数，估计完参数，代入模型，观察线性预测 $\hat{T_{i}}$ 和真实的 $T_i$ 之间的残差，如残差表现不平稳，说明还有非空间的随机效应没有提取，因此添加块金效应是合理的，此时在模型 \@ref(eq:SGLMM) 中有两个来源不同的随机效应 $Z_{i}$ 与 $S(x_i)$。
 \begin{equation}
 g(\mu_i) = d(x_i)^{\top}\beta + S(x_i) (\#eq:no-nugget-SGLMM)
 \end{equation}
@@ -119,13 +119,13 @@ g(\mu_i) = d(x_i)^{\top}\beta + S(x_i) (\#eq:no-nugget-SGLMM)
 \sigma^2\rho(u_{ij})/(\sigma^2+\tau^2) & : x_{i} \neq x_{j}
 \end{cases} (\#eq:corr-nugget-function)
 \end{equation}
-\noindent 在原点不连续，只有当 $\tau^2 = \mathsf{Var}(Y_i|S(x_i))$ 已知或者在同一位置可以用重复测量的方法直接获得时，参数 $\tau^2, \sigma^2, \phi$ 是可识别的 [@Diggle2002Childhood; @Diggle2007]。如果通过探索性数据分析观察到不可忽略的非空间效应 $\tau^2$ 时，Ole F Christensen (2004年) [@Christensen2004] 建议使用样本变差函数对 $\tau^2$ 作初步估计，然后计算关于 $\tau^2$ 的剖面似然函数曲线，或者协方差参数 $\phi,\tau^2$一起确定最佳的值，第 \@ref(applications) 章第 \@ref(case-rongelap) 节将用剖面似然函数曲面的方法获取真实数据场景中的参数估计值。
+\noindent 在原点不连续，只有当 $\tau^2 = \mathsf{Var}[Y_i|S(x_i)]$ 已知或者在同一位置可以用重复测量的方法直接获得时，参数 $\tau^2, \sigma^2, \phi$ 是可识别的 [@Diggle2002Childhood; @Diggle2007]。如果通过探索性数据分析观察到不可忽略的非空间效应 $\tau^2$ 时，Christensen （2004年） [@Christensen2004] 建议使用样本变差函数对 $\tau^2$ 作初步估计，然后计算关于 $\tau^2$ 的剖面似然函数曲线，或者协方差参数 $\phi,\tau^2$一起确定最佳的值，第 \@ref(applications) 章第 \@ref(case-rongelap) 节将用剖面似然函数曲面的方法获取真实数据场景中的参数估计值。
 
 ### 先验分布 {#subsec:prior-sglmm}
 
 基于贝叶斯方法实现模型 \@ref(eq:SGLMM) 的参数估计，必然使用 MCMC 算法，自然地，需要指定模型参数 $\boldsymbol{\theta} = (\beta,\tau^2,\sigma^2,\phi)$ 的先验分布。对于 $\beta$，选择相互独立的均匀先验，而对于参数 $\tau^2,\sigma^2,\phi$，选取如下模糊先验：
 $$f(\tau^2) \propto \frac{1}{\tau^2};f(\sigma^2) \propto \frac{1}{\sigma^2};f(\phi) \propto \frac{1}{\phi^2}$$
-\noindent 其中，$\tau^2$ 和 $\sigma^2$ 为 Jeffreys 先验， Peter J. Diggle 等 (2002 年) [@Diggle2002Childhood] 使用如下先验分布
+\noindent 其中，$\tau^2$ 和 $\sigma^2$ 为 Jeffreys 先验，Diggle 等 （2002 年） [@Diggle2002Childhood] 使用如下先验分布
 \begin{equation*}
 \log(\nu^2),\log(\sigma^2),\log(\phi)  \sim \text{正态分布}
 \end{equation*}

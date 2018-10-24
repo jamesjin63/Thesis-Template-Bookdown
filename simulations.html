@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-23">
+<meta name="date" content="2018-10-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -223,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="simulations" class="section level1">
 <h1><span class="header-section-number">第 5 章</span> 数值模拟</h1>
-<p>空间广义线性混合效应模型在广义线性混合效应模型基础上添加了与空间位置相关的随机效应，这种随机效应在文献中常称为空间效应 <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span>。 它与采样点的位置、数量都有关系， 其中采样点的位置决定空间过程的协方差结构， 而采样点的数量决定空间效应的维度，从而导致空间广义线性混合效应模型比普通的广义线性混合效应模型复杂。作为过渡，我们在第 <a href="simulations.html#sim-one-gp">5.1.1</a> 和 <a href="simulations.html#sim-two-gp">5.1.2</a> 节模拟了一维和二维平稳高斯过程。 第 <a href="simulations.html#sim-sglmm">5.2</a> 节模拟 SGLMM 模型， 分两个小节展开叙述，第 <a href="simulations.html#sim-binomal-sglmm">5.2.1</a> 小节模拟响应变量服从二项分布的情形， 第 <a href="simulations.html#possion-sglmm">5.2.2</a> 小节模拟响应变量服从泊松分布的情形，在这两个小节里，比较了贝叶斯 MCMC 算法和贝叶斯 STAN-MCMC 算法的表现，前者基于 R 包 <strong>geoRglm</strong> 内置的 Langevin-Hastings 算法实现，后者基于 Stan 内置的 HMC 算法实现，贝叶斯 STAN-MCMC 算法相当于是一次适应于 SGLMM 模型的二次开发，并且基于 Stan 平台。</p>
+<p>空间广义线性混合效应模型在广义线性混合效应模型基础上添加了与空间位置相关的随机效应，这种随机效应在文献中常称为空间效应 <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span>。 它与采样点的位置、数量都有关系， 其中采样点的位置决定空间过程的协方差结构， 而采样点的数量决定空间效应的维度，从而导致空间广义线性混合效应模型比普通的广义线性混合效应模型复杂。作为过渡，我们在第 <a href="simulations.html#sim-one-gp">5.1.1</a> 和 <a href="simulations.html#sim-two-gp">5.1.2</a> 节模拟了一维和二维平稳高斯过程。 第 <a href="simulations.html#sim-sglmm">5.2</a> 节模拟 SGLMM 模型， 分两个小节展开叙述，第 <a href="simulations.html#sim-binomal-sglmm">5.2.1</a> 小节模拟响应变量服从二项分布的情形， 第 <a href="simulations.html#possion-sglmm">5.2.2</a> 小节模拟响应变量服从泊松分布的情形，在这两个小节里，比较了贝叶斯 MCMC 算法和贝叶斯 STAN-MCMC 算法的表现，前者基于 R 包 geoRglm 内置的 Langevin-Hastings 算法实现，后者基于 Stan 内置的 HMC 算法实现，贝叶斯 STAN-MCMC 算法相当于是一次适应于 SGLMM 模型的二次开发，并且基于 Stan 平台。</p>
 <div id="spatial-gaussian-processes" class="section level2">
 <h2><span class="header-section-number">5.1</span> 平稳空间高斯过程</h2>
 <div id="sim-one-gp" class="section level3">
@@ -245,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sim-two-gp" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> 二维平稳空间高斯过程</h3>
 <p>二维情形下，在规则平面上模拟平稳高斯过程 <span class="math inline">\(\mathcal{S} = S(x), x \in \mathbb{R}^2\)</span>， 其均值向量为零向量 <span class="math inline">\(\mathbf{0}\)</span>， 协方差函数为指数型，见公式 <a href="simulations.html#eq:cov-exp">(5.1)</a>，协方差参数 <span class="math inline">\(\phi = 1, \sigma^2 = 1\)</span>。在单位平面区域为 <span class="math inline">\([0,1] \times [0,1]\)</span> 模拟服从上述二维平稳空间高斯过程，不妨将此区域划分为 <span class="math inline">\(6 \times 6\)</span> 的小网格，而每个格点作为采样的位置，共计 36个采样点，在这些采样点上的观察值即为目标值 <span class="math inline">\(S(x)\)</span>。</p>
-<p>类似本章第 <a href="simulations.html#sim-one-gp">5.1.1</a> 节模拟一维平稳空间过程的步骤， 首先根据采样点位置坐标和协方差函数 <a href="simulations.html#eq:cov-exp">(5.1)</a> 计算得目标空间过程的 <span class="math inline">\(\mathcal{S}\)</span> 协方差矩阵 <span class="math inline">\(G\)</span>，然后使用 R 包 <strong>MASS</strong> 提供的 <code>mvrnorm</code> 函数产生多元正态分布随机数，与 <a href="simulations.html#sim-one-gp">5.1.1</a> 节不同的是这里采用特征值分解，即 <span class="math inline">\(G = L\Lambda L^{\top}\)</span>，与 Cholesky 分解相比，特征值分解更稳定些，但是 Cholesky 分解更快，Stan 即采用此法，后续过程与一维模拟一致。模拟获得的随机数用图 <a href="simulations.html#fig:sim-two-gp">5.2</a> 表示， 格点上的值即为平稳空间高斯过程在该点的取值 (为方便显示，已四舍五入保留两位小数)。</p>
+<p>类似本章第 <a href="simulations.html#sim-one-gp">5.1.1</a> 节模拟一维平稳空间过程的步骤， 首先根据采样点位置坐标和协方差函数 <a href="simulations.html#eq:cov-exp">(5.1)</a> 计算得目标空间过程的 <span class="math inline">\(\mathcal{S}\)</span> 协方差矩阵 <span class="math inline">\(G\)</span>，然后使用 R 包 MASS 提供的 <code>mvrnorm</code> 函数产生多元正态分布随机数，与 <a href="simulations.html#sim-one-gp">5.1.1</a> 节不同的是这里采用特征值分解，即 <span class="math inline">\(G = L\Lambda L^{\top}\)</span>，与 Cholesky 分解相比，特征值分解更稳定些，但是 Cholesky 分解更快，Stan 即采用此法，后续过程与一维模拟一致。模拟获得的随机数用图 <a href="simulations.html#fig:sim-two-gp">5.2</a> 表示， 格点上的值即为平稳空间高斯过程在该点的取值 （为方便显示，已四舍五入保留两位小数）。</p>
 <div class="figure" style="text-align: center"><span id="fig:sim-two-gp"></span>
 <img src="04-simulations_files/figure-html/sim-two-gp-1.png" alt="模拟二维平稳空间高斯过程，自相关函数为指数形式，水平方向为横坐标，垂直方向为纵坐标，图中的橘黄色点是采样的位置，其上的数字是目标值 $S(x)$" width="45%" /><img src="04-simulations_files/figure-html/sim-two-gp-2.png" alt="模拟二维平稳空间高斯过程，自相关函数为指数形式，水平方向为横坐标，垂直方向为纵坐标，图中的橘黄色点是采样的位置，其上的数字是目标值 $S(x)$" width="45%" />
 <p class="caption">
@@ -257,35 +257,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \rho(u) = \sigma^2 \{ 2^{\kappa -1} \Gamma(\kappa) \}^{-1}( u/\phi )^{\kappa} \mathcal{K}_{\kappa}( u / \phi ) \tag{5.3}
 \end{equation}\]</span>
 且在区域 <span class="math inline">\([0,1] \times [0,1]\)</span> 上也可以随机采点，如图 <a href="simulations.html#fig:sim-two-gp">5.2</a> 的右子图所示。</p>
-<p>模拟平稳空间高斯过程的实现方法： Paulo J. Ribeiro Jr. 和 Peter J. Diggle 开发了 <strong>geoR</strong> 包 <span class="citation">(Ribeiro Jr. and Diggle <a href="#ref-geoR2001">2001</a>)</span>，提供的 <code>grf</code> 函数除了实现 Cholesky 分解，还实现了奇异值分解，特征值分解等算法分解协方差矩阵<span class="math inline">\(G\)</span>。当采样点不太多时，Cholesky 分解已经足够好，下面的第 <a href="simulations.html#sim-sglmm">5.2</a> 节对平稳空间高斯过程的数值模拟即采用此法，当采样点很多，为了加快模拟的速度，可以选用 Martin Schlather 等开发的 <strong>RandomFields</strong> 包 <span class="citation">(Schlather et al. <a href="#ref-RandomFields2015">2015</a>)</span>，内置的 <code>GaussRF</code> 函数实现了用高斯马尔科夫随机场近似平稳空间高斯过程的算法，此外，Håvard Rue 等 (2009年) <span class="citation">(Rue, Martino, and Chopin <a href="#ref-Rue2009">2009</a>)</span> 也实现了从平稳高斯过程到高斯马尔科夫随机场的近似算法，开发了比较高效的 INLA 程序库 <span class="citation">(Lindgren and Rue <a href="#ref-INLA2015">2015</a>)</span>，其内置的近似程序得到了一定的应用 <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo2015">2015</a>; Xiaofeng Wang and Faraway <a href="#ref-Faraway2018">2018</a>)</span>。</p>
+<p>模拟平稳空间高斯过程的实现方法： Ribeiro 和 Diggle 开发了 geoR 包 <span class="citation">(Ribeiro Jr. and Diggle <a href="#ref-geoR2001">2001</a>)</span>，提供的 <code>grf</code> 函数除了实现 Cholesky 分解，还实现了奇异值分解，特征值分解等算法分解协方差矩阵<span class="math inline">\(G\)</span>。当采样点不太多时，Cholesky 分解已经足够好，下面的第 <a href="simulations.html#sim-sglmm">5.2</a> 节对平稳空间高斯过程的数值模拟即采用此法，当采样点很多，为了加快模拟的速度，可以选用 Schlather 等开发的 RandomFields 包 <span class="citation">(Schlather et al. <a href="#ref-RandomFields2015">2015</a>)</span>，内置的 <code>GaussRF</code> 函数实现了用高斯马尔科夫随机场近似平稳空间高斯过程的算法，此外，Rue 等 (2009年) <span class="citation">(Rue, Martino, and Chopin <a href="#ref-Rue2009">2009</a>)</span> 也实现了从平稳高斯过程到高斯马尔科夫随机场的近似算法，开发了比较高效的 INLA 程序库 <span class="citation">(Lindgren and Rue <a href="#ref-INLA2015">2015</a>)</span>，其内置的近似程序得到了一定的应用 <span class="citation">(Marta Blangiardo <a href="#ref-Blangiardo2015">2015</a>; Xiaofeng Wang and Faraway <a href="#ref-Faraway2018">2018</a>)</span>。</p>
 </div>
 </div>
 <div id="sim-sglmm" class="section level2">
 <h2><span class="header-section-number">5.2</span> 空间广义线性混合效应模型</h2>
 <div id="sim-binomal-sglmm" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> 响应变量服从二项分布</h3>
-<p>响应变量服从二项分布 <span class="math inline">\(Y_{i} \sim \mathrm{Binomal}(m_{i},p(x_{i}))\)</span>，即在位置 <span class="math inline">\(x_i\)</span> 处，以概率 <span class="math inline">\(p(x_i)\)</span> 重复抽取了 <span class="math inline">\(m_i\)</span> 个样本，总样本数 <span class="math inline">\(M=\sum_{i=1}^{N}m_i\)</span>，<span class="math inline">\(N\)</span> 是采样点的个数，模拟二项型空间广义线性混合效应模型为 <a href="simulations.html#eq:binom-SGLMM">(5.4)</a>，联系函数为 <span class="math inline">\(g(\mu_i) = \log\{\frac{p(x_i)}{1-p(x_i)}\}\)</span>，<span class="math inline">\(S(x)\)</span> 是均值为 <span class="math inline">\(\mathbf{0}\)</span>，协方差函数为 <span class="math inline">\(\mathsf{Cov}(S(x_i),S(x_j)) = \sigma^2 \big\{2^{\kappa-1}\Gamma(\kappa)\big\}^{-1}(u/\phi)^{\kappa}K_{\kappa}(u/\phi), \kappa = 0.5\)</span> 的平稳空间高斯过程。
+<p>响应变量服从二项分布 <span class="math inline">\(Y_{i} \sim \mathrm{Binomial}(m_{i},p(x_{i}))\)</span>，即在位置 <span class="math inline">\(x_i\)</span> 处，以概率 <span class="math inline">\(p(x_i)\)</span> 重复抽取了 <span class="math inline">\(m_i\)</span> 个样本，总样本数 <span class="math inline">\(M=\sum_{i=1}^{N}m_i\)</span>，<span class="math inline">\(N\)</span> 是采样点的个数，模拟二项型空间广义线性混合效应模型为 <a href="simulations.html#eq:binom-SGLMM">(5.4)</a>，联系函数为 <span class="math inline">\(g(\mu_i) = \log\{\frac{p(x_i)}{1-p(x_i)}\}\)</span>，<span class="math inline">\(S(x)\)</span> 是均值为 <span class="math inline">\(\mathbf{0}\)</span>，协方差函数为 <span class="math inline">\(\mathsf{Cov}(S(x_i),S(x_j)) = \sigma^2 \big\{2^{\kappa-1}\Gamma(\kappa)\big\}^{-1}(u/\phi)^{\kappa}K_{\kappa}(u/\phi), \kappa = 0.5\)</span> 的平稳空间高斯过程。
 <span class="math display" id="eq:binom-SGLMM">\[\begin{equation}
 g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 \end{equation}\]</span>
-固定效应参数 <span class="math inline">\(\alpha = 0\)</span>，协方差参数记为 <span class="math inline">\(\boldsymbol{\theta} = (\sigma^2, \phi) = (0.5, 0.2)\)</span>，采样点数目为 <span class="math inline">\(N = 64\)</span>，每个采样点抽取的样本数 <span class="math inline">\(m_i = 4, i = 1, 2, \ldots, 64\)</span>，则 <span class="math inline">\(Y_i\)</span> 的取值范围为 <span class="math inline">\(0, 1, 2, 3, 4\)</span>。首先模拟平稳空间高斯过程 <span class="math inline">\(S(x)\)</span>，在单位区域 <span class="math inline">\([0,1] \times [0,1]\)</span> 划分为 <span class="math inline">\(8 \times 8\)</span> 的网格，格点选为采样位置，用 <strong>geoR</strong> 包提供的 <code>grf</code> 函数产生协方差参数为 <span class="math inline">\(\boldsymbol{\theta} = (\sigma^2,\phi) = (0.5, 0.2)\)</span> 的平稳空间高斯过程，由公式 <a href="simulations.html#eq:binom-SGLMM">(5.4)</a> 可知 <span class="math inline">\(p(x_i) = \exp[\alpha + S(x_i)]/\{1 + \exp[\alpha + S(x_i)]\}\)</span>， 即每个格点处二项分布的概率值，然后依此概率，由 <code>rbinom</code> 函数产生服从二项分布的观察值 <span class="math inline">\(Y_i\)</span>，模拟的数据集可以用图 <a href="simulations.html#fig:binom-without-nugget-geoRglm">5.3</a> 直观表示。</p>
+固定效应参数 <span class="math inline">\(\alpha = 0\)</span>，协方差参数记为 <span class="math inline">\(\boldsymbol{\theta} = (\sigma^2, \phi) = (0.5, 0.2)\)</span>，采样点数目为 <span class="math inline">\(N = 64\)</span>，每个采样点抽取的样本数 <span class="math inline">\(m_i = 4, i = 1, 2, \ldots, 64\)</span>，则 <span class="math inline">\(Y_i\)</span> 的取值范围为 <span class="math inline">\(0, 1, 2, 3, 4\)</span>。首先模拟平稳空间高斯过程 <span class="math inline">\(S(x)\)</span>，在单位区域 <span class="math inline">\([0,1] \times [0,1]\)</span> 划分为 <span class="math inline">\(8 \times 8\)</span> 的网格，格点选为采样位置，用 geoR 包提供的 <code>grf</code> 函数产生协方差参数为 <span class="math inline">\(\boldsymbol{\theta} = (\sigma^2,\phi) = (0.5, 0.2)\)</span> 的平稳空间高斯过程，由公式 <a href="simulations.html#eq:binom-SGLMM">(5.4)</a> 可知 <span class="math inline">\(p(x_i) = \exp[\alpha + S(x_i)]/\{1 + \exp[\alpha + S(x_i)]\}\)</span>， 即每个格点处二项分布的概率值，然后依此概率，由 <code>rbinom</code> 函数产生服从二项分布的观察值 <span class="math inline">\(Y_i\)</span>，模拟的数据集可以用图 <a href="simulations.html#fig:binom-without-nugget-geoRglm">5.3</a> 直观表示。</p>
 <div class="figure" style="text-align: center"><span id="fig:binom-without-nugget-geoRglm"></span>
 <img src="figures/binom-without-nugget-geoRglm.png" alt="左图表示二维规则平面上的平稳空间高斯过程，格点是采样点的位置，其上的数字是 $p(x)$ 的值，已经四舍五入保留两位小数，右图表示观察值 $Y$ 随空间位置的变化，格点上的值即为观察值 $Y$，图中的两个圈分别是第1个(左下)和第29个(右上)采样点" width="90%" />
 <p class="caption">
 图 5.3: 左图表示二维规则平面上的平稳空间高斯过程，格点是采样点的位置，其上的数字是 <span class="math inline">\(p(x)\)</span> 的值，已经四舍五入保留两位小数，右图表示观察值 <span class="math inline">\(Y\)</span> 随空间位置的变化，格点上的值即为观察值 <span class="math inline">\(Y\)</span>，图中的两个圈分别是第1个(左下)和第29个(右上)采样点
 </p>
 </div>
-<p>基于 Langevin-Hastings 采样器实现的马尔科夫链蒙特卡罗算法，参数 <span class="math inline">\(\alpha\)</span> 的先验分布选均值为 0，方差为 1 的标准正态分布，参数 <span class="math inline">\(\phi\)</span> 的先验分布选期望为 0.2 的指数分布，参数 <span class="math inline">\(\sigma^2\)</span> 的先验分布是非中心的逆卡方分布，其非中心化参数为 0.5，自由度为 5，各参数的先验选择参考 Ole F. Christensen 和 Peter J. Ribeiro Jr. (2002年) <span class="citation">(Christensen and Ribeiro Jr. <a href="#ref-geoRglm2002">2002</a>)</span>。Langevin-Hastings 算法运行 110000 次迭代，前 10000 次迭代用作热身 (warm-up)，后 10 万次迭代里间隔 100 次迭代采样，获得关于参数 <span class="math inline">\(\alpha,\phi,\sigma^2\)</span> 的后验分布的样本，样本量是 1000。
+<p>基于 Langevin-Hastings 采样器实现的马尔科夫链蒙特卡罗算法，参数 <span class="math inline">\(\alpha\)</span> 的先验分布选均值为 0，方差为 1 的标准正态分布，参数 <span class="math inline">\(\phi\)</span> 的先验分布选期望为 0.2 的指数分布，参数 <span class="math inline">\(\sigma^2\)</span> 的先验分布是非中心的逆卡方分布，其非中心化参数为 0.5，自由度为 5，各参数的先验选择参考 Christensen 和 Ribeiro (2002年) <span class="citation">(Christensen and Ribeiro Jr. <a href="#ref-geoRglm2002">2002</a>)</span>。Langevin-Hastings 算法运行 110000 次迭代，前 10000 次迭代用作热身 (warm-up)，后 10 万次迭代里间隔 100 次迭代采样，获得关于参数 <span class="math inline">\(\alpha,\phi,\sigma^2\)</span> 的后验分布的样本，样本量是 1000。
 <span class="math display">\[\begin{equation}
 \alpha \sim \mathcal{N}(0,1), \quad \phi \sim \mathrm{Exp}(0.2), \quad \sigma^2  \sim \mathrm{Inv-}\chi^2(5,0.5)
 \end{equation}\]</span>
 参数 <span class="math inline">\(\alpha,\phi,\sigma^2\)</span> 的贝叶斯估计没有显式表达式，通常以 MCMC 算法获得后验分布的样本均值作为参数的估计。贝叶斯估计的定义是使得估计的均方误差达到最小时的估计，因此贝叶斯估计的精度或者说好坏常用后验分布的方差衡量，因为均方误差在参数估计取后验均值时是后验方差，故而表 <a href="simulations.html#tab:MCLH-vs-NUTS">5.1</a> 不再提供估计的均方误差值，而是提供了 5 个后验分布的分位点，在 95% 的置信水平下，样本分位点 0.025 和 0.975 的值组成了置信区间的上下界。除了获得各参数的估计值外，还获得 64 个采样点处 <span class="math inline">\(p(x_i), i = 1, \ldots, 64\)</span> 的后验均值、方差、标准差和 5个分位点，详见附表 <a href="appendix.html#tab:LH-binom-SGLMM">7.1</a>。</p>
 <table>
-<caption><span id="tab:MCLH-vs-NUTS">表 5.1: </span> Langevin-Hastings 算法与 HMC 算法的数值模拟比较，前者在R软件里基于 <strong>geoRglm</strong> 包实现，后者基于 Stan 实现。表格中的列依次是模型参数 <span class="math inline">\(\alpha,\phi,\sigma^2\)</span> 的真值、后验均值、后验方差、后验的 5个分位点和样本量<span class="math inline">\(N\)</span>。采样点数目分别考虑了 <span class="math inline">\(N = 36, 64, 81\)</span> 的情况，对于每组参数设置，重复模拟了100 次，表格前半部分是 Langevin-Hastings 算法得到的结果，后半部分是 HMC 算法得到的结果</caption>
+<caption><span id="tab:MCLH-vs-NUTS">表 5.1: </span> Langevin-Hastings 算法与 HMC 算法的数值模拟比较，前者在R软件里基于 geoRglm 包实现，后者基于 Stan 实现。表格中的列依次是模型参数 <span class="math inline">\(\alpha,\phi,\sigma^2\)</span> 的真值、后验均值、后验方差、后验的 5个分位点和样本量<span class="math inline">\(N\)</span>。采样点数目分别考虑了 <span class="math inline">\(N = 36, 64, 81\)</span> 的情况，对于每组参数设置，重复模拟了100 次，表格前半部分是 Langevin-Hastings 算法得到的结果，后半部分是 HMC 算法得到的结果</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
-<th align="right">true</th>
+<th align="right">true(init)</th>
 <th align="right">mean</th>
 <th align="right">var</th>
 <th align="right">2.5%</th>
@@ -294,12 +294,13 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <th align="right">75%</th>
 <th align="right">97.5%</th>
 <th align="right">N</th>
+<th align="right">time(s)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
-<td align="right">0.0</td>
+<td align="right">0.0(0.387)</td>
 <td align="right">-0.354</td>
 <td align="right">0.079</td>
 <td align="right">-0.938</td>
@@ -308,10 +309,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">-0.173</td>
 <td align="right">0.215</td>
 <td align="right">36</td>
+<td align="right">600.12</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
-<td align="right">0.2</td>
+<td align="right">0.2(0.205)</td>
 <td align="right">0.121</td>
 <td align="right">0.006</td>
 <td align="right">0.005</td>
@@ -320,10 +322,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.180</td>
 <td align="right">0.285</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
-<td align="right">0.5</td>
+<td align="right">0.5(1.121)</td>
 <td align="right">0.683</td>
 <td align="right">0.147</td>
 <td align="right">0.215</td>
@@ -332,10 +335,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.850</td>
 <td align="right">1.667</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
-<td align="right">0.0</td>
+<td align="right">0.0(0.157)</td>
 <td align="right">0.003</td>
 <td align="right">0.089</td>
 <td align="right">-0.596</td>
@@ -344,10 +348,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.179</td>
 <td align="right">0.609</td>
 <td align="right">64</td>
+<td align="right">729.19</td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
-<td align="right">0.2</td>
+<td align="right">0.2(0.110)</td>
 <td align="right">0.194</td>
 <td align="right">0.004</td>
 <td align="right">0.070</td>
@@ -356,10 +361,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.250</td>
 <td align="right">0.295</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
-<td align="right">0.5</td>
+<td align="right">0.5(0.494)</td>
 <td align="right">0.656</td>
 <td align="right">0.096</td>
 <td align="right">0.254</td>
@@ -368,10 +374,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.781</td>
 <td align="right">1.453</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\beta\)</span></td>
-<td align="right">0.0</td>
+<td align="right">0.0(-0.006)</td>
 <td align="right">-0.155</td>
 <td align="right">0.044</td>
 <td align="right">-0.565</td>
@@ -380,10 +387,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">-0.03</td>
 <td align="right">0.273</td>
 <td align="right">81</td>
+<td align="right">844.56</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
-<td align="right">0.2</td>
+<td align="right">0.2(0.185)</td>
 <td align="right">0.116</td>
 <td align="right">0.006</td>
 <td align="right">0.005</td>
@@ -392,10 +400,11 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.17</td>
 <td align="right">0.280</td>
 <td align="right">81</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
-<td align="right">0.5</td>
+<td align="right">0.5(0.403)</td>
 <td align="right">0.468</td>
 <td align="right">0.057</td>
 <td align="right">0.180</td>
@@ -404,6 +413,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.56</td>
 <td align="right">1.129</td>
 <td align="right">81</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
@@ -416,6 +426,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.056</td>
 <td align="right">0.653</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
@@ -428,6 +439,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">1.284</td>
 <td align="right">2.669</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
@@ -440,6 +452,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.573</td>
 <td align="right">1.572</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
@@ -452,6 +465,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.356</td>
 <td align="right">1.069</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
@@ -464,6 +478,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">1.247</td>
 <td align="right">2.324</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
@@ -476,6 +491,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.779</td>
 <td align="right">1.958</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
@@ -488,6 +504,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.174</td>
 <td align="right">0.742</td>
 <td align="right">81</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
@@ -500,6 +517,7 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">1.330</td>
 <td align="right">2.506</td>
 <td align="right">81</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
@@ -512,26 +530,27 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \tag{5.4}
 <td align="right">0.503</td>
 <td align="right">1.211</td>
 <td align="right">81</td>
+<td align="right"></td>
 </tr>
 </tbody>
 </table>
 <p>为了获得尽量好的效果，在样本量 <span class="math inline">\(N = 64\)</span> 时，花了近三天时间反复调了 Langevin-Hastings 算法的参数，相比较而言，得到了一组非常好的结果。然而，当改变样本量时，考虑到又需要漫长的调参，对样本量是36和81时，只要求迭代序列保持收敛即可。基于 Stan 实现的 HMC 算法没有调参数，初值和先验分布也采用默认的，总迭代次数设为2000次，前1000次迭代作为热身阶段(warm-up)，后1000次的迭代值全部采样，所有的迭代序列都通过了平稳性检验。</p>
-<p>根据模拟的过程和表<a href="simulations.html#tab:MCLH-vs-NUTS">5.1</a>的结果来看，基于 Stan 实现的 HMC 算法更易收敛，且对初始值和先验分布相对不那么敏感，不需要耗时的调参过程。</p>
+<p>根据模拟的过程和表<a href="simulations.html#tab:MCLH-vs-NUTS">5.1</a>的结果来看，基于 Stan 实现的 HMC 算法更易收敛，且对初始值和先验分布相对不那么敏感，不需要耗时的调参过程。表 <a href="simulations.html#tab:MCLH-vs-NUTS">5.1</a> 中 Langevin-Hastings 算法的时间由 R 内置的函数 <code>system.time()</code> 记录。初始值是 burn-in 的位置，即完成 warm-up 阶段后，开始采样的第一个迭代点。</p>
 </div>
 <div id="possion-sglmm" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> 响应变量服从泊松分布</h3>
 <p>模拟响应变量 <span class="math inline">\(Y\)</span> 服从泊松分布，即 <span class="math inline">\(Y_i \sim \mathrm{Possion}(\lambda(x_{i}))\)</span> 的泊松型空间广义线性混合效应模型
 <span class="math display" id="eq:pois-SGLMM">\[\begin{equation}
-g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
+g(\mu_i) = \log[\lambda(x_i)] = \alpha + S(x_i) \tag{5.5}
 \end{equation}\]</span>
-其中，<span class="math inline">\(S(x)\)</span> 是平稳空间高斯过程，其均值为 <span class="math inline">\(\mathbf{0}\)</span>，协方差函数为 <span class="math inline">\(\mathrm{Cov}(S(x_i),S(x_j)) = \sigma^2 \big\{2^{\kappa-1}\Gamma(\kappa)\big\}^{-1}(u/\phi)^{\kappa}K_{\kappa}(u/\phi)\)</span>，联系函数 <span class="math inline">\(g(\mu_i) = \log\{\lambda(x_{i})\}\)</span>。</p>
-<p>类似 <a href="simulations.html#sim-binomal-sglmm">5.2.1</a> 小节，首先产生服从平稳空间高斯过程 <span class="math inline">\(S(x)\)</span> 的随机数 <span class="math inline">\(S(x_i),i=1,\ldots,N\)</span>，然后根据 <a href="simulations.html#eq:pois-SGLMM">(5.5)</a> 式，可得 <span class="math inline">\(\lambda(x_i) = \exp(\alpha + S(x_i))\)</span>，又响应变量 <span class="math inline">\(Y_i \sim \mathrm{Possion}(\lambda(x_{i}))\)</span>，根据 R 内置函数 <code>rpois</code> 产生服从参数为 <span class="math inline">\(\lambda(x_i)\)</span> 的泊松分布的随机数。Langevin-Hastings 算法和 HMC 算法模拟的结果见表 <a href="simulations.html#tab:Pois-MCLV-vs-NUTS">5.2</a>。HMC 算法包含有效样本数 <span class="math inline">\(n_{eff}\)</span>、 潜在尺度缩减因子 <span class="math inline">\(\hat{R}\)</span> 和蒙特卡罗均值误差 se_mean 的完整表格见附表 <a href="appendix.html#tab:HMC-Pois-SGLMM">7.2</a>，参数迭代序列的收敛性分析已在第<a href="prepare.html#prepare">2</a> 章第<a href="prepare.html#sec:stan-samplers">2.10</a>节给出，这里不再赘述，所有的模拟实验都是在完成收敛性分析后给出的。</p>
+其中，<span class="math inline">\(S(x)\)</span> 是平稳空间高斯过程，其均值为 <span class="math inline">\(\mathbf{0}\)</span>，协方差函数为 <span class="math inline">\(\mathrm{Cov}(S(x_i),S(x_j)) = \sigma^2 \big\{2^{\kappa-1}\Gamma(\kappa)\big\}^{-1}(u/\phi)^{\kappa}K_{\kappa}(u/\phi)\)</span>，联系函数 <span class="math inline">\(g(\mu_i) = \log[\lambda(x_{i})]\)</span>。</p>
+<p>类似 <a href="simulations.html#sim-binomal-sglmm">5.2.1</a> 小节，首先产生服从平稳空间高斯过程 <span class="math inline">\(S(x)\)</span> 的随机数 <span class="math inline">\(S(x_i),i=1,\ldots,N\)</span>，然后由 <a href="simulations.html#eq:pois-SGLMM">(5.5)</a> 式可得 <span class="math inline">\(\lambda(x_i) = \exp(\alpha + S(x_i))\)</span>，且响应变量 <span class="math inline">\(Y_i \sim \mathrm{Possion}(\lambda(x_{i}))\)</span>，根据 R 内置函数 <code>rpois</code> 即可 产生服从参数为 <span class="math inline">\(\lambda(x_i)\)</span> 的泊松分布的随机数。Langevin-Hastings 算法和 HMC 算法模拟的结果见表 <a href="simulations.html#tab:Pois-MCLV-vs-NUTS">5.2</a>。HMC 算法包含有效样本数 <span class="math inline">\(n_{eff}\)</span>、 潜在尺度缩减因子 <span class="math inline">\(\hat{R}\)</span> 和蒙特卡罗均值误差 se_mean 的完整表格见附表 <a href="appendix.html#tab:HMC-Pois-SGLMM">7.2</a>，参数迭代序列的收敛性分析已在第<a href="prepare.html#prepare">2</a> 章第<a href="prepare.html#sec:stan-samplers">2.10</a>节给出，这里不再赘述，所有的模拟实验都是在完成收敛性分析后给出的。</p>
 <table>
 <caption><span id="tab:Pois-MCLV-vs-NUTS">表 5.2: </span> 在模型<a href="simulations.html#eq:pois-SGLMM">(5.5)</a>的设置下，Langevin-Hastings 算法和 HMC 算法的比较，模型参数真值设置为 <span class="math inline">\(\alpha = 0.5, \phi = 0.2, \sigma^2 = 2.0, \kappa = 1.5\)</span>，采样点数目分别为 <span class="math inline">\(N=36,64,100\)</span>，对于每组参数设置，重复模拟了100次。表格各列依次是参数的真值、后验均值、后验方差、后验五个分位点和样本量。表格前半部分是 Langevin-Hastings 算法实现的结果，后半部分是 Stan 实现的结果</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
-<th align="right">true</th>
+<th align="right">true(init)</th>
 <th align="right">mean</th>
 <th align="right">var</th>
 <th align="right">2.5%</th>
@@ -540,12 +559,13 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <th align="right">75%</th>
 <th align="right">97.5%</th>
 <th align="right">N</th>
+<th align="right">time(s)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
-<td align="right">0.5</td>
+<td align="right">0.5(1.201)</td>
 <td align="right">0.527</td>
 <td align="right">0.418</td>
 <td align="right">-0.759</td>
@@ -554,10 +574,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.855</td>
 <td align="right">1.864</td>
 <td align="right">36</td>
+<td align="right">642.66</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
-<td align="right">0.2</td>
+<td align="right">0.2(0.420)</td>
 <td align="right">0.401</td>
 <td align="right">0.052</td>
 <td align="right">0.100</td>
@@ -566,10 +587,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.520</td>
 <td align="right">0.960</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
-<td align="right">2.0</td>
+<td align="right">2.0(1.038)</td>
 <td align="right">1.311</td>
 <td align="right">0.660</td>
 <td align="right">0.365</td>
@@ -578,10 +600,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">1.584</td>
 <td align="right">3.562</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
-<td align="right">0.5</td>
+<td align="right">0.5(1.211)</td>
 <td align="right">0.866</td>
 <td align="right">1.517</td>
 <td align="right">-1.610</td>
@@ -590,10 +613,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">1.666</td>
 <td align="right">3.159</td>
 <td align="right">64</td>
+<td align="right">883.76</td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
-<td align="right">0.2</td>
+<td align="right">0.2(0.480)</td>
 <td align="right">0.682</td>
 <td align="right">0.073</td>
 <td align="right">0.300</td>
@@ -602,10 +626,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.820</td>
 <td align="right">1.380</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
-<td align="right">2.0</td>
+<td align="right">2.0(2.232)</td>
 <td align="right">3.932</td>
 <td align="right">2.594</td>
 <td align="right">1.667</td>
@@ -614,10 +639,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">4.744</td>
 <td align="right">7.740</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
-<td align="right">0.5</td>
+<td align="right">0.5(0.189)</td>
 <td align="right">0.323</td>
 <td align="right">0.657</td>
 <td align="right">-1.449</td>
@@ -626,10 +652,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.812</td>
 <td align="right">1.831</td>
 <td align="right">100</td>
+<td align="right">1223.28</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
-<td align="right">0.2</td>
+<td align="right">0.2(0.540)</td>
 <td align="right">0.617</td>
 <td align="right">0.085</td>
 <td align="right">0.220</td>
@@ -638,10 +665,11 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.785</td>
 <td align="right">1.320</td>
 <td align="right">100</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
-<td align="right">2.0</td>
+<td align="right">2.0(1.395)</td>
 <td align="right">1.479</td>
 <td align="right">0.498</td>
 <td align="right">0.545</td>
@@ -650,6 +678,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">1.822</td>
 <td align="right">3.195</td>
 <td align="right">100</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
@@ -662,6 +691,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.851</td>
 <td align="right">1.613</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
@@ -674,6 +704,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.722</td>
 <td align="right">1.090</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
@@ -686,6 +717,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">1.714</td>
 <td align="right">2.566</td>
 <td align="right">36</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
@@ -698,6 +730,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.917</td>
 <td align="right">1.798</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
@@ -710,6 +743,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.422</td>
 <td align="right">0.509</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
@@ -722,6 +756,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">2.804</td>
 <td align="right">3.734</td>
 <td align="right">64</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\alpha\)</span></td>
@@ -734,6 +769,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.767</td>
 <td align="right">1.412</td>
 <td align="right">100</td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(\phi\)</span></td>
@@ -746,6 +782,7 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">0.343</td>
 <td align="right">0.465</td>
 <td align="right">100</td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(\sigma^2\)</span></td>
@@ -758,17 +795,18 @@ g(\mu_i) = \log(\lambda(x_i)) = \alpha + S(x_i) \tag{5.5}
 <td align="right">1.395</td>
 <td align="right">2.282</td>
 <td align="right">100</td>
+<td align="right"></td>
 </tr>
 </tbody>
 </table>
 <p>100 个采样点的模拟实验中，花了近三天时间精心调了 Langevin-Hastings 算法的参数，得到比较好的估计值，在该组参数设置下，更改采样点数目分别为 36 和 64，又需要重新调整 Langevin-Hastings 算法的参数设置，以获得参数的后验分布和后续的后验量的计算。</p>
-<p>在同组参数设置下，基于 Stan 实现的 HMC 算法与 Langevin-Hastings 算法相比，效果要好，其一体现在后验方差(也是贝叶斯估计下的均方误差)更小，见表 <a href="simulations.html#tab:Pois-MCLV-vs-NUTS">5.2</a>；其二对于应用的意义更大，它不需要调参数，对先验分布的要求更加宽松；其三算法收敛的更快，基于 Langevin-Hastings 算法实现的贝叶斯 MCMC 算法迭代次数设置为110000，前10000次迭代作为 warm-up，间隔100次迭代采样，收集到的样本量是 1000，基于 Stan 实现的 HMC 算法只进行了 2000 次迭代，前 1000 次迭代作为 warm-up 阶段，后 1000 次迭代全部采样，所以样本量也是 1000。这里需要补充说明一下，比较两个算法却在迭代次数上做了不同的设置，是因为首先要保证模型参数的迭代序列要收敛，只有这样才能作参数的后验估计，那么同样达到收敛状态，Langevin-Hastings 算法大约110000次迭代，而基于 Stan 实现的 HMC 算法大于2000次迭代，如果强行继续增加后者算法的迭代次数是意义不大的，因为它已经收敛，增加迭代次数只会无端添加算法运行时间。</p>
+<p>在同组参数设置下，基于 Stan 实现的 HMC 算法与 Langevin-Hastings 算法相比，效果要好，其一体现在后验方差更小，也是贝叶斯估计下的均方误差更小，见表 <a href="simulations.html#tab:Pois-MCLV-vs-NUTS">5.2</a>；其二对于应用的意义更大，它不需要调参数，对先验分布的要求更加宽松；其三算法收敛的更快，基于 Langevin-Hastings 算法实现的贝叶斯 MCMC 算法迭代次数设置为110000，前10000次迭代作为 warm-up，间隔 100 次迭代采样，收集到的样本量是 1000，基于 Stan 实现的 HMC 算法只进行了 2000 次迭代，前 1000 次迭代作为 warm-up 阶段，后 1000 次迭代全部采样，所以样本量也是 1000。这里需要补充说明一下，比较两个算法却在迭代次数上做了不同的设置，是因为首先要保证模型参数的迭代序列要收敛，只有这样才能作参数的后验估计，那么同样达到收敛状态，Langevin-Hastings 算法大约110000次迭代，而基于 Stan 实现的 HMC 算法大于 2000 次迭代，如果强行继续增加后者算法的迭代次数是意义不大的，因为它已经收敛，增加迭代次数只会无端添加算法运行时间。</p>
 </div>
 </div>
 <div id="sec:simulations" class="section level2">
 <h2><span class="header-section-number">5.3</span> 本章小结</h2>
-<p><strong>geoRglm</strong> 包实现的 Langevin-Hastings 算法，相比较而言，收敛速度慢，迭代序列自相关性表现拖尾，因此在上述模拟实验中，为了降低相关性，采样间隔取100，这就直接要求增加总的迭代次数，以达到足够的后验样本量，才能用于后验量的计算，此外，在调参数的过程中面临不收敛的情况是常有的，而这个不收敛的原因至少有两个，其一是参数初值不合适，其二是总迭代次数不够，因此我也遭遇了 Ole F. Christensen 迭代上百万次的<a href="http://gbi.agrsci.dk/~ofch/geoRglm/Intro/books.html">情形</a>，不过为了尽量保持统一的参数设置下，这里采用继续调整参数初值的方式，而保持总迭代次数110000次不变。为了在每组模型设置下，都获得最佳的参数，这是一件十分耗时的工作，因为该算法的参数只有不断试错才能获得更加合适的参数设置，特别地，在已经收敛的情形下，再去调参数，这个过程会更加漫长。</p>
-<p>基于 Stan 实现的贝叶斯 STAN-MCMC 算法，其内置的 HMC 算法是结合了 NUTS 采样器<span class="citation">(Hoffman and Gelman <a href="#ref-hoffman2014">2014</a>)</span>，搜索模型参数的策略更加友好，不需要手动调参数，只需要指定合适的参数先验，使得迭代序列保持收敛即可，编程过程中，模型参数的重参数化(reparameterization)对迭代进程和结果会产生一定影响，如第<a href="prepare.html#prepare">2</a>章第<a href="prepare.html#sec:stan-samplers">2.10</a>节基于 Eight Schools 数据集介绍分层正态模型就对参数 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\sigma\)</span> 做了重参数化。</p>
+<p>geoRglm 包实现的 Langevin-Hastings 算法，相比较而言，收敛速度慢，迭代序列自相关性表现拖尾，因此在上述模拟实验中，为了降低相关性，采样间隔取100，这就直接要求增加总的迭代次数，以达到足够的后验样本量，才能用于后验量的计算，此外，在调参数的过程中面临不收敛的情况是常有的，而这个不收敛的原因至少有两个，其一是参数初值不合适，其二是总迭代次数不够，因此我也遭遇了 Christensen 迭代上百万次的<a href="http://gbi.agrsci.dk/~ofch/geoRglm/Intro/books.html">情形</a>，不过为了尽量保持统一的参数设置下，这里采用继续调整参数初值的方式，而保持总迭代次数110000次不变。为了在每组模型设置下，都获得最佳的参数，这是一件十分耗时的工作，因为该算法的参数只有不断试错才能获得更加合适的参数设置，特别地，在已经收敛的情形下，再去调参数，这个过程会更加漫长。</p>
+<p>基于 Stan 实现的贝叶斯 STAN-MCMC 算法，其内置的 HMC 算法是结合了 NUTS 采样器<span class="citation">(Hoffman and Gelman <a href="#ref-hoffman2014">2014</a>)</span>，搜索模型参数的策略更加友好，不需要手动调参数，只需要指定合适的参数先验，使得迭代序列保持收敛即可，编程过程中，模型参数的重参数化（reparameterization）对迭代进程和结果会产生一定影响，如第<a href="prepare.html#prepare">2</a>章第<a href="prepare.html#sec:stan-samplers">2.10</a>节基于 Eight Schools 数据集介绍分层正态模型就对参数 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\sigma\)</span> 做了重参数化。</p>
 <p>基于似然推断的算法，如第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:MCML">4.3.2</a>小节介绍的蒙特卡罗极大似然算法和第<a href="algorithms.html#subsec:LA">4.3.1</a>小节介绍的拉普拉斯近似算法，都需要非常接近真值的参数初值，才能得到好的结果，因为在大多数情形下，SGLMM 模型的对数似然曲面是呈现山岭或峡谷状，局部极值点多而且对数似然函数值变化不大，导致收敛速度极慢甚至不收敛，非常难获得全局极值点。因此，一个合适的策略是在合理的初值周围打网格，格点作为迭代初值，以成千上万个不同初值进行迭代，将计算的对数似然值画在二维平面上，通过这种降维观察的方式，获得一个可靠的全局极值点，作为参数的最佳似然估计，在后续的第<a href="applications.html#applications">6</a>章第<a href="applications.html#case-rongelap">6.2</a>节以分析朗格拉普岛核污染数据集为例，介绍这一策略。</p>
 
 </div>

@@ -112,7 +112,7 @@ Table: (\#tab:HMC-Pois-SGLMM) 汉密尔顿蒙特卡罗算法，采样点 64 个�
 
 从图 \@ref(fig:rongelap-acf-plot) 可以看出迭代序列满足马尔科夫性，没有明显的延迟相关性。
 
-(ref:rongelap-trace-plot) Langevin-Hastings 算法模拟条件分布 $[S(x_{i})|Y_{i}], i = 1,\ldots,4$，$[\cdot]$ 表示某某的分布，第一列是迭代序列图，第二列是对应的密度分布
+(ref:rongelap-trace-plot) Langevin-Hastings 算法模拟条件分布 $[S(x_{i})|Y_{i}], i = 1,\ldots,4$，$[\cdot]$ 表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布
 
 (ref:rongelap-acf-plot) 条件分布 $[S(x_{i})|Y_{i}], i = 1, \ldots, 4$ 的采样序列的自相关图
 

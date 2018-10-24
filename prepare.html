@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-23">
+<meta name="date" content="2018-10-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -274,8 +274,8 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 可见，<span class="math inline">\(Y\)</span> 的方差是两个函数的乘积，一个是 <span class="math inline">\(b&#39;&#39;(\theta)\)</span>， 它仅仅依赖典则参数，叫做方差函数，另一个是 <span class="math inline">\(a(\phi)\)</span>，它独立于 <span class="math inline">\(\theta\)</span>，仅仅依赖 <span class="math inline">\(\phi\)</span>，方差函数可以看作是 <span class="math inline">\(\mu\)</span> 的函数，记作 <span class="math inline">\(V(\mu)\)</span>。</p>
 <p>函数 <span class="math inline">\(a(\phi)\)</span> 通常形如
 <span class="math display">\[ a(\phi) = \phi/w \]</span>
-其中 <span class="math inline">\(\phi\)</span> 可由 <span class="math inline">\(\sigma^2\)</span> 表示，故而也叫做发散参数 (dispersion parameter)，是一个与样本观察值相关的常数，<span class="math inline">\(w\)</span> 是已知的权重，随样本观察值变化。对正态分布模型而言，<span class="math inline">\(w\)</span> 的分量是 <span class="math inline">\(m\)</span> 个相互独立的样本观察值的均值，有 <span class="math inline">\(a(\phi) = \sigma^2/m\)</span>，所以，<span class="math inline">\(w = m\)</span>。</p>
-<p>根据 <a href="prepare.html#eq:common-exponential-family">(2.1)</a>式，正态、泊松和二项分布的特征见表 <a href="prepare.html#tab:common-characteristics">2.1</a>，其它常见分布见 Peter McCullagh 等 (1989年) <span class="citation">(McCullagh and Nelder <a href="#ref-McCullagh1989">1989</a>)</span>。</p>
+其中 <span class="math inline">\(\phi\)</span> 可由 <span class="math inline">\(\sigma^2\)</span> 表示，故而也叫做发散参数 （dispersion parameter），是一个与样本观察值相关的常数，<span class="math inline">\(w\)</span> 是已知的权重，随样本观察值变化。对正态分布模型而言，<span class="math inline">\(w\)</span> 的分量是 <span class="math inline">\(m\)</span> 个相互独立的样本观察值的均值，有 <span class="math inline">\(a(\phi) = \sigma^2/m\)</span>，所以，<span class="math inline">\(w = m\)</span>。</p>
+<p>根据 <a href="prepare.html#eq:common-exponential-family">(2.1)</a>式，正态、泊松和二项分布的特征见表 <a href="prepare.html#tab:common-characteristics">2.1</a>，其它常见分布见 McCullagh 等 （1989年） <span class="citation">(McCullagh and Nelder <a href="#ref-McCullagh1989">1989</a>)</span>。</p>
 <table>
 <caption><span id="tab:common-characteristics">表 2.1: </span> 指数族内常见的一元分布的共同特征及符号表示<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></caption>
 <colgroup>
@@ -297,7 +297,7 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 <td align="left">记号</td>
 <td align="center"><span class="math inline">\(\mathcal{N}(\mu,\sigma^2)\)</span></td>
 <td align="center"><span class="math inline">\(\mathrm{Poisson}(\mu)\)</span></td>
-<td align="center"><span class="math inline">\(B(m,\pi)/m\)</span></td>
+<td align="center"><span class="math inline">\(\mathrm{Binomial}(m,\pi)/m\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(y\)</span> 取值范围</td>
@@ -358,7 +358,7 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 <span class="math display" id="eq:least-squares">\[\begin{equation}
 (\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}})^{\top}(\mathbf{Y} - \mathbf{X}\hat{\boldsymbol{\beta}}) = \min_{\beta}(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta})^{\top}(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}) \tag{2.7}
 \end{equation}\]</span>
-则称 <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> 为 <span class="math inline">\(\boldsymbol{\beta}\)</span> 的最小二乘估计 (Least Squares Estimate，简称 LSE)。
+则称 <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> 为 <span class="math inline">\(\boldsymbol{\beta}\)</span> 的最小二乘估计(简称 LSE)。
 </div>
 
 
@@ -375,7 +375,7 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 <span class="math display">\[
 \tilde{\boldsymbol{\beta}}_{LS} = ( \mathbf{X}^{\top} G^{-1} \mathbf{X})^{-1} \mathbf{X}^{\top} G^{-1} \mathbf{Y} 
 \]</span>
-称 <span class="math inline">\(\tilde{\boldsymbol{\beta}}_{LS}\)</span> 为广义最小二乘估计 (Generalized Least Squares Estimate，简称 GLSE)，特别地，当 <span class="math inline">\(G = \mathrm{diag}(\sigma^2_{1},\ldots,\sigma^2_{n})\)</span>，<span class="math inline">\(\sigma^2_{i},i = 1,\ldots,n\)</span> 已知时，称 <span class="math inline">\(\tilde{\boldsymbol{\beta}}_{LS}\)</span> 为加权最小二乘估计 (Weighted Least Squares Estimate，简称 WLSE)<span class="citation">(王松桂 et al. <a href="#ref-wang2004">2004</a>)</span>
+称 <span class="math inline">\(\tilde{\boldsymbol{\beta}}_{LS}\)</span> 为广义最小二乘估计，特别地，当 <span class="math inline">\(G = \mathrm{diag}(\sigma^2_{1},\ldots,\sigma^2_{n})\)</span>，<span class="math inline">\(\sigma^2_{i},i = 1,\ldots,n\)</span> 已知时，称 <span class="math inline">\(\tilde{\boldsymbol{\beta}}_{LS}\)</span> 为加权最小二乘估计。<span class="citation">(王松桂 et al. <a href="#ref-wang2004">2004</a>)</span>
 </div>
 
 </div>
@@ -387,7 +387,7 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 <span class="math display">\[ L(\boldsymbol{\theta};\mathbf{x}) = kp(\mathbf{x};\boldsymbol{\theta}) \]</span>
 为 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的似然函数，其中 <span class="math inline">\(k &gt; 0\)</span> 是不依赖于 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的量，常取 <span class="math inline">\(k=1\)</span>。进一步，若存在 <span class="math inline">\((\mathbb{R}^n,\mathscr{P}_{\mathbb{R}^n})\)</span> 到 <span class="math inline">\((\boldsymbol{\Theta},\mathscr{P}_{\boldsymbol{\Theta}})\)</span> 的统计量 <span class="math inline">\(\hat{\boldsymbol{\theta}}(\mathbf{x})\)</span> 使
 <span class="math display">\[ L(\hat{\boldsymbol{\theta}}(\mathbf{x});\mathbf{x}) = \sup_{\boldsymbol{\theta}} L(\boldsymbol{\theta};\mathbf{x}) \]</span>
-则 <span class="math inline">\(\hat{\boldsymbol{\theta}}(\mathbf{x})\)</span> 称为 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的一个极大似然估计(Maximum Likelihood Eestimate，简称 MLE)。
+则 <span class="math inline">\(\hat{\boldsymbol{\theta}}(\mathbf{x})\)</span> 称为 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的一个极大似然估计（简称 MLE）。
 </div>
 
 <p>概率密度函数很多可以写成具有指数函数的形式，如指数族，采用似然函数的对数通常更为简便。称
@@ -427,9 +427,9 @@ I(\theta_{0}) = \mathsf{E}_{\theta_{0}} \big[ \frac{ p&#39;(x,\theta_{0}) }{ p(x
 <div class="definition">
 <span id="def:continuous-differentiable" class="definition"><strong>定义 2.3  (连续性和可微性)  </strong></span>随机过程 <span class="math inline">\(S(x)\)</span> 满足
 <span class="math display">\[ \lim_{h \to 0} \mathsf{E}\big[ \{S(x + h) - S(x)\}^{2} \big] = 0 \]</span>
-则称 <span class="math inline">\(S(x)\)</span> 是均方连续(mean-square continuous)的。随机过程 <span class="math inline">\(S(x)\)</span> 满足
+则称 <span class="math inline">\(S(x)\)</span> 是均方连续（mean-square continuous）的。随机过程 <span class="math inline">\(S(x)\)</span> 满足
 <span class="math display">\[ \lim_{h \to 0} \mathsf{E} \big[ \{ \frac{S(x+h) - S(x)}{h} - S&#39;(x) \}^2 \big] = 0 \]</span>
-则称 <span class="math inline">\(S(x)\)</span> 是均方可微(mean-square differentiable)的，并且 <span class="math inline">\(S&#39;(x)\)</span> 就是均方意义下的一阶导数。如果 <span class="math inline">\(S&#39;(x)\)</span> 是均方可微的，则 <span class="math inline">\(S(x)\)</span> 是二次均方可微的，随机过程 <span class="math inline">\(S(x)\)</span> 的高阶均方可微性可类似定义。M. S. Bartlett (1955 年) <span class="citation">(Bartlett <a href="#ref-Bartlett1955">1955</a>)</span> 得到如下重要结论
+则称 <span class="math inline">\(S(x)\)</span> 是均方可微（mean-square differentiable）的，并且 <span class="math inline">\(S&#39;(x)\)</span> 就是均方意义下的一阶导数。如果 <span class="math inline">\(S&#39;(x)\)</span> 是均方可微的，则 <span class="math inline">\(S(x)\)</span> 是二次均方可微的，随机过程 <span class="math inline">\(S(x)\)</span> 的高阶均方可微性可类似定义。Bartlett （1955 年） <span class="citation">(Bartlett <a href="#ref-Bartlett1955">1955</a>)</span> 得到如下重要结论
 </div>
 
 
@@ -440,7 +440,7 @@ I(\theta_{0}) = \mathsf{E}_{\theta_{0}} \big[ \frac{ p&#39;(x,\theta_{0}) }{ p(x
 </div>
 <div id="sec:modified-bessel-function" class="section level2">
 <h2><span class="header-section-number">2.5</span> 修正的第二类贝塞尔函数</h2>
-<p>平稳空间高斯过程的自协方差函数是梅隆型时，需要用到修正的第二类贝塞尔函数 <span class="math inline">\(\mathcal{K}_{\kappa}(u)\)</span>，它是修正的贝塞尔方程的解 <span class="citation">(Abramowitz and Stegun <a href="#ref-Abramowitz1972">1972</a>)</span>，函数形式如下</p>
+<p>平稳空间高斯过程的自协方差函数是 Matérn 型（详见第<a href="models.html#models">3</a>章第<a href="models.html#subsec:covariance-function">3.4.2</a>小节）时，需要用到修正的第二类贝塞尔函数 <span class="math inline">\(\mathcal{K}_{\kappa}(u)\)</span>，它是修正的贝塞尔方程的解 <span class="citation">(Abramowitz and Stegun <a href="#ref-Abramowitz1972">1972</a>)</span>，函数形式如下</p>
 <p><span class="math display" id="eq:besselK-function">\[\begin{equation}
 \begin{aligned}
 I_{-\kappa}(u) &amp; =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(\frac{u}{2}\big)^{2m + \kappa} \\
@@ -484,12 +484,12 @@ I_{-\kappa}(u) &amp; =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \
 <p>贝叶斯推断中，常涉及模型参数的先验、后验分布，以及一种特殊的无信息先验分布 — Jeffreys 先验，下面分别给出它们的概念定义。</p>
 
 <div class="definition">
-<span id="def:prior-distribution" class="definition"><strong>定义 2.4  (先验分布)  </strong></span>参数空间 <span class="math inline">\(\Theta\)</span> 上的任一概率分布都称作先验分布 (prior distribution)。
+<span id="def:prior-distribution" class="definition"><strong>定义 2.4  (先验分布)  </strong></span>参数空间 <span class="math inline">\(\Theta\)</span> 上的任一概率分布都称作先验分布 （prior distribution）。
 </div>
 
 
 <div class="definition">
-<span id="def:posterior-distribution" class="definition"><strong>定义 2.5  (后验分布)  </strong></span>在获得样本 <span class="math inline">\(\mathbf{Y}\)</span> 后，模型参数 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的后验分布 (posterior distribution) 就是在给定 <span class="math inline">\(\mathbf{Y}\)</span> 条件下 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的条件分布。根据条件概率定义、链式法则、全概率公式，有
+<span id="def:posterior-distribution" class="definition"><strong>定义 2.5  (后验分布)  </strong></span>在获得样本 <span class="math inline">\(\mathbf{Y}\)</span> 后，模型参数 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的后验分布 （posterior distribution） 就是在给定 <span class="math inline">\(\mathbf{Y}\)</span> 条件下 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的条件分布。根据条件概率定义、链式法则、全概率公式，有
 <span class="math display" id="eq:bayes-theorem">\[\begin{align}
 \begin{array}{rcll}
 p(\boldsymbol{\theta}|\mathbf{Y})  &amp; =  &amp; \displaystyle \frac{p(\boldsymbol{\theta},\mathbf{Y})}{p(\mathbf{Y})}
@@ -512,7 +512,7 @@ p(\boldsymbol{\theta}|\mathbf{Y})  &amp; =  &amp; \displaystyle \frac{p(\boldsym
 
 
 <div class="definition">
-<span id="def:Jeffreys-prior-distribution" class="definition"><strong>定义 2.6  (Jeffreys 先验分布)  </strong></span>设 <span class="math inline">\(\mathbf{x} = (x_1,\ldots,x_n)\)</span> 是来自密度函数 <span class="math inline">\(p(x|\theta)\)</span> 的一个样本，其中 <span class="math inline">\(\boldsymbol{\theta} = (\theta_1,\ldots,\theta_p)\)</span> 是 <span class="math inline">\(p\)</span> 维参数向量。在对 <span class="math inline">\(\boldsymbol{\theta}\)</span> 无任何先验信息可用时， Jeffreys (1961年)利用变换群和 Harr 测度导出 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的无信息先验分布可用 Fisher 信息阵的行列式的平方根表示。这种无信息先验分布常称为 Jeffreys 先验分布。其求取步骤如下：
+<span id="def:Jeffreys-prior-distribution" class="definition"><strong>定义 2.6  (Jeffreys 先验分布)  </strong></span>设 <span class="math inline">\(\mathbf{x} = (x_1,\ldots,x_n)\)</span> 是来自密度函数 <span class="math inline">\(p(x|\theta)\)</span> 的一个样本，其中 <span class="math inline">\(\boldsymbol{\theta} = (\theta_1,\ldots,\theta_p)\)</span> 是 <span class="math inline">\(p\)</span> 维参数向量。在对 <span class="math inline">\(\boldsymbol{\theta}\)</span> 无任何先验信息可用时， Jeffreys （1961年）利用变换群和 Harr 测度导出 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的无信息先验分布可用 Fisher 信息阵的行列式的平方根表示。这种无信息先验分布常称为 Jeffreys 先验分布。其求取步骤如下：
 </div>
 
 <ol style="list-style-type: decimal">
@@ -548,7 +548,7 @@ L(\theta,\delta) =
 
 <p>评价贝叶斯估计 <span class="math inline">\(\delta^{\pi}(x)\)</span> 的精度常用后验均方误差
 <span class="math display">\[\mathsf{MSE}(\delta^{\pi}|x) = \mathsf{E}_{\theta|x}(\delta^{\pi} - \theta)^2\]</span>
-表示，或用其平方根<span class="math inline">\([\mathsf{MSE}(\delta^{\pi}|x)]^{1/2}\)</span> (称为标准误) 表示。容易算得
+表示，或用其平方根<span class="math inline">\([\mathsf{MSE}(\delta^{\pi}|x)]^{1/2}\)</span> （称为标准误）表示。容易算得
 <span class="math display">\[\mathsf{MSE}(\delta^{\pi}|x) = \mathsf{Var}(\delta^{\pi}|x) + [\delta^{\pi}(x) - \mathsf{E}(\theta|x)]^2\]</span>
 可见，当贝叶斯估计<span class="math inline">\(\delta^{\pi}(x)\)</span>为后验均值时，贝叶斯估计的精度就用<span class="math inline">\(\delta^{\pi}\)</span>的后验方差<span class="math inline">\(\mathsf{Var}(\delta^{\pi}|x)\)</span> 表示，或用后验标准差 <span class="math inline">\([\mathsf{Var}(\delta^{\pi}|x)]^{1/2}\)</span> 表示 <span class="citation">(茆诗松, 王静龙, and 濮晓龙 <a href="#ref-mao2006">2006</a>)</span>。</p>
 </div>
@@ -557,7 +557,7 @@ L(\theta,\delta) =
 <p>一般地，空间广义线性混合效应模型的统计推断总是不可避免的要面对高维积分，处理高维积分的方法一个是寻找近似方法避免求积分，一个是寻找有效的随机模拟方法直接求积分。这里，介绍蒙特卡罗方法求积分，以计算 <span class="math inline">\(N\)</span> 维超立方体的内切球的体积为例说明。</p>
 <p>假设我们有一个 <span class="math inline">\(N\)</span> 维超立方体，其中心在坐标 <span class="math inline">\(\mathbf{0} = (0,\ldots,0)\)</span>。超立方体在点 <span class="math inline">\((\pm 1/2,\ldots,\pm 1/2)\)</span>，有 <span class="math inline">\(2^{N}\)</span> 个角落，超立方体边长是1，<span class="math inline">\(1^{N}=1\)</span>，所以它的体积是1。如果 <span class="math inline">\(N=1\)</span>，超立方体是一条从 <span class="math inline">\(-\frac{1}{2}\)</span> 到 <span class="math inline">\(\frac{1}{2}\)</span> 的单位长度的线，如果 <span class="math inline">\(N=2\)</span>，超立方体是一个单位正方形，对角是 <span class="math inline">\(\left( -\frac{1}{2}, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \frac{1}{2} \right)\)</span>，如果 <span class="math inline">\(N=3\)</span>，超立方体就是单位体积的立方体，对角是 <span class="math inline">\(\left( -\frac{1}{2}, -\frac{1}{2}, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \frac{1}{2}, \frac{1}{2} \right)\)</span>，依此类推，<span class="math inline">\(N\)</span> 维超立方体体积是1，对角是 <span class="math inline">\(\left( -\frac{1}{2}, \ldots, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \ldots, \frac{1}{2} \right)\)</span>。</p>
 <p>现在，考虑 <span class="math inline">\(N\)</span> 维超立方体的内切球，我们把它称为 <span class="math inline">\(N\)</span> 维超球，它的中心在原点，半径是 <span class="math inline">\(\frac{1}{2}\)</span>。我们说点 <span class="math inline">\(y\)</span> 在超球内，意味着它到原点的距离小于半径，即 <span class="math inline">\(\| y \| &lt; \frac{1}{2}\)</span>。一维情形下，超球是从的线，包含了整个超立方体。二维情形下，超球是中心在原点，半径为 <span class="math inline">\(\frac{1}{2}\)</span> 的圆。三维情形下，超球是立方体的内切球。已知单位超立方体的体积是1，但是其内的内切球的体积是多少呢？我们已经学过如何去定义一个积分计算半径为 <span class="math inline">\(r\)</span> 的二维球（即圆）的体积（即面积）是 <span class="math inline">\(\pi r^2\)</span>，三维情形下，内切球是 <span class="math inline">\(\frac{4}{3}\pi r^3\)</span>。但是更高维的欧式空间里，内切球的体积是多少呢？</p>
-<p>在这种简单的体积积分设置下，当然可以去计算越来越复杂的多重积分，但是这里介绍采样的方法去计算积分，即所谓的蒙特卡罗方法，由乌拉姆 (S. Ulam)、冯<span class="math inline">\(\cdot\)</span>诺依曼(J. von Neumann) 和梅特罗波利斯 (N. Metropolis) 等 在美国核武器研究实验室创立，当时正值二战期间，为了研制原子弹，出于保密的需要，与随机模拟相关的技术就代号蒙特卡罗。现在，蒙特卡罗方法占据现代统计计算的核心地位，特别是与贝叶斯相关的领域。</p>
+<p>在这种简单的体积积分设置下，当然可以去计算越来越复杂的多重积分，但是这里介绍采样的方法去计算积分，即所谓的蒙特卡罗方法，由梅特罗波利斯 （Nicholas Metropolis），冯<span class="math inline">\(\cdot\)</span>诺依曼 （John von Neumann） 和乌拉姆 （Stanislaw Ulam） 等在美国核武器研究实验室创立，当时正值二战期间，为了研制原子弹，出于保密的需要，与随机模拟相关的技术就代号蒙特卡罗。现在，蒙特卡罗方法占据现代统计计算的核心地位，特别是与贝叶斯相关的领域。</p>
 <p>用蒙特卡罗方法去计算单位超立方体内的超球，首先需要在单位超立方体内产生随机点，然后计算落在超球内的点的比例，即超球的体积。随着点的数目增加，估计的体积会收敛到真实的体积。因为这些点都独立同均匀分布，根据中心极限定理，误差下降的比率是 <span class="math inline">\(\mathcal{O}\left( 1 / \sqrt{n} \right)\)</span>，这也意味着每增加一个小数点的准确度，样本量要增加 100 倍。</p>
 <table>
 <caption><span id="tab:calculate-volume-of-hyperball">表 2.2: </span> 前 10 维单位超立方体内切球的体积，超立方体内随机模拟的点的个数是 100000（已经四舍五入保留小数点后三位）</caption>
@@ -596,10 +596,10 @@ L(\theta,\delta) =
 </div>
 <div id="sec:stan-samplers" class="section level2">
 <h2><span class="header-section-number">2.10</span> Stan 简介</h2>
-<p>在上世纪 40~50 年代，由梅特罗波利斯 (Nicholas Metropolis)，冯<span class="math inline">\(\cdot\)</span>诺依曼 (John von Neumann) 和乌拉姆 (Stanislaw Ulam) 创立蒙特卡罗方法，为了纪念乌拉姆，Stan 就以他的名字命名。Stan 是一门基于 C++ 的概率编程语言，主要用于贝叶斯推断，它的代码完全<a href="http://mc-stan.org/">开源</a>的，托管在 <a href="https://github.com/stan-dev/stan">Github</a> 上，自 2012 年 8 月 30 日发布第一个 1.0 版本以来，截至写作时间已发布 33 个版本，目前最新版本是 2.18.0。使用 Stan，用户需提供数据、Stan 代码写的脚本模型，编译 Stan 写的程序，然后与数据一起运行，模型参数的后验模拟过程是自动实现的。除了可以在命令行环境下编译运行 Stan 脚本中写模型外，Stan 还提供其他编程语言的接口，如 R、Python、Matlab、Mathematica、Julia 等等，这使得熟悉其他编程语言的用户可以方便地调用和分析数据。但是，与 Python、R等 这类解释型编程语言不同， Stan 代码需要先翻译成 C++ 代码，然后使用系统编译器 (如 GCC) 编译，若使用 R 语言接口，编译后的动态链接库可以载入 R 内存中，再被其他 R 函数调用执行。</p>
-<p>随机模拟的前提是有能产生高质量高效的伪随机数发生器，只有周期长，生成速度快，能通过一系列统计检验的伪随机数才能用作统计模拟，Stan 内置了 Mersenne Twister 发生器，它的周期长达 <span class="math inline">\(2^{19937}-1\)</span>，通过了一系列严格的检验，被广泛采用到现代软件中，如 Octave 和 Matlab 等 <span class="citation">(黄湘云 <a href="#ref-Huang2017COS">2017</a>)</span>。除了 Mersenne Twister 随机数发生器，Stan 还使用了 <a href="https://www.boost.org/">Boost C++</a> 和 <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen C++</a> 等模版库用于线性代数计算，这样的底层设计路线使得 Stan 的运算效率很高。</p>
-<p>Stan 内置的采样器 No-U-Turn (简称 NUTS) 源于汉密尔顿蒙特卡罗算法 (Hamiltonian Monte Carlo，简称 HMC)，最早由 Matthew D. Hoffman 和 Andrew Gelman (2014年) <span class="citation">(Hoffman and Gelman <a href="#ref-hoffman2014">2014</a>)</span> 提出。与 Stan 有相似功能的软件 BUGS 和 JAGS 主要采用的是 Gibbs 采样器，前者基于 Pascal 语言开发于 1989 年至 2004 年，后者基于 C++ 活跃开发于 2007 年至 2013 年。在时间上， Stan 具有后发优势，特别在灵活性和扩展性方面，它支持任意的目标函数，模型语言也更加简单易于推广学习，其每一行都是命令式的语句，而 BUGS 和 JAGS 采用声明式；在大量数据的建模分析中， Stan 可以更快地处理复杂模型，这一部分归功于它高效的算法实现和内存管理，另一部分在于高级的 MCMC 算法 — 带 NUTS 采样器的 HMC 算法。</p>
-<p>Donald B. Rubin (1981年) <span class="citation">(Rubin <a href="#ref-Rubin1981">1981</a>)</span> 分析了 Donald L. Alderman 和 Donald E. Powers <span class="citation">(Alderman and Powers <a href="#ref-Alderman1980">1980</a>)</span> 收集的原始数据，得出表 <a href="prepare.html#tab:eight-high-schools">2.3</a>， Andrew Gelman 和 John B. Carlin 等 (2003年) <span class="citation">(Gelman et al. <a href="#ref-Gelman2003">2003</a>)</span> 建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 分析 Eight Schools 数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了 8 所高中，学生的成绩作为培训效应的估计 <span class="math inline">\(y_j\)</span>，其样本方差 <span class="math inline">\(\sigma^2_j\)</span>，数据集见表 <a href="prepare.html#tab:eight-high-schools">2.3</a>。这里再次以该数据集和模型为例介绍 Stan 的使用。</p>
+<p>在上世纪 40~50 年代，由梅特罗波利斯 （Nicholas Metropolis），冯<span class="math inline">\(\cdot\)</span>诺依曼 （John von Neumann） 和乌拉姆 （Stanislaw Ulam） 创立蒙特卡罗方法，为了纪念乌拉姆，Stan 就以他的名字命名。Stan 是一门基于 C++ 的概率编程语言，主要用于贝叶斯推断，它的代码完全<a href="http://mc-stan.org/">开源</a>的，托管在 <a href="https://github.com/stan-dev/stan">Github</a> 上，自 2012 年 8 月 30 日发布第一个 1.0 版本以来，截至写作时间已发布 33 个版本，目前最新版本是 2.18.0。使用 Stan，用户需提供数据、Stan 代码写的脚本模型，编译 Stan 写的程序，然后与数据一起运行，模型参数的后验模拟过程是自动实现的。除了可以在命令行环境下编译运行 Stan 脚本中写模型外，Stan 还提供其他编程语言的接口，如 R、Python、Matlab、Mathematica、Julia 等等，这使得熟悉其他编程语言的用户可以方便地调用和分析数据。但是，与 Python、R等 这类解释型编程语言不同， Stan 代码需要先翻译成 C++ 代码，然后使用系统编译器 （如 GCC） 编译，若使用 R 语言接口，编译后的动态链接库可以载入 R 内存中，再被其他 R 函数调用执行。</p>
+<p>随机模拟的前提是有能产生高质量高效的伪随机数发生器，只有周期长，生成速度快，能通过一系列统计检验的伪随机数才能用作统计模拟，Stan 内置了 Mersenne-Twister 发生器，它的周期长达 <span class="math inline">\(2^{19937}-1\)</span>，通过了一系列严格的检验，被广泛采用到现代软件中，如 Octave 和 Matlab 等 <span class="citation">(黄湘云 <a href="#ref-Huang2017COS">2017</a>)</span>。除了 Mersenne Twister 随机数发生器，Stan 还使用了 <a href="https://www.boost.org/">Boost C++</a> 和 <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen C++</a> 等模版库用于线性代数计算，这样的底层设计路线使得 Stan 的运算效率很高。</p>
+<p>Stan 内置的采样器 No-U-Turn （简称 NUTS） 源于汉密尔顿蒙特卡罗算法 （Hamiltonian Monte Carlo，简称 HMC），最早由 Hoffman 和 Gelman （2014年） <span class="citation">(Hoffman and Gelman <a href="#ref-hoffman2014">2014</a>)</span> 提出。与 Stan 有相似功能的软件 BUGS 和 JAGS 主要采用的是 Gibbs 采样器，前者基于 Pascal 语言开发于 1989 年至 2004 年，后者基于 C++ 活跃开发于 2007 年至 2013 年。在时间上， Stan 具有后发优势，特别在灵活性和扩展性方面，它支持任意的目标函数，模型语言也更加简单易于推广学习，其每一行都是命令式的语句，而 BUGS 和 JAGS 采用声明式；在大量数据的建模分析中， Stan 可以更快地处理复杂模型，这一部分归功于它高效的算法实现和内存管理，另一部分在于高级的 MCMC 算法 — 带 NUTS 采样器的 HMC 算法。</p>
+<p>Rubin （1981年） <span class="citation">(Rubin <a href="#ref-Rubin1981">1981</a>)</span> 分析了 Alderman 和 Powers <span class="citation">(Alderman and Powers <a href="#ref-Alderman1980">1980</a>)</span> 收集的原始数据，得出表 <a href="prepare.html#tab:eight-high-schools">2.3</a>， Gelman 和 Carlin 等 （2003年） <span class="citation">(Gelman et al. <a href="#ref-Gelman2003">2003</a>)</span> 建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 分析 Eight Schools 数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了 8 所高中，学生的成绩作为培训效应的估计 <span class="math inline">\(y_j\)</span>，其样本方差 <span class="math inline">\(\sigma^2_j\)</span>，数据集见表 <a href="prepare.html#tab:eight-high-schools">2.3</a>。这里再次以该数据集和模型为例介绍 Stan 的使用。</p>
 <table>
 <caption><span id="tab:eight-high-schools">表 2.3: </span> Eight Schools 数据集</caption>
 <thead>
@@ -677,9 +677,9 @@ model {
   target += normal_lpdf(y | theta, sigma); // target distribution
   // y ~ normal(theta, sigma);
 }</code></pre>
-<p>上述 Stan 代码的第一段提供数据：学校的数目 <span class="math inline">\(J\)</span>，估计值 <span class="math inline">\(y_1,\ldots,y_{J}\)</span>，标准差 <span class="math inline">\(\sigma_1,\ldots,\sigma_{J}\)</span>，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 <span class="math inline">\(J\)</span> 限制为非负， <span class="math inline">\(\sigma_{J}\)</span> 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 <span class="math inline">\(\theta_j\)</span>，均值 <span class="math inline">\(\mu\)</span>，标准差 <span class="math inline">\(\tau\)</span>，学校水平上的误差 <span class="math inline">\(\eta\)</span> 和效应 <span class="math inline">\(\theta\)</span>。在这个模型中，用 <span class="math inline">\(\mu,\tau,\eta\)</span> 表示 <span class="math inline">\(\theta\)</span> 而不是直接声明 <span class="math inline">\(\theta\)</span> 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 <span class="math inline">\(N(\cdot,\cdot)\)</span> 中后一个位置是方差，而 Stan 代码中使用的是标准差。<code>target += normal_lpdf(y | theta, sigma)</code> 和 <code>y ~ normal(theta, sigma)</code> 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响 <span class="citation">(Carpenter et al. <a href="#ref-Stan2017JSS">2017</a>)</span>。</p>
+<p>上述 Stan 代码的第一段提供数据：学校的数目 <span class="math inline">\(J\)</span>，估计值 <span class="math inline">\(y_1,\ldots,y_{J}\)</span>，标准差 <span class="math inline">\(\sigma_1,\ldots,\sigma_{J}\)</span>，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 <span class="math inline">\(J\)</span> 限制为非负， <span class="math inline">\(\sigma_{J}\)</span> 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 <span class="math inline">\(\theta_j\)</span>，均值 <span class="math inline">\(\mu\)</span>，标准差 <span class="math inline">\(\tau\)</span>，学校水平上的误差 <span class="math inline">\(\eta\)</span> 和效应 <span class="math inline">\(\theta\)</span>。在这个模型中，用 <span class="math inline">\(\mu,\tau,\eta\)</span> 表示 <span class="math inline">\(\theta\)</span> 而不是直接声明 <span class="math inline">\(\theta\)</span> 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 <span class="math inline">\(\mathcal{N}(\cdot,\cdot)\)</span> 中后一个位置是方差，而 Stan 代码中使用的是标准差。<code>target += normal_lpdf(y | theta, sigma)</code> 和 <code>y ~ normal(theta, sigma)</code> 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响 <span class="citation">(Carpenter et al. <a href="#ref-Stan2017JSS">2017</a>)</span>。</p>
 <p>算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680 处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本 2.17.3。算法参数设置了 4 条迭代链，每条链迭代 10000 次，为复现模型结果随机数种子设为 2018。</p>
-<p>分层正态模型<a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 的参数 <span class="math inline">\(\mu,\tau\)</span>，及其参数化引入的中间参数 <span class="math inline">\(\eta_i,\theta_i,i=1,\ldots,8\)</span>，还有对数后验 <span class="math inline">\(lp\_\_\)</span> 的估计值见表 <a href="prepare.html#tab:eight-schools-output">2.4</a>。</p>
+<p>分层正态模型<a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 的参数 <span class="math inline">\(\mu,\tau\)</span>，及其参数化引入的中间参数 <span class="math inline">\(\eta_i,\theta_i,i=1,\ldots,8\)</span>，还有对数后验 <span class="math inline">\(\mathrm{lp}\_\_\)</span> 的估计值见表 <a href="prepare.html#tab:eight-schools-output">2.4</a>。</p>
 <table>
 <caption><span id="tab:eight-schools-output">表 2.4: </span> 对 Eight Schools 数据集建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a>，采用 HMC 算法估计模型各参数值</caption>
 <thead>
@@ -947,33 +947,33 @@ model {
 </tr>
 </tbody>
 </table>
-<p>表 <a href="prepare.html#tab:eight-schools-output">2.4</a> 的列为后验量的估计值：依次是后验均值 <span class="math inline">\(\mathsf{E}(\mu|Y)\)</span>、 蒙特卡罗标准误(Monte Carlo standard error)、后验标准差 (standard deviation) <span class="math inline">\(\mathsf{E}(\sigma|Y)\)</span> 、后验分布的 5 个分位点、有效样本数 <span class="math inline">\(n_{eff}\)</span> 和潜在尺度缩减因子 (potential scale reduction factor)，最后两个量 用来分析采样效率和评估迭代序列的平稳性；最后一行表示每次迭代的未正则的对数后验密度 (unnormalized log-posterior density) <span class="math inline">\(\hat{R}\)</span>，当链条都收敛到同一平稳分布的时候，<span class="math inline">\(\hat{R}\)</span> 接近 1。</p>
-<p>这里对 <span class="math inline">\(\tau\)</span> 采用的非信息先验是均匀先验，参数 <span class="math inline">\(\tau\)</span> 的 95% 的置信区间是 (0.22,20.5)， 数据支持 <span class="math inline">\(\tau\)</span> 的范围低于 20.5。</p>
+<p>表 <a href="prepare.html#tab:eight-schools-output">2.4</a> 的列为后验量的估计值：依次是后验均值 <span class="math inline">\(\mathsf{E}(\mu|Y)\)</span>、 蒙特卡罗标准误（Monte Carlo standard error）、后验标准差 （standard deviation） <span class="math inline">\(\mathsf{E}(\sigma|Y)\)</span> 、后验分布的 5 个分位点、有效样本数 <span class="math inline">\(n_{eff}\)</span> 和潜在尺度缩减因子 （potential scale reduction factor），最后两个量 用来分析采样效率和评估迭代序列的平稳性；最后一行表示每次迭代的未正则的对数后验密度 （unnormalized log-posterior density） <span class="math inline">\(\hat{R}\)</span>，当链条都收敛到同一平稳分布的时候，<span class="math inline">\(\hat{R}\)</span> 接近 1。</p>
+<p>这里对 <span class="math inline">\(\tau\)</span> 采用的非信息先验是均匀先验，参数 <span class="math inline">\(\tau\)</span> 的 95% 的置信区间是 <span class="math inline">\((0.22,20.5)\)</span>， 数据支持 <span class="math inline">\(\tau\)</span> 的范围低于 20.5。</p>
 <div class="figure" style="text-align: center"><span id="fig:posterior-mu-tau"></span>
 <img src="figures/posterior_mu_tau.png" alt="对 $\mu,\tau$ 给定均匀先验，后验均值 $\mu$ 和标准差 $\tau$ 的直方图" width="70%" />
 <p class="caption">
 图 2.2: 对 <span class="math inline">\(\mu,\tau\)</span> 给定均匀先验，后验均值 <span class="math inline">\(\mu\)</span> 和标准差 <span class="math inline">\(\tau\)</span> 的直方图
 </p>
 </div>
-<p>为了得到可靠的后验估计，做出合理的推断，诊断序列的平稳性是必不可少的部分，前 5000 次迭代作为 warm-up 阶段，后 5000 次迭代用作参数的推断，图 <a href="prepare.html#fig:posterior-mu-tau">2.2</a> (a) 给出 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\log(\tau)\)</span> 的迭代序列图，其中橘黄色线分别是对应的后验均值(表 <a href="prepare.html#tab:eight-schools-output">2.4</a>的第一列)，图 <a href="prepare.html#fig:posterior-mu-tau">2.2</a> (b) 分别给出 <span class="math inline">\(\log(\tau)\)</span> 的蒙特卡罗误差，图中显示随着迭代次数增加，蒙特卡罗误差趋于稳定，说明参数 <span class="math inline">\(\tau\)</span> 的迭代序列达到平稳分布，即迭代点列可以看作来自参数的后验分布的样本。</p>
+<p>为了得到可靠的后验估计，做出合理的推断，诊断序列的平稳性是必不可少的部分，前 5000 次迭代作为 warm-up 阶段，后 5000 次迭代用作参数的推断，图 <a href="prepare.html#fig:posterior-mu-tau">2.2</a> (a) 给出 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\log(\tau)\)</span> 的迭代序列图，其中橘黄色线分别是对应的后验均值（表 <a href="prepare.html#tab:eight-schools-output">2.4</a>的第一列），图 <a href="prepare.html#fig:posterior-mu-tau">2.2</a> (b) 分别给出 <span class="math inline">\(\log(\tau)\)</span> 的蒙特卡罗误差，图中显示随着迭代次数增加，蒙特卡罗误差趋于稳定，说明参数 <span class="math inline">\(\tau\)</span> 的迭代序列达到平稳分布，即迭代点列可以看作来自参数的后验分布的样本。</p>
 <div class="figure" style="text-align: center"><span id="fig:diagnostic"></span>
 <img src="figures/trace_mu_log_tau.png" alt="诊断参数$\mu,\log(\tau)$迭代序列的平稳性" width="70%" /><img src="figures/mcmc_mean_tau_div.png" alt="诊断参数$\mu,\log(\tau)$迭代序列的平稳性" width="70%" />
 <p class="caption">
 图 2.3: 诊断参数<span class="math inline">\(\mu,\log(\tau)\)</span>迭代序列的平稳性
 </p>
 </div>
-<p>为了评估链条之间和内部的混合效果， Andrew Gelman 等 <span class="citation">(Gelman et al. <a href="#ref-Gelman2013R">2013</a>)</span> 提出引入潜在尺度缩减因子 (potential scale reduction factor) <span class="math inline">\(\hat{R}\)</span> 描述链条的波动程度，类似一组数据的方差含义，方差越小波动性越小，数据越集中，这里意味着链条波动性小。一般地，对于每个待估的量 <span class="math inline">\(\omega\)</span>，模拟产生 <span class="math inline">\(m\)</span> 条链，每条链有 <span class="math inline">\(n\)</span> 次迭代值 <span class="math inline">\(\omega_{ij} (i = 1,\ldots,n;j=1,\ldots,m)\)</span>，用 <span class="math inline">\(B\)</span> 和 <span class="math inline">\(W\)</span> 分别表示链条之间（不妨看作组间方差）和内部的方差（组内方差）</p>
+<p>为了评估链条之间和内部的混合效果，Gelman 等 <span class="citation">(Gelman et al. <a href="#ref-Gelman2013R">2013</a>)</span> 使用潜在尺度缩减因子 （potential scale reduction factor） <span class="math inline">\(\hat{R}\)</span> 描述链条的波动程度，类似一组数据的方差含义，方差越小波动性越小，数据越集中，这里意味着链条波动性小。一般地，对于每个待估的量 <span class="math inline">\(\omega\)</span>，模拟产生 <span class="math inline">\(m\)</span> 条链，每条链有 <span class="math inline">\(n\)</span> 次迭代值 <span class="math inline">\(\omega_{ij} (i = 1,\ldots,n;j=1,\ldots,m)\)</span>，用 <span class="math inline">\(B\)</span> 和 <span class="math inline">\(W\)</span> 分别表示链条之间（不妨看作组间方差）和内部的方差（组内方差）</p>
 <p><span class="math display" id="eq:potential-scale-reduction">\[\begin{equation}
 \begin{aligned}
 &amp; B = \frac{n}{m-1}\sum_{j=1}^{m}(\bar{\omega}_{.j} - \bar{\omega}_{..} ), \quad \bar{\omega}_{.j} = \frac{1}{n}\sum_{i=1}^{n}\omega_{ij}, \quad \bar{\omega}_{..} = \frac{1}{m}\sum_{j=1}^{m} \bar{\omega}_{.j}\\
 &amp; W = \frac{1}{m}\sum_{j=1}^{m}s^{2}_{j}, \quad s^{2}_{j} = \frac{1}{n-1}\sum_{i=1}^{n}(\omega_{ij} - \bar{\omega}_{.j})^2
 \end{aligned} \tag{2.12}
 \end{equation}\]</span></p>
-<p><span class="math inline">\(\omega\)</span> 的边际后验方差 <span class="math inline">\(\mathsf{\omega|Y}\)</span> 是 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(B\)</span> 的加权平均</p>
+<p><span class="math inline">\(\omega\)</span> 的后验边际方差 <span class="math inline">\(\omega|Y\)</span> 是 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(B\)</span> 的加权平均</p>
 <p><span class="math display">\[\begin{equation}
 \widehat{\mathsf{Var}}^{+}(\omega|Y) = \frac{n-1}{n} W + \frac{1}{n} B 
 \end{equation}\]</span></p>
-<p>当初始分布发散 (overdispersed) 时，这个量会高估边际后验方差，但在链条平稳或 <span class="math inline">\(n \to \infty\)</span> 时，它是无偏的。同时，对任意有限的 <span class="math inline">\(n\)</span>，组内方差 <span class="math inline">\(W\)</span> 应该会低估 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>，因为单个链条没有时间覆盖目标分布；在 <span class="math inline">\(n \to \infty\)</span>， <span class="math inline">\(W\)</span> 的期望会是 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>。</p>
+<p>当初始分布发散 （overdispersed） 时，这个量会高估边际后验方差，但在链条平稳或 <span class="math inline">\(n \to \infty\)</span> 时，它是无偏的。同时，对任意有限的 <span class="math inline">\(n\)</span>，组内方差 <span class="math inline">\(W\)</span> 应该会低估 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>，因为单个链条没有时间覆盖目标分布；在 <span class="math inline">\(n \to \infty\)</span>， <span class="math inline">\(W\)</span> 的期望会是 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>。</p>
 <p>通过迭代序列采集的样本估计 <span class="math inline">\(\hat{R}\)</span> 以检测链条的收敛性</p>
 <p><span class="math display">\[\begin{equation}
 \hat{R} = \sqrt{\frac{\widehat{\mathsf{Var}}^{+}(\omega|Y)}{W}}
