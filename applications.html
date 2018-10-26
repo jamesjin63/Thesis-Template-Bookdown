@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-24">
+<meta name="date" content="2018-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,8 +193,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录</a><ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#tables-simulations"><i class="fa fa-check"></i>表格</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-plot"><i class="fa fa-check"></i>图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-code"><i class="fa fa-check"></i>代码</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#Interactive-Web-Maps"><i class="fa fa-check"></i>交互图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compileinfo"><i class="fa fa-check"></i>编译信息</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#hardwareinfo"><i class="fa fa-check"></i>硬件环境</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sysinfo"><i class="fa fa-check"></i>系统环境</a></li>
@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>第<a href="applications.html#sec:spatial-random-effects">6.1</a>节基于小麦产量数据建立空间线性混合效应模型，以 R 软件和相关 R 包为工具，介绍空间统计建模分析的过程，特别是诊断和添加空间随机效应的分析方法和模型参数初值的确定方式。这个分析方法和初值的确定方式具有普适性，对于更复杂的空间广义线性混合效应模型也是适用的。第<a href="applications.html#case-rongelap">6.2</a>节建立响应变量服从泊松分布的空间广义线性混合效应模型分析一个真实数据集 rongelap。rongelap 数据集目前由 Christensen 维护在 R 包 geoRglm 里，曾被 Diggle 等 （1998年） <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span> 、Christensen （2004年） <span class="citation">(Christensen <a href="#ref-Christensen2004">2004</a>)</span> 和 Ribeiro 和 Bonat （2016年） <span class="citation">(Bonat and Ribeiro Jr. <a href="#ref-Bonat2016Practical">2016</a>)</span> 分析过，第 <a href="applications.html#case-rongelap">6.2</a> 节首先分别基于第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:MCML">4.3.2</a>小节介绍的蒙特卡罗极大似然算法和第<a href="algorithms.html#subsec:LA">4.3.1</a>小节介绍的拉普拉斯近似算法估计泊松型空间广义线性混合效应模型的参数，与他们不同的是，这里进一步根据不同的初始值观察迭代陷入局部极值点或者由于似然曲面太平坦致使迭代终止的情况，因此提出结合第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#sec:profile-likelihood">4.2</a>节介绍的剖面似然函数的想法，借助剖面似然函数轮廓来确定更加合适的初值。</p>
 <div id="sec:spatial-random-effects" class="section level2">
 <h2><span class="header-section-number">6.1</span> 小麦产量的空间分布</h2>
-<p>Stroup 和 Baenziger （1994年） <span class="citation">(Stroup and Baenziger <a href="#ref-Stroup1994">1994</a>)</span> 采用完全随机的区组设计研究小麦产量与品种等因素的关系，在 4 块肥力不同的地里都随机种植了 56 种不同的小麦， 实验记录了小麦产量、品种、位置以及土地肥力等数据， Pinheiro 和 Bates （2000年） <span class="citation">(Pinheiro and Bates <a href="#ref-Pinheiro2000">2000</a>)</span> 将该数据集命名为 Wheat2 ，整理后放在 nlme 包里。 这里利用该真实的农业生产数据构建带空间效应的线性混合效应模型，详述选初值、诊断和添加空间效应的过程。</p>
+<p>Stroup 和 Baenziger （1994年） <span class="citation">(Stroup and Baenziger <a href="#ref-Stroup1994">1994</a>)</span> 采用完全随机的区组设计研究小麦产量与品种等因素的关系，在 4 块肥力不同的地里都随机种植了 56 种不同的小麦， 实验记录了小麦产量、品种、位置以及土地肥力等数据， Pinheiro 和 Bates （2000年） <span class="citation">(Pinheiro and Bates <a href="#ref-Pinheiro2000">2000</a>)</span> 将该数据集命名为 Wheat2 ，整理后放在 nlme 包里。 利用该真实的农业生产数据构建带空间效应的线性混合效应模型，与上述文献不同的是详述选初值、诊断和添加空间效应的过程。</p>
 <div class="figure" style="text-align: center"><span id="fig:yields-block"></span>
 <img src="figures/Yields-Block.png" alt="小麦产量与土壤肥力的关系，图中纵轴表示试验田的4种类型，且土壤肥力强弱顺序是 1 &gt; 2 &gt; 3 &gt; 4，横轴表示小麦产量，每块试验田都种植了 56 种小麦，图中分别以不同的颜色标识，图上方是小麦类型的编号" width="70%" />
 <p class="caption">
@@ -244,7 +244,7 @@ y_{ij} = \tau_i + \epsilon_{ij}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\m
 图 6.2: 样本变差散点图，横坐标是小麦之间的欧氏距离，纵坐标是样本变差，图中的平滑线根据局部多项式拟合的方法添加，用以估计样本变差的大致趋势
 </p>
 </div>
-<p>图 <a href="applications.html#fig:yields-variogram">6.2</a> 显示样本变差随空间距离有明显的增长趋势，可见空间随机效应明显，根据第<a href="models.html#models">3</a>章第<a href="models.html#subsec:covariance-function">3.4.2</a>小节，可以有理由地估计块金效应<span class="math inline">\(\tau^2\)</span>大约是 0.2，参数 <span class="math inline">\(\phi\)</span> 可由样本变差为 1 对应的空间距离来初步估计，图<a href="applications.html#fig:yields-variogram">6.2</a>显示该值大约是 31。 图中的平滑曲线是 局部多项式回归拟合的结果，也可以用局部加权回归拟合的平滑法来确定初值 <span class="citation">(谢益辉 <a href="#ref-Xie2008COS">2008</a>)</span>。上述图示分析，首先采用球性自相关函数拟合这组数据中的空间结构。考虑空间效应后，采用 <code>gls</code> 函数提供的限制极大似然法 （Restricted Maximum Likelihood Estimation， 简称 REML） 拟合模型<a href="applications.html#eq:extended-linear-model">(6.1)</a>，与第<a href="prepare.html#prepare">2</a>章第<a href="prepare.html#sec:def-mle">2.3</a>节介绍的极大似然估计相比，它对方差分量的估计偏差更小一些<span class="citation">(Peter J. Diggle and Ribeiro Jr. <a href="#ref-Diggle2007">2007</a>)</span>，适合估计线性混合效应模型的参数，<code>gls</code> 还支持不同类型的空间自相关函数，因此继续探索球型和二次有理型自相关函数<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>对模型拟合结果的影响。</p>
+<p>图 <a href="applications.html#fig:yields-variogram">6.2</a> 显示样本变差随空间距离有明显的增长趋势，可见空间随机效应明显，根据第<a href="models.html#models">3</a>章第<a href="models.html#subsec:covariance-function">3.4.2</a>小节，可以有理由地估计块金效应<span class="math inline">\(\tau^2\)</span>大约是 0.2，参数 <span class="math inline">\(\phi\)</span> 可由样本变差为 1 对应的空间距离来初步估计，图<a href="applications.html#fig:yields-variogram">6.2</a>显示该值大约是 31。 图中的平滑曲线是 局部多项式回归拟合的结果，也可以用局部加权回归拟合的平滑法来确定初值 <span class="citation">(谢益辉 <a href="#ref-Xie2008COS">2008</a>)</span>。上述图示分析，首先采用球性自相关函数拟合这组数据中的空间结构。考虑空间效应后，采用 <code>gls</code> 函数提供的限制极大似然法 （Restricted Maximum Likelihood Estimation， 简称 REML） 拟合模型<a href="applications.html#eq:extended-linear-model">(6.1)</a>，与第<a href="prepare.html#prepare">2</a>章第<a href="prepare.html#sec:def-mle">2.3</a>节介绍的极大似然估计相比，它对方差分量的估计偏差更小一些<span class="citation">(Peter J. Diggle and Ribeiro Jr., <a href="#ref-Diggle2007">n.d.</a>)</span>，适合估计线性混合效应模型的参数，<code>gls</code> 还支持不同类型的空间自相关函数，因此继续探索球型和二次有理型自相关函数<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>对模型拟合结果的影响。</p>
 <table>
 <caption><span id="tab:yields-model-compare">表 6.1: </span> 以小麦数据为例估计空间线性混合效应模型的参数，比较不同初值和自协方差函数对模型拟合效果的影响，表中<span class="math inline">\(\phi_0,\tau^2_{0},\sigma^2_{0}\)</span>和<span class="math inline">\(\hat{\phi},\hat{\tau}^2,\hat{\sigma}^2\)</span>分别是模型<a href="applications.html#eq:extended-linear-model">(6.1)</a>参数<span class="math inline">\(\phi,\tau^2,\sigma^2\)</span>的初值和估计值</caption>
 <colgroup>
@@ -317,7 +317,23 @@ y_{ij} = \tau_i + \epsilon_{ij}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\m
 </p>
 </div>
 <p>根据 <span class="math inline">\({}^{137}\mathrm{Cs}\)</span> 放出的伽马射线在 <span class="math inline">\(N=157\)</span> 站点不同时间间隔的放射量， 建立泊松广义线性混合效应模型 <a href="applications.html#eq:rongelap-with-nugget-effect">(6.3)</a>。模型<a href="applications.html#eq:rongelap-with-nugget-effect">(6.3)</a>中，<span class="math inline">\(\beta\)</span> 是截距， 放射粒子数作为响应变量服从强度为 <span class="math inline">\(\lambda(x_i)\)</span> 的泊松分布，即 <span class="math inline">\(Y_{i} \sim \mathrm{Poisson}( \lambda(x_i) )\)</span>，平稳空间高斯过程 <span class="math inline">\(S(x),x \in \mathbb{R}^2\)</span>的自协方差函数为 <span class="math inline">\(\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )\)</span>，且 <span class="math inline">\(Z_i\)</span> 之间相互独立同正态分布 <span class="math inline">\(\mathcal{N}(0,\tau^2)\)</span>，这里 <span class="math inline">\(i = 1,\ldots, 157\)</span>。</p>
-<p>蒙特卡罗极大似然算法迭代的初值 <span class="math inline">\(\beta_{0} = 6.2,\sigma^2_{0} = 2.40,\phi_{0} = 340,\tau^2_{rel} = 2.074\)</span>，模拟次数为 30000 次，前 10000 次迭代视为预热阶段 (warm-up)，其后每隔 20 次迭代采一个样本点，即存储模型各参数的迭代值，每个参数获得1000次迭代值。蒙特卡罗模拟平稳空间高斯过程 <span class="math inline">\(S(x)\)</span> 关于响应变量<span class="math inline">\(Y\)</span>的条件分布时，使用了第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#sec:MCMC">4.3.3</a>节介绍的 Langevin-Hastings 算法 <span class="citation">(Papaspiliopoulos <a href="#ref-Omiros2003">2003</a>)</span>，157 个站点意味着有 157 个条件分布需要模拟，共产生 157个迭代链，每条链需保持平稳才可用于模型参数的推断，因此需要先检验每条链的平稳性，可以采用自相关图和时序图来检验，篇幅所限，取部分站点展示，见附图<a href="appendix.html#fig:rongelap-trace-plot">7.1</a> 和图 <a href="appendix.html#fig:rongelap-acf-plot">7.2</a>，经观察157个站点处的<span class="math inline">\(S_i\)</span>的迭代点列没有出现不平稳的现象。</p>
+<p>蒙特卡罗极大似然算法迭代的初值 <span class="math inline">\(\beta_{0} = 6.2,\sigma^2_{0} = 2.40,\phi_{0} = 340,\tau^2_{rel} = 2.074\)</span>，模拟次数为 30000 次，前 10000 次迭代视为预热阶段 (warm-up)，其后每隔 20 次迭代采一个样本点，即存储模型各参数的迭代值，每个参数获得1000次迭代值。蒙特卡罗模拟平稳空间高斯过程 <span class="math inline">\(S(x)\)</span> 关于响应变量<span class="math inline">\(Y\)</span>的条件分布时，使用了第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#sec:MCMC">4.3.3</a>节介绍的 Langevin-Hastings 算法 <span class="citation">(Papaspiliopoulos <a href="#ref-Omiros2003">2003</a>)</span>，157 个站点意味着有 157 个条件分布需要模拟，共产生 157个迭代链，每条链需保持平稳才可用于模型参数的推断，因此需要先检验每条链的平稳性，可以采用自相关图和时序图来检验，篇幅所限，取部分站点展示，见图<a href="applications.html#fig:rongelap-trace-plot">6.5</a> 和图 <a href="applications.html#fig:rongelap-acf-plot">6.6</a>，经观察157个站点处的<span class="math inline">\(S_i\)</span>的迭代点列没有出现不平稳的现象。</p>
+<div class="figure" style="text-align: center"><span id="fig:rongelap-trace-plot"></span>
+<img src="figures/rongelap-mcml-diagnosis-trace-9.png" alt="Langevin-Hastings 算法模拟条件分布 \([S(x_{i})|Y_{i}], i = 1,\ldots,4\)，\([\cdot]\) 表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布" width="70%" />
+<p class="caption">
+图 6.5: Langevin-Hastings 算法模拟条件分布 <span class="math inline">\([S(x_{i})|Y_{i}], i = 1,\ldots,4\)</span>，<span class="math inline">\([\cdot]\)</span> 表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布
+</p>
+</div>
+<p>从图 <a href="applications.html#fig:rongelap-trace-plot">6.5</a> 可以看出迭代序列符合平稳性的特征。</p>
+<div class="figure" style="text-align: center"><span id="fig:rongelap-acf-plot"></span>
+<img src="figures/rongelap-mcml-diagnosis-acf-9.png" alt="条件分布 \([S(x_{i})|Y_{i}], i = 1, \ldots, 4\) 的采样序列的自相关图" width="70%" />
+<p class="caption">
+图 6.6: 条件分布 <span class="math inline">\([S(x_{i})|Y_{i}], i = 1, \ldots, 4\)</span> 的采样序列的自相关图
+</p>
+</div>
+<p>从图 <a href="applications.html#fig:rongelap-acf-plot">6.6</a> 可以看出迭代序列满足马尔科夫性，没有明显的延迟相关性。</p>
+
+
 <table>
 <caption><span id="tab:rongelap-mcml-result">表 6.2: </span> 拉普拉斯近似算法（简记LAL）和蒙特卡罗极大似然算法（简记MCL）估计模型 <a href="applications.html#eq:rongelap-with-nugget-effect">(6.3)</a> 的参数，以第4行为例，块金效应的估计值应为 <span class="math inline">\(\hat{\tau}^2 = \hat{\sigma}^{2} \times \hat{\tau}^2_{rel} = 4.929\)</span></caption>
 <colgroup>
@@ -365,14 +381,14 @@ y_{ij} = \tau_i + \epsilon_{ij}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\m
 </tr>
 </tbody>
 </table>
-<p>表 <a href="applications.html#tab:rongelap-mcml-result">6.2</a> 中括号内表示相应参数的初值，第 2 行是基于第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节 介绍的拉普拉斯近似算法获得的结果，第 3 行基于蒙特卡罗极大似然算法获得的结果，其初值选择和拉普拉斯近似算法一致，第 4 行先根据剖面似然轮廓图<a href="applications.html#fig:profile-phi-tausq">6.5</a>确定初值，然后根据蒙特卡罗极大似然算法获得参数估计值。第6列是最终参数估计值处的对数似然函数值，由于两个算法所采用的方法不同，前者采用拉普拉斯近似似然函数中的高维积分，并且扔掉了似然函数中的正则常数，后者采用蒙特卡罗模拟计算高维积分，所以对数似然函数值差别很大，两种算法之间不能以这个比较算法优劣。表<a href="applications.html#tab:rongelap-mcml-result">6.2</a>第3和第4行的设置是同种算法不同初始值的比较，可以比较最终的似然函数值，后者初值选得好，对数似然函数值更大，同时结合图 <a href="applications.html#fig:profile-phi-tausq">6.5</a> 有理由怀疑前一组初值使得最终的迭代陷入一个局部极值点或者由于似然曲面太平坦致使迭代停止。</p>
+<p>表 <a href="applications.html#tab:rongelap-mcml-result">6.2</a> 中括号内表示相应参数的初值，第 2 行是基于第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节 介绍的拉普拉斯近似算法获得的结果，第 3 行基于蒙特卡罗极大似然算法获得的结果，其初值选择和拉普拉斯近似算法一致，第 4 行先根据剖面似然轮廓图<a href="applications.html#fig:profile-phi-tausq">6.7</a>确定初值，然后根据蒙特卡罗极大似然算法获得参数估计值。第6列是最终参数估计值处的对数似然函数值，由于两个算法所采用的方法不同，前者采用拉普拉斯近似似然函数中的高维积分，并且扔掉了似然函数中的正则常数，后者采用蒙特卡罗模拟计算高维积分，所以对数似然函数值差别很大，两种算法之间不能以这个比较算法优劣。表<a href="applications.html#tab:rongelap-mcml-result">6.2</a>第3和第4行的设置是同种算法不同初始值的比较，可以比较最终的似然函数值，后者初值选得好，对数似然函数值更大，同时结合图 <a href="applications.html#fig:profile-phi-tausq">6.7</a> 有理由怀疑前一组初值使得最终的迭代陷入一个局部极值点或者由于似然曲面太平坦致使迭代停止。</p>
 <div class="figure" style="text-align: center"><span id="fig:profile-phi-tausq"></span>
-<img src="figures/profile-phitausq.png" alt="泊松型空间广义线性混合效应模型 (6.3) 关于 \(\phi\) 和相对块金效应 \(\tau^2_{rel} = \tau^2 / \sigma^2\) 的剖面似然函数曲面，平稳空间高斯过程 \(S(x)\) 的自协方差函数选用指数型 \(\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )\)，剖面似然函数值由 geoRglm 包提供的 proflik.glsm 函数计算" width="65%" />
+<img src="figures/profile-phitausq.png" alt="泊松型空间广义线性混合效应模型 (6.3) 关于 \(\phi\) 和相对块金效应 \(\tau^2_{rel} = \tau^2 / \sigma^2\) 的剖面似然函数轮廓，平稳空间高斯过程 \(S(x)\) 的自协方差函数选用指数型 \(\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )\)，剖面似然函数值由 geoRglm 包提供的 proflik.glsm 函数计算" width="65%" />
 <p class="caption">
-图 6.5: 泊松型空间广义线性混合效应模型 <a href="applications.html#eq:rongelap-with-nugget-effect">(6.3)</a> 关于 <span class="math inline">\(\phi\)</span> 和相对块金效应 <span class="math inline">\(\tau^2_{rel} = \tau^2 / \sigma^2\)</span> 的剖面似然函数曲面，平稳空间高斯过程 <span class="math inline">\(S(x)\)</span> 的自协方差函数选用指数型 <span class="math inline">\(\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )\)</span>，剖面似然函数值由 geoRglm 包提供的 proflik.glsm 函数计算
+图 6.7: 泊松型空间广义线性混合效应模型 <a href="applications.html#eq:rongelap-with-nugget-effect">(6.3)</a> 关于 <span class="math inline">\(\phi\)</span> 和相对块金效应 <span class="math inline">\(\tau^2_{rel} = \tau^2 / \sigma^2\)</span> 的剖面似然函数轮廓，平稳空间高斯过程 <span class="math inline">\(S(x)\)</span> 的自协方差函数选用指数型 <span class="math inline">\(\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )\)</span>，剖面似然函数值由 geoRglm 包提供的 proflik.glsm 函数计算
 </p>
 </div>
-<p>由表 <a href="applications.html#tab:rongelap-mcml-result">6.2</a> 可知，正如第 <a href="simulations.html#simulations">5</a> 章第 <a href="simulations.html#sec:simulations">5.3</a> 节对蒙特卡罗极大似然算法所指出的那样，必须提供足够接近真值的初值，才能获得好的参数估计。由图 <a href="applications.html#fig:profile-phi-tausq">6.5</a> 不难看出，关于 <span class="math inline">\(\phi\)</span> 和相对块金效应 <span class="math inline">\(\tau^2_{rel}\)</span> 的剖面似然函数曲面类似一个极其狭长的、坡度又平缓的山谷，基于似然的算法对这种类型的问题还没有好的解决办法，目前取多个不同参数初值进行迭代，用迭代值画出剖面似然函数曲面，然后通过观察获得最佳初值。从实践的过程来看，参数初值的组数不宜太多，过多可能会用掉不少计算资源，因为如第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#sec:profile-likelihood">4.2</a>节剖面似然估计所指出的迭代过程，剖面似然函数值的计算涉及空间随机效应的协方差阵的求逆，当空间采样点数目较多时，协方差阵阶数会随着变大，计算会变困难。</p>
+<p>由表 <a href="applications.html#tab:rongelap-mcml-result">6.2</a> 可知，正如第 <a href="simulations.html#simulations">5</a> 章第 <a href="simulations.html#sec:simulations">5.3</a> 节对蒙特卡罗极大似然算法所指出的那样，必须提供足够接近真值的初值，才能获得好的参数估计。由图 <a href="applications.html#fig:profile-phi-tausq">6.7</a> 不难看出，关于 <span class="math inline">\(\phi\)</span> 和相对块金效应 <span class="math inline">\(\tau^2_{rel}\)</span> 的剖面似然函数曲面类似一个极其狭长的、坡度又平缓的山谷，基于似然的算法对这种类型的问题还没有好的解决办法，目前取多个不同参数初值进行迭代，用迭代值画出剖面似然函数曲面，然后通过观察获得最佳初值。从实践的过程来看，参数初值的组数不宜太多，过多可能会用掉不少计算资源，因为如第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#sec:profile-likelihood">4.2</a>节剖面似然估计所指出的迭代过程，剖面似然函数值的计算涉及空间随机效应的协方差阵的求逆，当空间采样点数目较多时，协方差阵阶数会随着变大，计算会变困难。</p>
 
 </div>
 <div id="sec:cases" class="section level2">
@@ -399,10 +415,10 @@ y_{ij} = \tau_i + \epsilon_{ij}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\m
 <p>Pinheiro, Jos C., and Douglas M. Bates. 2000. <em>Mixed-Effects Models in S and S-PLUS</em>. New York, NY: Springer-Verlag.</p>
 </div>
 <div id="ref-Xie2008COS">
-<p>谢益辉. 2008. “用局部加权回归散点平滑法观察二维变量之间的关系.” <a href="https://cosx.org/2008/11/lowess-to-explore-bivariate-correlation-by-yihui" class="uri">https://cosx.org/2008/11/lowess-to-explore-bivariate-correlation-by-yihui</a>.</p>
+<p>谢益辉. 2008. “用局部加权回归散点平滑法观察二维变量之间的关系.” <a href="https://cosx.org/2008/11/lowess-to-explore-bivariate-correlation-by-yihui">https://cosx.org/2008/11/lowess-to-explore-bivariate-correlation-by-yihui</a>.</p>
 </div>
 <div id="ref-Diggle2007">
-<p>Diggle, Peter J., and Paulo J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. New York, NY: Springer-Verlag.</p>
+<p>Diggle, Peter J., and Paulo J. Ribeiro Jr. n.d. <em>Model-Based Geostatistics</em>. New York, NY: Springer-Verlag.</p>
 </div>
 <div id="ref-Omiros2003">
 <p>Papaspiliopoulos, Omiros. 2003. “Non-Centered Parameterisations for Data Augmentation and Hierarchical Models with Applications to Inference for Lèvy-Based Stochastic Volatility Models.” PhD thesis, Lancaster: Lancaster University.</p>
@@ -410,8 +426,8 @@ y_{ij} = \tau_i + \epsilon_{ij}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\m
 </div>
 <div class="footnotes">
 <hr />
-<ol start="4">
-<li id="fn4"><p>详见 R 包 nlme 内函数 corRatio 帮助文档。<a href="applications.html#fnref4" class="footnote-back">↩</a></p></li>
+<ol start="3">
+<li id="fn3"><p>详见 R 包 nlme 内函数 corRatio 帮助文档。<a href="applications.html#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

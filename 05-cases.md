@@ -5,7 +5,7 @@
 
 ## 小麦产量的空间分布 {#sec:spatial-random-effects}
 
-Stroup 和 Baenziger （1994年） [@Stroup1994] 采用完全随机的区组设计研究小麦产量与品种等因素的关系，在 4 块肥力不同的地里都随机种植了 56 种不同的小麦， 实验记录了小麦产量、品种、位置以及土地肥力等数据， Pinheiro 和 Bates （2000年） [@Pinheiro2000] 将该数据集命名为 Wheat2 ，整理后放在 nlme 包里。 这里利用该真实的农业生产数据构建带空间效应的线性混合效应模型，详述选初值、诊断和添加空间效应的过程。
+Stroup 和 Baenziger （1994年） [@Stroup1994] 采用完全随机的区组设计研究小麦产量与品种等因素的关系，在 4 块肥力不同的地里都随机种植了 56 种不同的小麦， 实验记录了小麦产量、品种、位置以及土地肥力等数据， Pinheiro 和 Bates （2000年） [@Pinheiro2000] 将该数据集命名为 Wheat2 ，整理后放在 nlme 包里。 利用该真实的农业生产数据构建带空间效应的线性混合效应模型，与上述文献不同的是详述选初值、诊断和添加空间效应的过程。
 
 \begin{figure}
 
@@ -76,7 +76,32 @@ Table: (\#tab:yields-model-compare) 以小麦数据为例估计空间线性混�
 
 根据 ${}^{137}\mathrm{Cs}$ 放出的伽马射线在 $N=157$ 站点不同时间间隔的放射量， 建立泊松广义线性混合效应模型 \@ref(eq:rongelap-with-nugget-effect)。模型\@ref(eq:rongelap-with-nugget-effect)中，$\beta$ 是截距， 放射粒子数作为响应变量服从强度为 $\lambda(x_i)$ 的泊松分布，即 $Y_{i} \sim \mathrm{Poisson}( \lambda(x_i) )$，平稳空间高斯过程 $S(x),x \in \mathbb{R}^2$的自协方差函数为 $\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )$，且 $Z_i$ 之间相互独立同正态分布 $\mathcal{N}(0,\tau^2)$，这里 $i = 1,\ldots, 157$。
 
-蒙特卡罗极大似然算法迭代的初值 $\beta_{0} = 6.2,\sigma^2_{0} = 2.40,\phi_{0} = 340,\tau^2_{rel} = 2.074$，模拟次数为 30000 次，前 10000 次迭代视为预热阶段 (warm-up)，其后每隔 20 次迭代采一个样本点，即存储模型各参数的迭代值，每个参数获得1000次迭代值。蒙特卡罗模拟平稳空间高斯过程 $S(x)$ 关于响应变量$Y$的条件分布时，使用了第\@ref(algorithms)章第\@ref(sec:MCMC)节介绍的 Langevin-Hastings 算法 [@Omiros2003]，157 个站点意味着有 157 个条件分布需要模拟，共产生 157个迭代链，每条链需保持平稳才可用于模型参数的推断，因此需要先检验每条链的平稳性，可以采用自相关图和时序图来检验，篇幅所限，取部分站点展示，见附图\@ref(fig:rongelap-trace-plot) 和图 \@ref(fig:rongelap-acf-plot)，经观察157个站点处的$S_i$的迭代点列没有出现不平稳的现象。
+蒙特卡罗极大似然算法迭代的初值 $\beta_{0} = 6.2,\sigma^2_{0} = 2.40,\phi_{0} = 340,\tau^2_{rel} = 2.074$，模拟次数为 30000 次，前 10000 次迭代视为预热阶段 (warm-up)，其后每隔 20 次迭代采一个样本点，即存储模型各参数的迭代值，每个参数获得1000次迭代值。蒙特卡罗模拟平稳空间高斯过程 $S(x)$ 关于响应变量$Y$的条件分布时，使用了第\@ref(algorithms)章第\@ref(sec:MCMC)节介绍的 Langevin-Hastings 算法 [@Omiros2003]，157 个站点意味着有 157 个条件分布需要模拟，共产生 157个迭代链，每条链需保持平稳才可用于模型参数的推断，因此需要先检验每条链的平稳性，可以采用自相关图和时序图来检验，篇幅所限，取部分站点展示，见图\@ref(fig:rongelap-trace-plot) 和图 \@ref(fig:rongelap-acf-plot)，经观察157个站点处的$S_i$的迭代点列没有出现不平稳的现象。
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/rongelap-mcml-diagnosis-trace-9} 
+
+}
+
+\caption{(ref:rongelap-trace-plot)}(\#fig:rongelap-trace-plot)
+\end{figure}
+从图 \@ref(fig:rongelap-trace-plot) 可以看出迭代序列符合平稳性的特征。
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/rongelap-mcml-diagnosis-acf-9} 
+
+}
+
+\caption{(ref:rongelap-acf-plot)}(\#fig:rongelap-acf-plot)
+\end{figure}
+
+从图 \@ref(fig:rongelap-acf-plot) 可以看出迭代序列满足马尔科夫性，没有明显的延迟相关性。
+
+(ref:rongelap-trace-plot) Langevin-Hastings 算法模拟条件分布 $[S(x_{i})|Y_{i}], i = 1,\ldots,4$，$[\cdot]$ 表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布
+
+(ref:rongelap-acf-plot) 条件分布 $[S(x_{i})|Y_{i}], i = 1, \ldots, 4$ 的采样序列的自相关图
 
 Table: (\#tab:rongelap-mcml-result) 拉普拉斯近似算法（简记LAL）和蒙特卡罗极大似然算法（简记MCL）估计模型 \@ref(eq:rongelap-with-nugget-effect) 的参数，以第4行为例，块金效应的估计值应为 $\hat{\tau}^2 = \hat{\sigma}^{2} \times \hat{\tau}^2_{rel} = 4.929$
 
@@ -99,7 +124,7 @@ Table: (\#tab:rongelap-mcml-result) 拉普拉斯近似算法（简记LAL）和�
 
 由表 \@ref(tab:rongelap-mcml-result) 可知，正如第 \@ref(simulations) 章第 \@ref(sec:simulations) 节对蒙特卡罗极大似然算法所指出的那样，必须提供足够接近真值的初值，才能获得好的参数估计。由图 \@ref(fig:profile-phi-tausq) 不难看出，关于 $\phi$ 和相对块金效应 $\tau^2_{rel}$ 的剖面似然函数曲面类似一个极其狭长的、坡度又平缓的山谷，基于似然的算法对这种类型的问题还没有好的解决办法，目前取多个不同参数初值进行迭代，用迭代值画出剖面似然函数曲面，然后通过观察获得最佳初值。从实践的过程来看，参数初值的组数不宜太多，过多可能会用掉不少计算资源，因为如第\@ref(algorithms)章第\@ref(sec:profile-likelihood)节剖面似然估计所指出的迭代过程，剖面似然函数值的计算涉及空间随机效应的协方差阵的求逆，当空间采样点数目较多时，协方差阵阶数会随着变大，计算会变困难。
 
-(ref:profile-phi-tausq) 泊松型空间广义线性混合效应模型 \@ref(eq:rongelap-with-nugget-effect) 关于 $\phi$ 和相对块金效应 $\tau^2_{rel} = \tau^2 / \sigma^2$ 的剖面似然函数曲面，平稳空间高斯过程 $S(x)$ 的自协方差函数选用指数型 $\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )$，剖面似然函数值由 geoRglm 包提供的 proflik.glsm 函数计算
+(ref:profile-phi-tausq) 泊松型空间广义线性混合效应模型 \@ref(eq:rongelap-with-nugget-effect) 关于 $\phi$ 和相对块金效应 $\tau^2_{rel} = \tau^2 / \sigma^2$ 的剖面似然函数轮廓，平稳空间高斯过程 $S(x)$ 的自协方差函数选用指数型 $\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )$，剖面似然函数值由 geoRglm 包提供的 proflik.glsm 函数计算
 
 ## 本章小结 {#sec:cases}
 

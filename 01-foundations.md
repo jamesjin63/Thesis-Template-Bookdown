@@ -1,11 +1,11 @@
 
 # 基础知识 {#prepare}
 
-作为第 \@ref(models) 章统计模型和第 \@ref(algorithms) 章参数估计的知识准备，本章给出主要的知识点。第 \@ref(sec:exp) 节首先介绍指数族的一般形式，包含各成分的定义，特别给出正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 \@ref(sec:lse) 节给出线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 \@ref(sec:def-mle) 节给出极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 \@ref(sec:stationary-gaussian-process) 节给出平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 \@ref(sec:Laplace-approximation) 节介绍了拉普拉斯近似的一般方法。第 \@ref(sec:bayes-prior) 介绍了先验、后验分布和 Jeffreys 无信息先验分布。第 \@ref(sec:stan-samplers) 节首先从 Stan 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan 实现作铺垫。
+作为第 \@ref(models) 章统计模型和第 \@ref(algorithms) 章参数估计的知识准备，本章给出主要的知识点。第 \@ref(sec:exp) 节首先介绍指数族的一般形式，包含各成分的定义，特别介绍正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 \@ref(sec:lse) 节介绍线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 \@ref(sec:def-mle) 节介绍极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 \@ref(sec:stationary-gaussian-process) 节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 \@ref(sec:Laplace-approximation) 节介绍拉普拉斯近似方法。第 \@ref(sec:bayes-prior) 介绍先验、后验分布和 Jeffreys 无信息先验分布。第 \@ref(sec:stan-samplers) 节首先从 Stan 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan 实现作铺垫。
 
 ## 指数族 {#sec:exp}
 
-一般地，样本 $\mathbf{Y}$ 的分布服从指数族，即形如
+一般地，随机变量 $Y$ 的分布服从指数族，即形如
 \begin{equation}
 f_{Y}(y;\theta,\phi) = \exp\big\{ \big(y\theta - b(\theta) \big)/a(\phi) + c(y,\phi) \big\}
 (\#eq:common-exponential-family)
@@ -21,7 +21,7 @@ f_{Y}(y;\theta,\phi) & = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\{-\frac{(y - \mu)^2}
 \[
 a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ y^2/\sigma^2 + \log(2\pi\sigma^2) \} 
 \]
-\noindent 记 $l(\theta,\phi;y) = \log f_{Y}(y;\theta,\phi)$ 为给定样本点 $y$ 的情况下，关于 $\theta$ 和 $\phi$ 的对数似然函数。样本 $Y$ 的均值和方差具有如下关系
+\noindent 记 $l(\theta,\phi;y) = \log f_{Y}(y;\theta,\phi)$ 为给定样本点 $y$ 的情况下，关于 $\theta$ 和 $\phi$ 的对数似然函数。样本 $Y$ 的均值和方差具有如下关系 [@McCullagh1989]
 \begin{equation}
 \mathsf{E}\big( \frac{\partial l}{\partial \theta} \big) = 0
 (\#eq:mean-log-lik)
@@ -54,13 +54,13 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 \[ a(\phi) = \phi/w \]
 \noindent 其中 $\phi$ 可由 $\sigma^2$ 表示，故而也叫做发散参数 （dispersion parameter），是一个与样本观察值相关的常数，$w$ 是已知的权重，随样本观察值变化。对正态分布模型而言，$w$ 的分量是 $m$ 个相互独立的样本观察值的均值，有 $a(\phi) = \sigma^2/m$，所以，$w = m$。
 
-根据 \@ref(eq:common-exponential-family)式，正态、泊松和二项分布的特征见表 \@ref(tab:common-characteristics)，其它常见分布见 McCullagh 等 （1989年） [@McCullagh1989]。
+根据 \@ref(eq:common-exponential-family)式，正态、泊松和二项分布的特征见表 \@ref(tab:common-characteristics)，符号约定同 McCullagh 和 Nelder （1989年） 所著的《广义线性模型》。
 
-Table: (\#tab:common-characteristics) 指数族内常见的一元分布的共同特征及符号表示^[(ref:footnote-tab-common-characteristics)] 
+Table: (\#tab:common-characteristics) 指数族内常见的一元分布的共同特征及符号表示
 
 |                   |      正态分布      |      泊松分布      |      二项分布      |
 | :---------------- | :----------------: | :----------------: | :----------------: | 
-|  记号             | $\mathcal{N}(\mu,\sigma^2)$  |       $\mathrm{Poisson}(\mu)$     |     $\mathrm{Binomial}(m,\pi)/m$   |
+|  记号             | $\mathcal{N}(\mu,\sigma^2)$  |       $\mathrm{Poisson}(\mu)$     |     $\mathrm{Binomial}(m,p)$   |
 |  $y$ 取值范围     | $(-\infty,\infty)$ |     $0(1)\infty$   |  $0(1)m$ |
 |  $\phi$           | $\phi = \sigma^2$  |         $1$        |        $1/m$       |
 |  $b(\theta)$      | $\theta^2/2$       |  $\exp(\theta)$    |$\log(1+e^{\theta})$|
@@ -69,13 +69,11 @@ Table: (\#tab:common-characteristics) 指数族内常见的一元分布的共同
 | 联系函数：$\theta(\mu)$   |  identity |    log      |     logit      |
 | 方差函数：$V(\mu)$        |   1       |   $\mu$     |  $\mu(1-\mu)$  |
 
-(ref:footnote-tab-common-characteristics) 均值参数用 $\mu$ 表示，二项分布里用 $\pi$ 表示；典则参数用 $\theta$ 表示，定义见 \@ref(eq:common-exponential-family) 式，$\mu$ 和 $\theta$ 的关系在表 \@ref(tab:common-characteristics) 的第 6 和第 7 行给出。 
-
 ## 最小二乘估计 {#sec:lse}
 
 考虑如下线性模型的最小二乘估计
 \begin{equation}
-\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta}; \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} (\#eq:linear-models)
+\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} \qquad \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} (\#eq:linear-models)
 \end{equation}
 \noindent 其中， $\mathbf{Y}$ 为 $n \times 1$ 维观测向量， $\mathbf{X}$ 为已知的 $n \times p (p \leq n)$ 维设计矩阵，$\boldsymbol{\beta}$ 为 $p \times 1$ 维未知参数，$\sigma^2$ 未知，$\mathbf{I}_{n}$ 为 $n$ 阶单位阵。
 \BeginKnitrBlock{definition}\iffalse{-91-26368-23567-20108-20056-20272-35745-93-}\fi{}<div class="definition"><span class="definition" id="def:least-squares-estimate"><strong>(\#def:least-squares-estimate)  \iffalse (最小二乘估计) \fi{} </strong></span>在模型 \@ref(eq:linear-models) 中，如果
@@ -118,24 +116,19 @@ Table: (\#tab:common-characteristics) 指数族内常见的一元分布的共同
 
 若 $\ln (p;\boldsymbol{\theta})$ 在 $\boldsymbol{\Theta}$ 上可微，且 $p(\mathbf{x};\boldsymbol{\theta})$ 是可识别的（即 $\forall \boldsymbol{\theta}_1 \neq \boldsymbol{\theta}_2, \{\mathbf{x}: p(\mathbf{x};\boldsymbol{\theta}_1) \neq p(\mathbf{x}; \boldsymbol{\theta}_2)\}$ 不是零测集），则似然方程 \@ref(eq:likelihood-equations) 在 $n \to \infty$ 时，以概率 $1$ 有解，且此解关于 $\boldsymbol{\theta}$ 是相合的。</div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{theorem}\iffalse{-91-28176-36817-27491-24577-24615-93-}\fi{}<div class="theorem"><span class="theorem" id="thm:asymptotic-normality"><strong>(\#thm:asymptotic-normality)  \iffalse (渐近正态性) \fi{} </strong></span>假设 $\boldsymbol{\Theta}$ 为开区间，概率密度函数 $p(\mathbf{x};\boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}$ 满足
+\BeginKnitrBlock{theorem}\iffalse{-91-28176-36817-27491-24577-24615-93-}\fi{}<div class="theorem"><span class="theorem" id="thm:asymptotic-normality"><strong>(\#thm:asymptotic-normality)  \iffalse (渐近正态性) \fi{} </strong></span>假设 $\boldsymbol{\Theta}$ 为开区间，概率密度函数 $p(\mathbf{x};\boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}$ 满足：
 
 1. 在参数真值 $\boldsymbol{\theta}_{0}$ 的邻域内，$\partial \ln p/\partial \boldsymbol{\theta}, \partial^2 \ln p/\partial \boldsymbol{\theta}^2, \partial^3 \ln p/\partial \boldsymbol{\theta}^3$ 对所有的 $\mathbf{x}$ 都存在；
 2. 在参数真值 $\boldsymbol{\theta}_{0}$ 的邻域内，$| \partial^3 \ln p/\partial \boldsymbol{\theta}^3 | \leq H(\mathbf{x})$，且 $\mathsf{E}H(\mathbf{x}) < \infty$；
-3. 在参数真值 $\boldsymbol{\theta}_{0}$ 处，
+3. 在参数真值 $\boldsymbol{\theta}_{0}$ 处，$\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p''(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} > 0$。
 
-$$\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0, \quad
-\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p''(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0, \quad
-I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} > 0$$
-\noindent 其中撇号表示对 $\boldsymbol{\theta}$ 的微分。记 $\hat{\boldsymbol{\theta}}_{n}$ 为 $n \to \infty$ 时，似然方程组的相合解，则$\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow  \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))$。</div>\EndKnitrBlock{theorem}
+\noindent 其中，撇号表示对 $\boldsymbol{\theta}$ 的微分。记 $\hat{\boldsymbol{\theta}}_{n}$ 为 $n \to \infty$ 时，似然方程组的相合解，则$\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow  \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))$。</div>\EndKnitrBlock{theorem}
 
 ## 平稳高斯过程 {#sec:stationary-gaussian-process}
 
 一般地，空间高斯过程 $\mathcal{S} = \{S(x),x\in\mathbb{R}^2\}$ 必须满足条件：任意给定一组空间位置 $x_1,x_2,\ldots,x_n, \forall x_{i} \in \mathbb{R}^2$， 每个位置上对应的随机变量 $S(x_i), i = 1,2,\ldots,n$ 的联合分布 $\mathcal{S} = \{S(x_1), S(x_2),\ldots,S(x_n)\}$ 是多元高斯分布，其由均值 $\mu(x) = \mathsf{E}[S(x)]$ 和协方差 $G_{ij} = \gamma(x_i,x_j) = \mathsf{Cov}\{S(x_i),S(x_j)\}$ 完全确定，即 $\mathcal{S} \sim \mathcal{N}(\mu_{S},G)$。
 
-平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， $\mu(x) = \mu, \forall x \in \mathbb{R}^2$， 其二，自协方差函数 $\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|$。 可见均值 $\mu$ 是一个常数， 而自协方差函数 $\gamma(x_i,x_j)$ 只与空间距离有关。 注意到平稳高斯过程 $\mathcal{S}$ 的方差是一个常数，即 $\sigma^2 = \gamma(0)$， 然后可以定义自相关函数 $\rho(u) = \gamma(u)/\sigma^2$， 并且 $\rho(u)$ 满足关于空间距离的对称性， $\rho(u) = \rho(-u)$， 因为对 $\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}$， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 在本论文中如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。
-
-不失一般性，给出一维空间下随机过程 $S(x)$ 的均方连续性和可微性定义。
+平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， $\mu(x) = \mu, \forall x \in \mathbb{R}^2$， 其二，自协方差函数 $\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|$。 可见均值 $\mu$ 是一个常数， 而自协方差函数 $\gamma(x_i,x_j)$ 只与空间距离有关。 注意到平稳高斯过程 $\mathcal{S}$ 的方差是一个常数，即 $\sigma^2 = \gamma(0)$， 然后可以定义自相关函数 $\rho(u) = \gamma(u)/\sigma^2$， 并且 $\rho(u)$ 是关于空间距离$u$对称的，即 $\rho(u) = \rho(-u)$。 因为对 $\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}$， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。不失一般性，介绍一维空间下随机过程 $S(x)$ 的均方连续性和可微性定义。
 
 \BeginKnitrBlock{definition}\iffalse{-91-36830-32493-24615-21644-21487-24494-24615-93-}\fi{}<div class="definition"><span class="definition" id="def:continuous-differentiable"><strong>(\#def:continuous-differentiable)  \iffalse (连续性和可微性) \fi{} </strong></span>随机过程 $S(x)$ 满足
 \[ \lim_{h \to 0} \mathsf{E}\big[ \{S(x + h) - S(x)\}^{2} \big] = 0 \] 
@@ -147,14 +140,12 @@ I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p
 ## 修正的第二类贝塞尔函数 {#sec:modified-bessel-function}
 
 平稳空间高斯过程的自协方差函数是 Matérn 型（详见第\@ref(models)章第\@ref(subsec:covariance-function)小节）时，需要用到修正的第二类贝塞尔函数 $\mathcal{K}_{\kappa}(u)$，它是修正的贝塞尔方程的解 [@Abramowitz1972]，函数形式如下
-
 \begin{equation}
 \begin{aligned}
 I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(\frac{u}{2}\big)^{2m + \kappa} \\
 \mathcal{K}_{\kappa}(u) & = \frac{\pi}{2} \frac{I_{-\kappa}(u) - I_{\kappa}(u)}{\sin (\kappa \pi)}
 \end{aligned} (\#eq:besselK-function)
 \end{equation}
-
 \noindent 其中 $u \geq 0$，$\kappa \in \mathbb{R}$，如果 $\kappa \in \mathbb{Z}$，则取该点的极限值，$\mathcal{K}_{\kappa}(u)$ 的值可由 R 内置的函数 `besselK` 计算 [@Campbell1980]。
 \begin{figure}
 
@@ -188,7 +179,7 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
  \log f'(x) & = (k/2-1)/x - 1/2 = 0 \quad \log f''(x)  = -(k/2-1)/x^2
 \end{align*}
 \noindent 所以，卡方分布的拉普拉斯近似为
-\[ \chi_{k}^2 \overset{LA}{\sim}  N(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]
+\[ \chi_{k}^2 \overset{LA}{\sim}  \mathcal{N}(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]
 \noindent 自由度越大，近似效果越好，对于多元分布的情况不难推广，使用多元泰勒展开和黑塞矩阵即可表示[@Tierney1986]。
 
 
@@ -198,30 +189,12 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
 
 \BeginKnitrBlock{definition}\iffalse{-91-20808-39564-20998-24067-93-}\fi{}<div class="definition"><span class="definition" id="def:prior-distribution"><strong>(\#def:prior-distribution)  \iffalse (先验分布) \fi{} </strong></span>参数空间 $\Theta$ 上的任一概率分布都称作先验分布 （prior distribution）。</div>\EndKnitrBlock{definition}
 
-\BeginKnitrBlock{definition}\iffalse{-91-21518-39564-20998-24067-93-}\fi{}<div class="definition"><span class="definition" id="def:posterior-distribution"><strong>(\#def:posterior-distribution)  \iffalse (后验分布) \fi{} </strong></span>在获得样本 $\mathbf{Y}$ 后，模型参数 $\boldsymbol{\theta}$ 的后验分布 （posterior distribution） 就是在给定 $\mathbf{Y}$ 条件下 $\boldsymbol{\theta}$ 的条件分布。根据条件概率定义、链式法则、全概率公式，有
-\begin{align}
-\begin{array}{rcll}
-p(\boldsymbol{\theta}|\mathbf{Y})  & =  & \displaystyle \frac{p(\boldsymbol{\theta},\mathbf{Y})}{p(\mathbf{Y})}
-& \mbox{ [条件概率定义]}
-\\[16pt]
-& = & \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta}) p(\boldsymbol{\theta})}{p(\mathbf{Y})}
-& \mbox{ [链式法则]}
-\\[16pt]
-& = & \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})}{\int_{\Theta}p(\mathbf{Y},\boldsymbol{\theta})d\boldsymbol{\theta}}
-& \mbox{ [全概率公式]}
-\\[16pt]
-& = & \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})}{\int_{\Theta}p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})d\boldsymbol{\theta}}
-& \mbox{ [链式法则]}
-\\[16pt]
-& \propto & \displaystyle p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})
-& \mbox{ [$\mathbf{Y}$ 已知]}
-\end{array} (\#eq:bayes-theorem)
-\end{align}</div>\EndKnitrBlock{definition}
+\BeginKnitrBlock{definition}\iffalse{-91-21518-39564-20998-24067-93-}\fi{}<div class="definition"><span class="definition" id="def:posterior-distribution"><strong>(\#def:posterior-distribution)  \iffalse (后验分布) \fi{} </strong></span>在获得样本 $\mathbf{Y}$ 后，模型参数 $\boldsymbol{\theta}$ 的后验分布 （posterior distribution） 就是在给定样本 $\mathbf{Y}$ 的条件下 $\boldsymbol{\theta}$ 的分布。</div>\EndKnitrBlock{definition}
 
 \BeginKnitrBlock{definition}\iffalse{-91-74-101-102-102-114-101-121-115-32-20808-39564-20998-24067-93-}\fi{}<div class="definition"><span class="definition" id="def:Jeffreys-prior-distribution"><strong>(\#def:Jeffreys-prior-distribution)  \iffalse (Jeffreys 先验分布) \fi{} </strong></span>设 $\mathbf{x} = (x_1,\ldots,x_n)$ 是来自密度函数 $p(x|\boldsymbol{\theta})$ 的一个样本，其中 $\boldsymbol{\theta} = (\theta_1,\ldots,\theta_p)$ 是 $p$ 维参数向量。在对 $\boldsymbol{\theta}$ 无任何先验信息可用时， Jeffreys （1961年）利用变换群和 Harr 测度导出 $\boldsymbol{\theta}$ 的无信息先验分布可用 Fisher 信息阵的行列式的平方根表示。这种无信息先验分布常称为 Jeffreys 先验分布。其求取步骤如下：</div>\EndKnitrBlock{definition}
 1. 写出样本的对数似然函数 $l(\boldsymbol{\theta}|x) = \sum_{i=1}^{n}\ln p(x_i | \boldsymbol{\theta})$； 
 2. 算出参数 $\boldsymbol{\theta}$ 的 Fisher 信息阵 $$\mathbf{I}(\boldsymbol{\theta}) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta_i \partial \theta_j} \big)_{i,j=1,\ldots,p}$$ 在单参数场合， $\mathbf{I}(\theta) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta^2} \big)$；
-3. $\boldsymbol{\theta}$ 的无信息先验密度函数为 $\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\theta) ]^{1/2}$，在单参数场合， $\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}$。
+3. $\boldsymbol{\theta}$ 的无信息先验密度函数为 $\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\boldsymbol{\theta}) ]^{1/2}$，在单参数场合， $\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}$。
 
 ## 常用贝叶斯估计 {#bayes-estimates}
 
@@ -286,18 +259,15 @@ Table: (\#tab:eight-high-schools) Eight Schools 数据集
 
 \begin{equation}
 \begin{aligned}
-     \mu & \sim \mathcal{N}(0,5) \\
-    \tau & \sim \text{Half-Cauchy}(0,5) \\
-p(\mu,\tau) & \propto 1 \\
-  \eta_i & \sim \mathcal{N}(0,1) \\
-\theta_i &  =   \mu + \tau \cdot \eta_i \\
-     y_i & \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
+    \mu \sim \mathcal{N}(0,5), \quad \tau \sim \text{Half-Cauchy}(0,5) \\
+    p(\mu,\tau) \propto 1, \quad \eta_i \sim \mathcal{N}(0,1) \\
+    \theta_i  =   \mu + \tau \cdot \eta_i \\
+    y_i \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
 \end{aligned}
 (\#eq:hierarchical-normal-models)
 \end{equation}
 
-根据公式组 \@ref(eq:hierarchical-normal-models) 指定的各参数的先验分布，分层正态模型可以在 Stan 中写成如下形式，我们在工作目录下把它保存为 `8schools.stan ` ，供后续编程使用。
-
+根据公式组 \@ref(eq:hierarchical-normal-models) 指定的各参数先验分布，分层正态模型可以在 Stan 中写成如下形式，我们在工作目录下把它保存为 `8schools.stan ` ，供后续编程使用。
 
 ```
 // saved as 8schools.stan
@@ -326,8 +296,7 @@ model {
   // y ~ normal(theta, sigma);
 }
 ```
-
-上述 Stan 代码的第一段提供数据：学校的数目 $J$，估计值 $y_1,\ldots,y_{J}$，标准差 $\sigma_1,\ldots,\sigma_{J}$，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 $J$ 限制为非负， $\sigma_{J}$ 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 $\theta_j$，均值 $\mu$，标准差 $\tau$，学校水平上的误差 $\eta$ 和效应 $\theta$。在这个模型中，用 $\mu,\tau,\eta$ 表示 $\theta$ 而不是直接声明 $\theta$ 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 $\mathcal{N}(\cdot,\cdot)$ 中后一个位置是方差，而 Stan 代码中使用的是标准差。`target += normal_lpdf(y | theta, sigma)`  和 `y ~ normal(theta, sigma)` 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响 [@Stan2017JSS]。
+上述 Stan 代码的第一段提供数据：学校的数目 $J$，估计值 $y_1,\ldots,y_{J}$，标准差 $\sigma_1,\ldots,\sigma_{J}$，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 $J$ 限制为非负， $\sigma_{J}$ 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 $\theta_j$，均值 $\mu$，标准差 $\tau$，学校水平上的误差 $\eta$ 和效应 $\theta$。在这个模型中，用 $\mu,\tau,\eta$ 表示 $\theta$ 而不是直接声明 $\theta$ 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 $\mathcal{N}(\cdot,\cdot)$ 中后一个位置是方差，而 Stan 代码中使用的是标准差。`target += normal_lpdf(y | theta, sigma)`  和 `y ~ normal(theta, sigma)` 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响。
 
 算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680 处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本 2.17.3。算法参数设置了 4 条迭代链，每条链迭代 10000 次，为复现模型结果随机数种子设为 2018。
 
@@ -393,13 +362,13 @@ Table: (\#tab:eight-schools-output) 对 Eight Schools 数据集建立分层正�
 \end{aligned} (\#eq:potential-scale-reduction)
 \end{equation}
 
-\noindent $\omega$ 的后验边际方差 $\omega|Y$ 是 $W$ 和 $B$ 的加权平均
+\noindent $\omega$ 的后验方差 $\widehat{\mathsf{Var}}^{+}(\omega|Y)$ 是 $W$ 和 $B$ 的加权平均
 
 \begin{equation}
 \widehat{\mathsf{Var}}^{+}(\omega|Y) = \frac{n-1}{n} W + \frac{1}{n} B 
 \end{equation}
 
-当初始分布发散 （overdispersed） 时，这个量会高估边际后验方差，但在链条平稳或 $n \to \infty$ 时，它是无偏的。同时，对任意有限的 $n$，组内方差 $W$ 应该会低估 $\mathsf{Var}(\omega|Y)$，因为单个链条没有时间覆盖目标分布；在 $n \to \infty$， $W$ 的期望会是 $\mathsf{Var}(\omega|Y)$。
+当初始分布发散时，这个量会高估边际后验方差，但在链条平稳或 $n \to \infty$ 时，它是无偏的。同时，对任意有限的 $n$，组内方差 $W$ 应该会低估 $\mathsf{Var}(\omega|Y)$，因为单个链条没有时间覆盖目标分布；在 $n \to \infty$， $W$ 的期望会是 $\mathsf{Var}(\omega|Y)$。
 
 通过迭代序列采集的样本估计 $\hat{R}$ 以检测链条的收敛性
 
@@ -411,7 +380,7 @@ Table: (\#tab:eight-schools-output) 对 Eight Schools 数据集建立分层正�
 
 ## 本章小结 {#sec:foundations}
 
-本章第\@ref(sec:exp)节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\@ref(models)章统计模型和第\@ref(algorithms)章参数估计作铺垫。接着，第\@ref(sec:lse)节和第\@ref(sec:def-mle)节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\@ref(sec:stationary-gaussian-process)节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\@ref(sec:Laplace-approximation)节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\@ref(algorithms)章第\@ref(subsec:LA)小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\@ref(sec:bayes-prior)节至第\@ref(sec:stan-samplers)节分别是与贝叶斯相关的概念定义、参数估计、计算方法。
+本章第\@ref(sec:exp)节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\@ref(models)章统计模型和第\@ref(algorithms)章参数估计作铺垫。接着，第\@ref(sec:lse)节和第\@ref(sec:def-mle)节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\@ref(sec:stationary-gaussian-process)节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\@ref(sec:Laplace-approximation)节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\@ref(algorithms)章第\@ref(subsec:LA)小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\@ref(sec:bayes-prior)节至第\@ref(sec:stan-samplers)节分别是与贝叶斯相关的概念定义。
 
 [stan]: http://mc-stan.org/
 [stan-dev]: https://github.com/stan-dev/stan

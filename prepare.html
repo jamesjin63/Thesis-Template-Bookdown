@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-24">
+<meta name="date" content="2018-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,8 +193,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录</a><ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#tables-simulations"><i class="fa fa-check"></i>表格</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-plot"><i class="fa fa-check"></i>图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-code"><i class="fa fa-check"></i>代码</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#Interactive-Web-Maps"><i class="fa fa-check"></i>交互图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compileinfo"><i class="fa fa-check"></i>编译信息</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#hardwareinfo"><i class="fa fa-check"></i>硬件环境</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sysinfo"><i class="fa fa-check"></i>系统环境</a></li>
@@ -223,10 +223,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="prepare" class="section level1">
 <h1><span class="header-section-number">第 2 章</span> 基础知识</h1>
-<p>作为第 <a href="models.html#models">3</a> 章统计模型和第 <a href="algorithms.html#algorithms">4</a> 章参数估计的知识准备，本章给出主要的知识点。第 <a href="prepare.html#sec:exp">2.1</a> 节首先介绍指数族的一般形式，包含各成分的定义，特别给出正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 <a href="prepare.html#sec:lse">2.2</a> 节给出线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 <a href="prepare.html#sec:def-mle">2.3</a> 节给出极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 <a href="prepare.html#sec:stationary-gaussian-process">2.4</a> 节给出平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 <a href="prepare.html#sec:Laplace-approximation">2.6</a> 节介绍了拉普拉斯近似的一般方法。第 <a href="prepare.html#sec:bayes-prior">2.7</a> 介绍了先验、后验分布和 Jeffreys 无信息先验分布。第 <a href="prepare.html#sec:stan-samplers">2.10</a> 节首先从 Stan 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan 实现作铺垫。</p>
+<p>作为第 <a href="models.html#models">3</a> 章统计模型和第 <a href="algorithms.html#algorithms">4</a> 章参数估计的知识准备，本章给出主要的知识点。第 <a href="prepare.html#sec:exp">2.1</a> 节首先介绍指数族的一般形式，包含各成分的定义，特别介绍正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 <a href="prepare.html#sec:lse">2.2</a> 节介绍线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 <a href="prepare.html#sec:def-mle">2.3</a> 节介绍极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 <a href="prepare.html#sec:stationary-gaussian-process">2.4</a> 节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 <a href="prepare.html#sec:Laplace-approximation">2.6</a> 节介绍拉普拉斯近似方法。第 <a href="prepare.html#sec:bayes-prior">2.7</a> 介绍先验、后验分布和 Jeffreys 无信息先验分布。第 <a href="prepare.html#sec:stan-samplers">2.10</a> 节首先从 Stan 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan 实现作铺垫。</p>
 <div id="sec:exp" class="section level2">
 <h2><span class="header-section-number">2.1</span> 指数族</h2>
-<p>一般地，样本 <span class="math inline">\(\mathbf{Y}\)</span> 的分布服从指数族，即形如
+<p>一般地，随机变量 <span class="math inline">\(Y\)</span> 的分布服从指数族，即形如
 <span class="math display" id="eq:common-exponential-family">\[\begin{equation}
 f_{Y}(y;\theta,\phi) = \exp\big\{ \big(y\theta - b(\theta) \big)/a(\phi) + c(y,\phi) \big\}
 \tag{2.1}
@@ -242,7 +242,7 @@ f_{Y}(y;\theta,\phi) &amp; = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\{-\frac{(y - \mu
 <span class="math display">\[
 a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ y^2/\sigma^2 + \log(2\pi\sigma^2) \} 
 \]</span>
-记 <span class="math inline">\(l(\theta,\phi;y) = \log f_{Y}(y;\theta,\phi)\)</span> 为给定样本点 <span class="math inline">\(y\)</span> 的情况下，关于 <span class="math inline">\(\theta\)</span> 和 <span class="math inline">\(\phi\)</span> 的对数似然函数。样本 <span class="math inline">\(Y\)</span> 的均值和方差具有如下关系
+记 <span class="math inline">\(l(\theta,\phi;y) = \log f_{Y}(y;\theta,\phi)\)</span> 为给定样本点 <span class="math inline">\(y\)</span> 的情况下，关于 <span class="math inline">\(\theta\)</span> 和 <span class="math inline">\(\phi\)</span> 的对数似然函数。样本 <span class="math inline">\(Y\)</span> 的均值和方差具有如下关系 <span class="citation">(McCullagh and Nelder <a href="#ref-McCullagh1989">1989</a>)</span>
 <span class="math display" id="eq:mean-log-lik">\[\begin{equation}
 \mathsf{E}\big( \frac{\partial l}{\partial \theta} \big) = 0
 \tag{2.3}
@@ -274,9 +274,9 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 可见，<span class="math inline">\(Y\)</span> 的方差是两个函数的乘积，一个是 <span class="math inline">\(b&#39;&#39;(\theta)\)</span>， 它仅仅依赖典则参数，叫做方差函数，方差函数可以看作是 <span class="math inline">\(\mu\)</span> 的函数，记作 <span class="math inline">\(V(\mu)\)</span>。另一个是 <span class="math inline">\(a(\phi)\)</span>，它独立于 <span class="math inline">\(\theta\)</span>，仅仅依赖 <span class="math inline">\(\phi\)</span>，函数 <span class="math inline">\(a(\phi)\)</span> 通常形如
 <span class="math display">\[ a(\phi) = \phi/w \]</span>
 其中 <span class="math inline">\(\phi\)</span> 可由 <span class="math inline">\(\sigma^2\)</span> 表示，故而也叫做发散参数 （dispersion parameter），是一个与样本观察值相关的常数，<span class="math inline">\(w\)</span> 是已知的权重，随样本观察值变化。对正态分布模型而言，<span class="math inline">\(w\)</span> 的分量是 <span class="math inline">\(m\)</span> 个相互独立的样本观察值的均值，有 <span class="math inline">\(a(\phi) = \sigma^2/m\)</span>，所以，<span class="math inline">\(w = m\)</span>。</p>
-<p>根据 <a href="prepare.html#eq:common-exponential-family">(2.1)</a>式，正态、泊松和二项分布的特征见表 <a href="prepare.html#tab:common-characteristics">2.1</a>，其它常见分布见 McCullagh 等 （1989年） <span class="citation">(McCullagh and Nelder <a href="#ref-McCullagh1989">1989</a>)</span>。</p>
+<p>根据 <a href="prepare.html#eq:common-exponential-family">(2.1)</a>式，正态、泊松和二项分布的特征见表 <a href="prepare.html#tab:common-characteristics">2.1</a>，符号约定同 McCullagh 和 Nelder （1989年） 所著的《广义线性模型》。</p>
 <table>
-<caption><span id="tab:common-characteristics">表 2.1: </span> 指数族内常见的一元分布的共同特征及符号表示<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></caption>
+<caption><span id="tab:common-characteristics">表 2.1: </span> 指数族内常见的一元分布的共同特征及符号表示</caption>
 <colgroup>
 <col width="23%" />
 <col width="25%" />
@@ -296,7 +296,7 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 <td align="left">记号</td>
 <td align="center"><span class="math inline">\(\mathcal{N}(\mu,\sigma^2)\)</span></td>
 <td align="center"><span class="math inline">\(\mathrm{Poisson}(\mu)\)</span></td>
-<td align="center"><span class="math inline">\(\mathrm{Binomial}(m,\pi)/m\)</span></td>
+<td align="center"><span class="math inline">\(\mathrm{Binomial}(m,p)\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(y\)</span> 取值范围</td>
@@ -342,13 +342,12 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 </tr>
 </tbody>
 </table>
-
 </div>
 <div id="sec:lse" class="section level2">
 <h2><span class="header-section-number">2.2</span> 最小二乘估计</h2>
 考虑如下线性模型的最小二乘估计
 <span class="math display" id="eq:linear-models">\[\begin{equation}
-\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta}; \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} \tag{2.6}
+\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} \qquad \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} \tag{2.6}
 \end{equation}\]</span>
 其中， <span class="math inline">\(\mathbf{Y}\)</span> 为 <span class="math inline">\(n \times 1\)</span> 维观测向量， <span class="math inline">\(\mathbf{X}\)</span> 为已知的 <span class="math inline">\(n \times p (p \leq n)\)</span> 维设计矩阵，<span class="math inline">\(\boldsymbol{\beta}\)</span> 为 <span class="math inline">\(p \times 1\)</span> 维未知参数，<span class="math inline">\(\sigma^2\)</span> 未知，<span class="math inline">\(\mathbf{I}_{n}\)</span> 为 <span class="math inline">\(n\)</span> 阶单位阵。
 
@@ -404,31 +403,27 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 
 
 <div class="theorem">
-<p><span id="thm:asymptotic-normality" class="theorem"><strong>定理 2.3  (渐近正态性)  </strong></span>假设 <span class="math inline">\(\boldsymbol{\Theta}\)</span> 为开区间，概率密度函数 <span class="math inline">\(p(\mathbf{x};\boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}\)</span> 满足</p>
+<p><span id="thm:asymptotic-normality" class="theorem"><strong>定理 2.3  (渐近正态性)  </strong></span>假设 <span class="math inline">\(\boldsymbol{\Theta}\)</span> 为开区间，概率密度函数 <span class="math inline">\(p(\mathbf{x};\boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}\)</span> 满足：</p>
 <ol style="list-style-type: decimal">
 <li>在参数真值 <span class="math inline">\(\boldsymbol{\theta}_{0}\)</span> 的邻域内，<span class="math inline">\(\partial \ln p/\partial \boldsymbol{\theta}, \partial^2 \ln p/\partial \boldsymbol{\theta}^2, \partial^3 \ln p/\partial \boldsymbol{\theta}^3\)</span> 对所有的 <span class="math inline">\(\mathbf{x}\)</span> 都存在；</li>
 <li>在参数真值 <span class="math inline">\(\boldsymbol{\theta}_{0}\)</span> 的邻域内，<span class="math inline">\(| \partial^3 \ln p/\partial \boldsymbol{\theta}^3 | \leq H(\mathbf{x})\)</span>，且 <span class="math inline">\(\mathsf{E}H(\mathbf{x}) &lt; \infty\)</span>；</li>
-<li>在参数真值 <span class="math inline">\(\boldsymbol{\theta}_{0}\)</span> 处，</li>
+<li>在参数真值 <span class="math inline">\(\boldsymbol{\theta}_{0}\)</span> 处，<span class="math inline">\(\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p&#39;(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p&#39;&#39;(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p&#39;(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} &gt; 0\)</span>。</li>
 </ol>
-<span class="math display">\[\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p&#39;(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0, \quad
-\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p&#39;&#39;(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0, \quad
-I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p&#39;(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} &gt; 0\]</span>
-其中撇号表示对 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的微分。记 <span class="math inline">\(\hat{\boldsymbol{\theta}}_{n}\)</span> 为 <span class="math inline">\(n \to \infty\)</span> 时，似然方程组的相合解，则<span class="math inline">\(\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))\)</span>。
+其中，撇号表示对 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的微分。记 <span class="math inline">\(\hat{\boldsymbol{\theta}}_{n}\)</span> 为 <span class="math inline">\(n \to \infty\)</span> 时，似然方程组的相合解，则<span class="math inline">\(\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))\)</span>。
 </div>
 
 </div>
 <div id="sec:stationary-gaussian-process" class="section level2">
 <h2><span class="header-section-number">2.4</span> 平稳高斯过程</h2>
 <p>一般地，空间高斯过程 <span class="math inline">\(\mathcal{S} = \{S(x),x\in\mathbb{R}^2\}\)</span> 必须满足条件：任意给定一组空间位置 <span class="math inline">\(x_1,x_2,\ldots,x_n, \forall x_{i} \in \mathbb{R}^2\)</span>， 每个位置上对应的随机变量 <span class="math inline">\(S(x_i), i = 1,2,\ldots,n\)</span> 的联合分布 <span class="math inline">\(\mathcal{S} = \{S(x_1), S(x_2),\ldots,S(x_n)\}\)</span> 是多元高斯分布，其由均值 <span class="math inline">\(\mu(x) = \mathsf{E}[S(x)]\)</span> 和协方差 <span class="math inline">\(G_{ij} = \gamma(x_i,x_j) = \mathsf{Cov}\{S(x_i),S(x_j)\}\)</span> 完全确定，即 <span class="math inline">\(\mathcal{S} \sim \mathcal{N}(\mu_{S},G)\)</span>。</p>
-<p>平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， <span class="math inline">\(\mu(x) = \mu, \forall x \in \mathbb{R}^2\)</span>， 其二，自协方差函数 <span class="math inline">\(\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|\)</span>。 可见均值 <span class="math inline">\(\mu\)</span> 是一个常数， 而自协方差函数 <span class="math inline">\(\gamma(x_i,x_j)\)</span> 只与空间距离有关。 注意到平稳高斯过程 <span class="math inline">\(\mathcal{S}\)</span> 的方差是一个常数，即 <span class="math inline">\(\sigma^2 = \gamma(0)\)</span>， 然后可以定义自相关函数 <span class="math inline">\(\rho(u) = \gamma(u)/\sigma^2\)</span>， 并且 <span class="math inline">\(\rho(u)\)</span> 满足关于空间距离的对称性， <span class="math inline">\(\rho(u) = \rho(-u)\)</span>， 因为对 <span class="math inline">\(\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}\)</span>， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 在本论文中如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。</p>
-<p>不失一般性，给出一维空间下随机过程 <span class="math inline">\(S(x)\)</span> 的均方连续性和可微性定义。</p>
+<p>平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， <span class="math inline">\(\mu(x) = \mu, \forall x \in \mathbb{R}^2\)</span>， 其二，自协方差函数 <span class="math inline">\(\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|\)</span>。 可见均值 <span class="math inline">\(\mu\)</span> 是一个常数， 而自协方差函数 <span class="math inline">\(\gamma(x_i,x_j)\)</span> 只与空间距离有关。 注意到平稳高斯过程 <span class="math inline">\(\mathcal{S}\)</span> 的方差是一个常数，即 <span class="math inline">\(\sigma^2 = \gamma(0)\)</span>， 然后可以定义自相关函数 <span class="math inline">\(\rho(u) = \gamma(u)/\sigma^2\)</span>， 并且 <span class="math inline">\(\rho(u)\)</span> 是关于空间距离<span class="math inline">\(u\)</span>对称的，即 <span class="math inline">\(\rho(u) = \rho(-u)\)</span>。 因为对 <span class="math inline">\(\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}\)</span>， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。不失一般性，介绍一维空间下随机过程 <span class="math inline">\(S(x)\)</span> 的均方连续性和可微性定义。</p>
 
 <div class="definition">
 <span id="def:continuous-differentiable" class="definition"><strong>定义 2.3  (连续性和可微性)  </strong></span>随机过程 <span class="math inline">\(S(x)\)</span> 满足
 <span class="math display">\[ \lim_{h \to 0} \mathsf{E}\big[ \{S(x + h) - S(x)\}^{2} \big] = 0 \]</span>
 则称 <span class="math inline">\(S(x)\)</span> 是均方连续（mean-square continuous）的。随机过程 <span class="math inline">\(S(x)\)</span> 满足
 <span class="math display">\[ \lim_{h \to 0} \mathsf{E} \big[ \{ \frac{S(x+h) - S(x)}{h} - S&#39;(x) \}^2 \big] = 0 \]</span>
-则称 <span class="math inline">\(S(x)\)</span> 是均方可微（mean-square differentiable）的，并且 <span class="math inline">\(S&#39;(x)\)</span> 就是均方意义下的一阶导数。如果 <span class="math inline">\(S&#39;(x)\)</span> 是均方可微的，则 <span class="math inline">\(S(x)\)</span> 是二次均方可微的，随机过程 <span class="math inline">\(S(x)\)</span> 的高阶均方可微性可类似定义<span class="citation">(Peter J. Diggle and Ribeiro Jr. <a href="#ref-Diggle2007">2007</a>)</span>。Bartlett （1955 年） <span class="citation">(Bartlett <a href="#ref-Bartlett1955">1955</a>)</span> 得到如下重要结论
+则称 <span class="math inline">\(S(x)\)</span> 是均方可微（mean-square differentiable）的，并且 <span class="math inline">\(S&#39;(x)\)</span> 就是均方意义下的一阶导数。如果 <span class="math inline">\(S&#39;(x)\)</span> 是均方可微的，则 <span class="math inline">\(S(x)\)</span> 是二次均方可微的，随机过程 <span class="math inline">\(S(x)\)</span> 的高阶均方可微性可类似定义<span class="citation">(Peter J. Diggle and Ribeiro Jr., <a href="#ref-Diggle2007">n.d.</a>)</span>。Bartlett （1955 年） <span class="citation">(Bartlett <a href="#ref-Bartlett1955">1955</a>)</span> 得到如下重要结论
 </div>
 
 
@@ -439,13 +434,13 @@ I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p
 </div>
 <div id="sec:modified-bessel-function" class="section level2">
 <h2><span class="header-section-number">2.5</span> 修正的第二类贝塞尔函数</h2>
-<p>平稳空间高斯过程的自协方差函数是 Matérn 型（详见第<a href="models.html#models">3</a>章第<a href="models.html#subsec:covariance-function">3.4.2</a>小节）时，需要用到修正的第二类贝塞尔函数 <span class="math inline">\(\mathcal{K}_{\kappa}(u)\)</span>，它是修正的贝塞尔方程的解 <span class="citation">(Abramowitz and Stegun <a href="#ref-Abramowitz1972">1972</a>)</span>，函数形式如下</p>
-<p><span class="math display" id="eq:besselK-function">\[\begin{equation}
+平稳空间高斯过程的自协方差函数是 Matérn 型（详见第<a href="models.html#models">3</a>章第<a href="models.html#subsec:covariance-function">3.4.2</a>小节）时，需要用到修正的第二类贝塞尔函数 <span class="math inline">\(\mathcal{K}_{\kappa}(u)\)</span>，它是修正的贝塞尔方程的解 <span class="citation">(Abramowitz and Stegun <a href="#ref-Abramowitz1972">1972</a>)</span>，函数形式如下
+<span class="math display" id="eq:besselK-function">\[\begin{equation}
 \begin{aligned}
 I_{-\kappa}(u) &amp; =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(\frac{u}{2}\big)^{2m + \kappa} \\
 \mathcal{K}_{\kappa}(u) &amp; = \frac{\pi}{2} \frac{I_{-\kappa}(u) - I_{\kappa}(u)}{\sin (\kappa \pi)}
 \end{aligned} \tag{2.9}
-\end{equation}\]</span></p>
+\end{equation}\]</span>
 其中 <span class="math inline">\(u \geq 0\)</span>，<span class="math inline">\(\kappa \in \mathbb{R}\)</span>，如果 <span class="math inline">\(\kappa \in \mathbb{Z}\)</span>，则取该点的极限值，<span class="math inline">\(\mathcal{K}_{\kappa}(u)\)</span> 的值可由 R 内置的函数 <code>besselK</code> 计算 <span class="citation">(Campbell <a href="#ref-Campbell1980">1980</a>)</span>。
 <div class="figure" style="text-align: center"><span id="fig:bessel-function"></span>
 <img src="figures/bessel.png" alt="在 \(\kappa\) 取不同值时的贝塞尔函数图像：横轴表示距离\(u\)，纵轴表示函数值\(\mathcal{K}_{\kappa}(u)\)" width="70%" />
@@ -475,7 +470,7 @@ I_{-\kappa}(u) &amp; =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \
  \log f&#39;(x) &amp; = (k/2-1)/x - 1/2 = 0 \quad \log f&#39;&#39;(x)  = -(k/2-1)/x^2
 \end{align*}\]</span>
 所以，卡方分布的拉普拉斯近似为
-<span class="math display">\[ \chi_{k}^2 \overset{LA}{\sim}  N(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]</span>
+<span class="math display">\[ \chi_{k}^2 \overset{LA}{\sim}  \mathcal{N}(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]</span>
 自由度越大，近似效果越好，对于多元分布的情况不难推广，使用多元泰勒展开和黑塞矩阵即可表示<span class="citation">(Tierney and Kadane <a href="#ref-Tierney1986">1986</a>)</span>。</p>
 </div>
 <div id="sec:bayes-prior" class="section level2">
@@ -488,25 +483,7 @@ I_{-\kappa}(u) &amp; =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \
 
 
 <div class="definition">
-<span id="def:posterior-distribution" class="definition"><strong>定义 2.5  (后验分布)  </strong></span>在获得样本 <span class="math inline">\(\mathbf{Y}\)</span> 后，模型参数 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的后验分布 （posterior distribution） 就是在给定 <span class="math inline">\(\mathbf{Y}\)</span> 条件下 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的条件分布。根据条件概率定义、链式法则、全概率公式，有
-<span class="math display" id="eq:bayes-theorem">\[\begin{align}
-\begin{array}{rcll}
-p(\boldsymbol{\theta}|\mathbf{Y})  &amp; =  &amp; \displaystyle \frac{p(\boldsymbol{\theta},\mathbf{Y})}{p(\mathbf{Y})}
-&amp; \mbox{ [条件概率定义]}
-\\[16pt]
-&amp; = &amp; \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta}) p(\boldsymbol{\theta})}{p(\mathbf{Y})}
-&amp; \mbox{ [链式法则]}
-\\[16pt]
-&amp; = &amp; \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})}{\int_{\Theta}p(\mathbf{Y},\boldsymbol{\theta})d\boldsymbol{\theta}}
-&amp; \mbox{ [全概率公式]}
-\\[16pt]
-&amp; = &amp; \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})}{\int_{\Theta}p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})d\boldsymbol{\theta}}
-&amp; \mbox{ [链式法则]}
-\\[16pt]
-&amp; \propto &amp; \displaystyle p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})
-&amp; \mbox{ [$\mathbf{Y}$ 已知]}
-\end{array} \tag{2.10}
-\end{align}\]</span>
+<span id="def:posterior-distribution" class="definition"><strong>定义 2.5  (后验分布)  </strong></span>在获得样本 <span class="math inline">\(\mathbf{Y}\)</span> 后，模型参数 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的后验分布 （posterior distribution） 就是在给定样本 <span class="math inline">\(\mathbf{Y}\)</span> 的条件下 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的分布。
 </div>
 
 
@@ -517,7 +494,7 @@ p(\boldsymbol{\theta}|\mathbf{Y})  &amp; =  &amp; \displaystyle \frac{p(\boldsym
 <ol style="list-style-type: decimal">
 <li>写出样本的对数似然函数 <span class="math inline">\(l(\boldsymbol{\theta}|x) = \sum_{i=1}^{n}\ln p(x_i | \boldsymbol{\theta})\)</span>；</li>
 <li>算出参数 <span class="math inline">\(\boldsymbol{\theta}\)</span> 的 Fisher 信息阵 <span class="math display">\[\mathbf{I}(\boldsymbol{\theta}) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta_i \partial \theta_j} \big)_{i,j=1,\ldots,p}\]</span> 在单参数场合， <span class="math inline">\(\mathbf{I}(\theta) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta^2} \big)\)</span>；</li>
-<li><span class="math inline">\(\boldsymbol{\theta}\)</span> 的无信息先验密度函数为 <span class="math inline">\(\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\theta) ]^{1/2}\)</span>，在单参数场合， <span class="math inline">\(\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}\)</span>。</li>
+<li><span class="math inline">\(\boldsymbol{\theta}\)</span> 的无信息先验密度函数为 <span class="math inline">\(\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\boldsymbol{\theta}) ]^{1/2}\)</span>，在单参数场合， <span class="math inline">\(\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}\)</span>。</li>
 </ol>
 </div>
 <div id="bayes-estimates" class="section level2">
@@ -598,7 +575,7 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 <p>在上世纪 40~50 年代，由梅特罗波利斯，冯<span class="math inline">\(\cdot\)</span>诺依曼和乌拉姆 （Stanislaw Ulam） 创立蒙特卡罗方法，为了纪念乌拉姆，Stan 就以他的名字命名。Stan 是一门基于 C++ 的概率编程语言，主要用于贝叶斯推断，它的代码完全<a href="http://mc-stan.org/">开源</a>的，托管在 <a href="https://github.com/stan-dev/stan">Github</a> 上，自 2012 年 8 月 30 日发布第一个 1.0 版本以来，截至写作时间已发布 33 个版本，目前最新版本是 2.18.0。使用 Stan，用户需提供数据、Stan 代码写的脚本模型，编译 Stan 写的程序，然后与数据一起运行，模型参数的后验模拟过程是自动实现的。除了可以在命令行环境下编译运行 Stan 脚本中写模型外，Stan 还提供其他编程语言的接口，如 R、Python、Matlab、Mathematica、Julia 等等，这使得熟悉其他编程语言的用户可以方便地调用和分析数据。但是，与 Python、R等 这类解释型编程语言不同， Stan 代码需要先翻译成 C++ 代码，然后使用系统编译器 （如 GCC） 编译，若使用 R 语言接口，编译后的动态链接库可以载入 R 内存中，再被其他 R 函数调用执行。</p>
 <p>随机模拟的前提是有能产生高质量高效的伪随机数发生器，只有周期长，生成速度快，能通过一系列统计检验的伪随机数才能用作统计模拟，Stan 内置了 Mersenne-Twister 发生器，它的周期长达 <span class="math inline">\(2^{19937}-1\)</span>，通过了一系列严格的检验，被广泛采用到现代软件中，如 Octave 和 Matlab 等 <span class="citation">(黄湘云 <a href="#ref-Huang2017COS">2017</a>)</span>。除了 Mersenne Twister 随机数发生器，Stan 还使用了 <a href="https://www.boost.org/">Boost C++</a> 和 <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen C++</a> 等模版库用于线性代数计算，这样的底层设计路线使得 Stan 的运算效率很高。</p>
 <p>Stan 内置的采样器 No-U-Turn （简称 NUTS） 源于汉密尔顿蒙特卡罗算法 （Hamiltonian Monte Carlo，简称 HMC），最早由 Hoffman 和 Gelman （2014年） <span class="citation">(Hoffman and Gelman <a href="#ref-hoffman2014">2014</a>)</span> 提出。与 Stan 有相似功能的软件 BUGS 和 JAGS 主要采用的是 Gibbs 采样器，前者基于 Pascal 语言开发于 1989 年至 2004 年，后者基于 C++ 活跃开发于 2007 年至 2013 年。在时间上， Stan 具有后发优势，特别在灵活性和扩展性方面，它支持任意的目标函数，模型语言也更加简单易于推广学习，其每一行都是命令式的语句，而 BUGS 和 JAGS 采用声明式；在大量数据的建模分析中， Stan 可以更快地处理复杂模型，这一部分归功于它高效的算法实现和内存管理，另一部分在于高级的 MCMC 算法 — 带 NUTS 采样器的 HMC 算法。</p>
-<p>Rubin （1981年） <span class="citation">(Rubin <a href="#ref-Rubin1981">1981</a>)</span> 分析了 Alderman 和 Powers <span class="citation">(Alderman and Powers <a href="#ref-Alderman1980">1980</a>)</span> 收集的原始数据，得出表 <a href="prepare.html#tab:eight-high-schools">2.3</a>， Gelman 和 Carlin 等 （2003年） <span class="citation">(Gelman et al. <a href="#ref-Gelman2003">2003</a>)</span> 建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 分析 Eight Schools 数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了 8 所高中，学生的成绩作为培训效应的估计 <span class="math inline">\(y_j\)</span>，其样本方差 <span class="math inline">\(\sigma^2_j\)</span>，数据集见表 <a href="prepare.html#tab:eight-high-schools">2.3</a>。这里再次以该数据集和模型为例介绍 Stan 的使用。</p>
+<p>Rubin （1981年） <span class="citation">(Rubin <a href="#ref-Rubin1981">1981</a>)</span> 分析了 Alderman 和 Powers <span class="citation">(Alderman and Powers <a href="#ref-Alderman1980">1980</a>)</span> 收集的原始数据，得出表 <a href="prepare.html#tab:eight-high-schools">2.3</a>， Gelman 和 Carlin 等 （2003年） <span class="citation">(Gelman et al. <a href="#ref-Gelman2003">2003</a>)</span> 建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.10)</a> 分析 Eight Schools 数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了 8 所高中，学生的成绩作为培训效应的估计 <span class="math inline">\(y_j\)</span>，其样本方差 <span class="math inline">\(\sigma^2_j\)</span>，数据集见表 <a href="prepare.html#tab:eight-high-schools">2.3</a>。这里再次以该数据集和模型为例介绍 Stan 的使用。</p>
 <table>
 <caption><span id="tab:eight-high-schools">表 2.3: </span> Eight Schools 数据集</caption>
 <thead>
@@ -641,16 +618,14 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 </table>
 <p><span class="math display" id="eq:hierarchical-normal-models">\[\begin{equation}
 \begin{aligned}
-     \mu &amp; \sim \mathcal{N}(0,5) \\
-    \tau &amp; \sim \text{Half-Cauchy}(0,5) \\
-p(\mu,\tau) &amp; \propto 1 \\
-  \eta_i &amp; \sim \mathcal{N}(0,1) \\
-\theta_i &amp;  =   \mu + \tau \cdot \eta_i \\
-     y_i &amp; \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
+    \mu \sim \mathcal{N}(0,5), \quad \tau \sim \text{Half-Cauchy}(0,5) \\
+    p(\mu,\tau) \propto 1, \quad \eta_i \sim \mathcal{N}(0,1) \\
+    \theta_i  =   \mu + \tau \cdot \eta_i \\
+    y_i \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
 \end{aligned}
-\tag{2.11}
+\tag{2.10}
 \end{equation}\]</span></p>
-<p>根据公式组 <a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 指定的各参数的先验分布，分层正态模型可以在 Stan 中写成如下形式，我们在工作目录下把它保存为 <code>8schools.stan</code> ，供后续编程使用。</p>
+<p>根据公式组 <a href="prepare.html#eq:hierarchical-normal-models">(2.10)</a> 指定的各参数先验分布，分层正态模型可以在 Stan 中写成如下形式，我们在工作目录下把它保存为 <code>8schools.stan</code> ，供后续编程使用。</p>
 <pre><code>// saved as 8schools.stan
 data {
   int&lt;lower=0&gt; J; // number of schools 
@@ -676,11 +651,11 @@ model {
   target += normal_lpdf(y | theta, sigma); // target distribution
   // y ~ normal(theta, sigma);
 }</code></pre>
-<p>上述 Stan 代码的第一段提供数据：学校的数目 <span class="math inline">\(J\)</span>，估计值 <span class="math inline">\(y_1,\ldots,y_{J}\)</span>，标准差 <span class="math inline">\(\sigma_1,\ldots,\sigma_{J}\)</span>，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 <span class="math inline">\(J\)</span> 限制为非负， <span class="math inline">\(\sigma_{J}\)</span> 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 <span class="math inline">\(\theta_j\)</span>，均值 <span class="math inline">\(\mu\)</span>，标准差 <span class="math inline">\(\tau\)</span>，学校水平上的误差 <span class="math inline">\(\eta\)</span> 和效应 <span class="math inline">\(\theta\)</span>。在这个模型中，用 <span class="math inline">\(\mu,\tau,\eta\)</span> 表示 <span class="math inline">\(\theta\)</span> 而不是直接声明 <span class="math inline">\(\theta\)</span> 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 <span class="math inline">\(\mathcal{N}(\cdot,\cdot)\)</span> 中后一个位置是方差，而 Stan 代码中使用的是标准差。<code>target += normal_lpdf(y | theta, sigma)</code> 和 <code>y ~ normal(theta, sigma)</code> 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响 <span class="citation">(Carpenter et al. <a href="#ref-Stan2017JSS">2017</a>)</span>。</p>
+<p>上述 Stan 代码的第一段提供数据：学校的数目 <span class="math inline">\(J\)</span>，估计值 <span class="math inline">\(y_1,\ldots,y_{J}\)</span>，标准差 <span class="math inline">\(\sigma_1,\ldots,\sigma_{J}\)</span>，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 <span class="math inline">\(J\)</span> 限制为非负， <span class="math inline">\(\sigma_{J}\)</span> 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 <span class="math inline">\(\theta_j\)</span>，均值 <span class="math inline">\(\mu\)</span>，标准差 <span class="math inline">\(\tau\)</span>，学校水平上的误差 <span class="math inline">\(\eta\)</span> 和效应 <span class="math inline">\(\theta\)</span>。在这个模型中，用 <span class="math inline">\(\mu,\tau,\eta\)</span> 表示 <span class="math inline">\(\theta\)</span> 而不是直接声明 <span class="math inline">\(\theta\)</span> 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 <span class="math inline">\(\mathcal{N}(\cdot,\cdot)\)</span> 中后一个位置是方差，而 Stan 代码中使用的是标准差。<code>target += normal_lpdf(y | theta, sigma)</code> 和 <code>y ~ normal(theta, sigma)</code> 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响。</p>
 <p>算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680 处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本 2.17.3。算法参数设置了 4 条迭代链，每条链迭代 10000 次，为复现模型结果随机数种子设为 2018。</p>
-<p>分层正态模型<a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a> 的参数 <span class="math inline">\(\mu,\tau\)</span>，及其参数化引入的中间参数 <span class="math inline">\(\eta_i,\theta_i,i=1,\ldots,8\)</span>，还有对数后验 <span class="math inline">\(\mathrm{lp}\_\_\)</span> 的估计值见表 <a href="prepare.html#tab:eight-schools-output">2.4</a>。</p>
+<p>分层正态模型<a href="prepare.html#eq:hierarchical-normal-models">(2.10)</a> 的参数 <span class="math inline">\(\mu,\tau\)</span>，及其参数化引入的中间参数 <span class="math inline">\(\eta_i,\theta_i,i=1,\ldots,8\)</span>，还有对数后验 <span class="math inline">\(\mathrm{lp}\_\_\)</span> 的估计值见表 <a href="prepare.html#tab:eight-schools-output">2.4</a>。</p>
 <table>
-<caption><span id="tab:eight-schools-output">表 2.4: </span> 对 Eight Schools 数据集建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.11)</a>，采用 HMC 算法估计模型各参数值</caption>
+<caption><span id="tab:eight-schools-output">表 2.4: </span> 对 Eight Schools 数据集建立分层正态模型 <a href="prepare.html#eq:hierarchical-normal-models">(2.10)</a>，采用 HMC 算法估计模型各参数值</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -966,13 +941,13 @@ model {
 \begin{aligned}
 &amp; B = \frac{n}{m-1}\sum_{j=1}^{m}(\bar{\omega}_{.j} - \bar{\omega}_{..} ), \quad \bar{\omega}_{.j} = \frac{1}{n}\sum_{i=1}^{n}\omega_{ij}, \quad \bar{\omega}_{..} = \frac{1}{m}\sum_{j=1}^{m} \bar{\omega}_{.j}\\
 &amp; W = \frac{1}{m}\sum_{j=1}^{m}s^{2}_{j}, \quad s^{2}_{j} = \frac{1}{n-1}\sum_{i=1}^{n}(\omega_{ij} - \bar{\omega}_{.j})^2
-\end{aligned} \tag{2.12}
+\end{aligned} \tag{2.11}
 \end{equation}\]</span></p>
-<p><span class="math inline">\(\omega\)</span> 的后验边际方差 <span class="math inline">\(\omega|Y\)</span> 是 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(B\)</span> 的加权平均</p>
+<p><span class="math inline">\(\omega\)</span> 的后验方差 <span class="math inline">\(\widehat{\mathsf{Var}}^{+}(\omega|Y)\)</span> 是 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(B\)</span> 的加权平均</p>
 <p><span class="math display">\[\begin{equation}
 \widehat{\mathsf{Var}}^{+}(\omega|Y) = \frac{n-1}{n} W + \frac{1}{n} B 
 \end{equation}\]</span></p>
-<p>当初始分布发散 （overdispersed） 时，这个量会高估边际后验方差，但在链条平稳或 <span class="math inline">\(n \to \infty\)</span> 时，它是无偏的。同时，对任意有限的 <span class="math inline">\(n\)</span>，组内方差 <span class="math inline">\(W\)</span> 应该会低估 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>，因为单个链条没有时间覆盖目标分布；在 <span class="math inline">\(n \to \infty\)</span>， <span class="math inline">\(W\)</span> 的期望会是 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>。</p>
+<p>当初始分布发散时，这个量会高估边际后验方差，但在链条平稳或 <span class="math inline">\(n \to \infty\)</span> 时，它是无偏的。同时，对任意有限的 <span class="math inline">\(n\)</span>，组内方差 <span class="math inline">\(W\)</span> 应该会低估 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>，因为单个链条没有时间覆盖目标分布；在 <span class="math inline">\(n \to \infty\)</span>， <span class="math inline">\(W\)</span> 的期望会是 <span class="math inline">\(\mathsf{Var}(\omega|Y)\)</span>。</p>
 <p>通过迭代序列采集的样本估计 <span class="math inline">\(\hat{R}\)</span> 以检测链条的收敛性</p>
 <p><span class="math display">\[\begin{equation}
 \hat{R} = \sqrt{\frac{\widehat{\mathsf{Var}}^{+}(\omega|Y)}{W}}
@@ -981,7 +956,7 @@ model {
 </div>
 <div id="sec:foundations" class="section level2">
 <h2><span class="header-section-number">2.11</span> 本章小结</h2>
-<p>本章第<a href="prepare.html#sec:exp">2.1</a>节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第<a href="models.html#models">3</a>章统计模型和第<a href="algorithms.html#algorithms">4</a>章参数估计作铺垫。接着，第<a href="prepare.html#sec:lse">2.2</a>节和第<a href="prepare.html#sec:def-mle">2.3</a>节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第<a href="prepare.html#sec:stationary-gaussian-process">2.4</a>节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第<a href="prepare.html#sec:Laplace-approximation">2.6</a>节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节当中，用以近似似然函数中关于空间随机效应的高维积分。第<a href="prepare.html#sec:bayes-prior">2.7</a>节至第<a href="prepare.html#sec:stan-samplers">2.10</a>节分别是与贝叶斯相关的概念定义、参数估计、计算方法。</p>
+<p>本章第<a href="prepare.html#sec:exp">2.1</a>节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第<a href="models.html#models">3</a>章统计模型和第<a href="algorithms.html#algorithms">4</a>章参数估计作铺垫。接着，第<a href="prepare.html#sec:lse">2.2</a>节和第<a href="prepare.html#sec:def-mle">2.3</a>节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第<a href="prepare.html#sec:stationary-gaussian-process">2.4</a>节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第<a href="prepare.html#sec:Laplace-approximation">2.6</a>节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节当中，用以近似似然函数中关于空间随机效应的高维积分。第<a href="prepare.html#sec:bayes-prior">2.7</a>节至第<a href="prepare.html#sec:stan-samplers">2.10</a>节分别是与贝叶斯相关的概念定义。</p>
 
 </div>
 </div>
@@ -997,7 +972,7 @@ model {
 <p>茆诗松, 王静龙, and 濮晓龙. 2006. <em>高等数理统计</em>. 第二版. 北京: 高等教育出版社.</p>
 </div>
 <div id="ref-Diggle2007">
-<p>Diggle, Peter J., and Paulo J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. New York, NY: Springer-Verlag.</p>
+<p>Diggle, Peter J., and Paulo J. Ribeiro Jr. n.d. <em>Model-Based Geostatistics</em>. New York, NY: Springer-Verlag.</p>
 </div>
 <div id="ref-Bartlett1955">
 <p>Bartlett, M. S. 1955. <em>An Introduction to Stochastic Process with Special Reference to Methods and Applications</em>. First. Cambridge: Cambridge University Press.</p>
@@ -1012,10 +987,10 @@ model {
 <p>Tierney, Luke, and Joseph B. Kadane. 1986. “Accurate Approximations for Posterior Moments and Marginal Densities.” <em>Journal of the American Statistical Association</em> 81 (393): 82–86.</p>
 </div>
 <div id="ref-Huang2017COS">
-<p>黄湘云. 2017. “随机数生成及其在统计模拟中的应用.” <a href="https://cosx.org/2017/05/random-number-generation" class="uri">https://cosx.org/2017/05/random-number-generation</a>.</p>
+<p>黄湘云. 2017. “随机数生成及其在统计模拟中的应用.” <a href="https://cosx.org/2017/05/random-number-generation">https://cosx.org/2017/05/random-number-generation</a>.</p>
 </div>
 <div id="ref-hoffman2014">
-<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15: 1593–1623.</p>
+<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (1): 1593–1623.</p>
 </div>
 <div id="ref-Rubin1981">
 <p>Rubin, Donald B. 1981. “Estimation in Parallel Randomized Experiments.” <em>Journal of Educational Statistics</em> 6 (4): 377–401.</p>
@@ -1026,18 +1001,9 @@ model {
 <div id="ref-Gelman2003">
 <p>Gelman, Andrew, John B. Carlin, Hal S. Stern, and Donald B. Rubin. 2003. <em>Bayesian Data Analysis</em>. Second. London: Chapman; Hall/CRC.</p>
 </div>
-<div id="ref-Stan2017JSS">
-<p>Carpenter, Bob, Andrew Gelman, Matthew Hoffman, Daniel Lee, Ben Goodrich, Michael Betancourt, Marcus Brubaker, Jiqiang Guo, Peter Li, and Allen Riddell. 2017. “Stan: A Probabilistic Programming Language.” <em>Journal of Statistical Software</em> 76 (1): 1–32.</p>
-</div>
 <div id="ref-Gelman2013R">
 <p>Gelman, Andrew, John B. Carlin, Hal S. Stern, David B. Dunson, Aki Vehtari, and Donald B. Rubin. 2013. <em>Bayesian Data Analysis</em>. Third. Boca Raton, Florida: Chapman; Hall/CRC.</p>
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>均值参数用 <span class="math inline">\(\mu\)</span> 表示，二项分布里用 <span class="math inline">\(\pi\)</span> 表示；典则参数用 <span class="math inline">\(\theta\)</span> 表示，定义见 <a href="prepare.html#eq:common-exponential-family">(2.1)</a> 式，<span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\theta\)</span> 的关系在表 <a href="prepare.html#tab:common-characteristics">2.1</a> 的第 6 和第 7 行给出。<a href="prepare.html#fnref1" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 

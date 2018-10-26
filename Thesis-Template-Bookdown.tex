@@ -146,7 +146,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{China University of Mining and Technology, Beijing}
 \author{Xiang-Yun Huang}
-\date{2018-10-24}
+\date{2018-10-26}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{定理}[chapter]
@@ -224,8 +224,7 @@ MCMC）面临的主要问题是收敛性诊断和计算时间，
 MCMC 方式拟合带随机效应的模型有
 \href{http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/}{WinBUGS}，\href{http://www.openbugs.net/}{OpenBUGS}，
 \href{http://mcmc-jags.sourceforge.net/}{JAGS}，\href{http://www.BayesX.org}{BayesX}，
-\href{https://www.multibugs.org}{MultiBUGS}，\href{https://r-nimble.org/}{NIMBLE}，Stan
-\citep{Stan2017JSS}
+\href{https://www.multibugs.org}{MultiBUGS}，Stan \citep{Stan2017JSS}
 等软件。近年来，一些研究者开始将注意力放到高维积分的近似上，从而出现了一类新的近似贝叶斯推断，
 Rue 等 （2009 年） \citep{Rue2009}
 在高斯马尔科夫随机场近似平稳空间高斯过程的设置下，用拉普拉斯近似空间效应的高维积分，从而提出集成嵌套拉普拉斯算法，Lindgren
@@ -275,24 +274,30 @@ MCMC
 模型参数估计的贝叶斯 MCMC 和 MCML等算法及其应用情况。
 
 第 \ref{prepare}
-章介绍了指数族，最小二乘估计，极大似然估计，平稳高斯过程，拉普拉斯近似，先验和后验分布和蒙特卡罗积分等基础知识，它们作为后续相关章节的知识准备。
+章介绍了指数族，最小二乘估计，极大似然估计，平稳高斯过程，拉普拉斯近似和蒙特卡罗积分等基础知识。主要有三大部分是补充文献中没有的内容：其一，给出了拉普拉斯近似方法详细过程，并举例子补充了一维情形下的近似；其二，以计算\(n\)维超球体积的积分过程给出蒙特卡罗积分的原理和局限；其三，归纳总结
+Stan 的历史，以 Eight Schools 数据集为例介绍 Stan
+的使用，在原来文献上补充了代码注解，平稳性检验的全过程。
 
-第 \ref{models} 章回顾了一般线性模型到 SGLMM 模型的结构，
+第 \ref{models} 章除了回顾了一般线性模型到 SGLMM 模型的结构，
 指出了模型从简单到复杂的变化过程，及其中的区别和联系。
 
 第 \ref{algorithms} 章首先介绍了目前估计 SGLMM
 模型参数的算法，依次是拉普拉斯近似算法、蒙特卡罗极大似然算法、贝叶斯
-MCMC 算法和低秩近似算法，并在 Langevin-Hastings 算法的基础上，我们提出
-Stan 程序库实现的汉密尔顿蒙特卡罗算法（简称
+MCMC
+算法和低秩近似算法。其中，有三部分补充文献中的内容：其一，我们在第\ref{sec:mle}节首先推导了
+SGLMM
+模型似然函数的一般形式；在第\ref{sec:profile-likelihood}节详细介绍了剖面似然的思想和计算过程；其三，在
+Langevin-Hastings 算法的基础上，提出 Stan
+程序库实现的汉密尔顿蒙特卡罗算法（简称
 HMC），在文中为了方便，也称作贝叶斯 STAN-MCMC 算法。
 
 第 \ref{simulations}
-章首先介绍了一维和二维情形下平稳空间高斯过程的模拟，然后在二维情形下，分别模拟了响应变量服从二项分布和泊松分布的
+章首先实现了一维和二维情形下平稳空间高斯过程的模拟，然后在二维情形下，分别模拟了响应变量服从二项分布和泊松分布的
 SGLMM 模型，比较了贝叶斯 MCMC 算法和我们提出的贝叶斯 STAN-MCMC
-算法，结论是在获得相似估计效果的情形下，我们提出的算法迭代次数少。
+算法，在获得相似估计效果的情形下，我们提出的算法所需迭代次数少，迭代初值可以随机生成，运行时间短。
 
 第 \ref{applications}
-章给出了两个案例分析，分别是基于空间线性混合效应模型的小麦数据分析和基于泊松型空间广义线性混合效应模型的核污染数据分析，我们发现基于样本变差图和剖面似然轮廓的可视化辅助手段可以获得非常好的模型参数初始值。
+章给出了两个案例分析，分别是基于空间线性混合效应模型的小麦数据分析和基于泊松型空间广义线性混合效应模型的核污染数据分析，我们发现基于样本变差图和剖面似然轮廓图等可视化辅助手段可以获得非常好的模型参数初始值，这对于基于似然函数的参数估计算法选初值很有帮助。
 
 第 \ref{summary} 章总结论文的主要工作、相关结论和后续研究方向。
 
@@ -301,15 +306,15 @@ SGLMM 模型，比较了贝叶斯 MCMC 算法和我们提出的贝叶斯 STAN-MC
 
 作为第 \ref{models} 章统计模型和第 \ref{algorithms}
 章参数估计的知识准备，本章给出主要的知识点。第 \ref{sec:exp}
-节首先介绍指数族的一般形式，包含各成分的定义，特别给出正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第
+节首先介绍指数族的一般形式，包含各成分的定义，特别介绍正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第
 \ref{sec:lse}
-节给出线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第
+节介绍线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第
 \ref{sec:def-mle}
-节给出极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第
+节介绍极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第
 \ref{sec:stationary-gaussian-process}
-节给出平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第
-\ref{sec:Laplace-approximation} 节介绍了拉普拉斯近似的一般方法。第
-\ref{sec:bayes-prior} 介绍了先验、后验分布和 Jeffreys 无信息先验分布。第
+节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第
+\ref{sec:Laplace-approximation} 节介绍拉普拉斯近似方法。第
+\ref{sec:bayes-prior} 介绍先验、后验分布和 Jeffreys 无信息先验分布。第
 \ref{sec:stan-samplers} 节首先从 Stan
 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight
 Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan
@@ -318,7 +323,7 @@ Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型
 \hypertarget{sec:exp}{%
 \section{指数族}\label{sec:exp}}
 
-一般地，样本 \(\mathbf{Y}\) 的分布服从指数族，即形如 \begin{equation}
+一般地，随机变量 \(Y\) 的分布服从指数族，即形如 \begin{equation}
 f_{Y}(y;\theta,\phi) = \exp\big\{ \big(y\theta - b(\theta) \big)/a(\phi) + c(y,\phi) \big\}
 \label{eq:common-exponential-family}
 \end{equation} \noindent 其中，\(a(\cdot),b(\cdot),c(\cdot)\)
@@ -334,7 +339,8 @@ f_{Y}(y;\theta,\phi) & = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\{-\frac{(y - \mu)^2}
 a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ y^2/\sigma^2 + \log(2\pi\sigma^2) \} 
 \] \noindent 记 \(l(\theta,\phi;y) = \log f_{Y}(y;\theta,\phi)\)
 为给定样本点 \(y\) 的情况下，关于 \(\theta\) 和 \(\phi\)
-的对数似然函数。样本 \(Y\) 的均值和方差具有如下关系 \begin{equation}
+的对数似然函数。样本 \(Y\) 的均值和方差具有如下关系
+\citep{McCullagh1989} \begin{equation}
 \mathsf{E}\big( \frac{\partial l}{\partial \theta} \big) = 0
 \label{eq:mean-log-lik}
 \end{equation} \noindent 和 \begin{equation}
@@ -367,13 +373,12 @@ parameter），是一个与样本观察值相关的常数，\(w\)
 
 根据
 \eqref{eq:common-exponential-family}式，正态、泊松和二项分布的特征见表
-\ref{tab:common-characteristics}，其它常见分布见 McCullagh 等 （1989年）
-\citep{McCullagh1989}。
+\ref{tab:common-characteristics}，符号约定同 McCullagh 和 Nelder
+（1989年） 所著的《广义线性模型》。
 
 \begin{longtable}[]{@{}lccc@{}}
-\caption[\label{tab:common-characteristics}
-指数族内常见的一元分布的共同特征及符号表示]{\label{tab:common-characteristics}
-指数族内常见的一元分布的共同特征及符号表示\footnotemark{}}\tabularnewline
+\caption{\label{tab:common-characteristics}
+指数族内常见的一元分布的共同特征及符号表示}\tabularnewline
 \toprule
 \begin{minipage}[b]{0.21\columnwidth}\raggedright
 \strut
@@ -405,7 +410,7 @@ parameter），是一个与样本观察值相关的常数，\(w\)
 \end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
 \(\mathrm{Poisson}(\mu)\)\strut
 \end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\centering
-\(\mathrm{Binomial}(m,\pi)/m\)\strut
+\(\mathrm{Binomial}(m,p)\)\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.21\columnwidth}\raggedright
 \(y\) 取值范围\strut
@@ -472,21 +477,12 @@ logit\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
-\footnotetext{均值参数用 \(\mu\)
-表示，二项分布里用 \(\pi\) 表示；典则参数用 \(\theta\) 表示，定义见
-\eqref{eq:common-exponential-family} 式，\(\mu\) 和 \(\theta\) 的关系在表
-\ref{tab:common-characteristics} 的第 6 和第 7 行给出。}
-
-
-
-
-
 
 \hypertarget{sec:lse}{%
 \section{最小二乘估计}\label{sec:lse}}
 
 考虑如下线性模型的最小二乘估计 \begin{equation}
-\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta}; \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} \label{eq:linear-models}
+\mathsf{E}\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} \qquad \mathsf{Var}(\mathbf{Y}) = \sigma^2 \mathbf{I}_{n} \label{eq:linear-models}
 \end{equation} \noindent 其中， \(\mathbf{Y}\) 为 \(n \times 1\)
 维观测向量， \(\mathbf{X}\) 为已知的 \(n \times p (p \leq n)\)
 维设计矩阵，\(\boldsymbol{\beta}\) 为 \(p \times 1\)
@@ -574,7 +570,7 @@ logit\strut
 \iffalse (渐近正态性) \fi{} }假设 \(\boldsymbol{\Theta}\)
 为开区间，概率密度函数
 \(p(\mathbf{x};\boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}\)
-满足
+满足：
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -588,13 +584,11 @@ logit\strut
   的邻域内，\(| \partial^3 \ln p/\partial \boldsymbol{\theta}^3 | \leq H(\mathbf{x})\)，且
   \(\mathsf{E}H(\mathbf{x}) < \infty\)；
 \item
-  在参数真值 \(\boldsymbol{\theta}_{0}\) 处，
+  在参数真值 \(\boldsymbol{\theta}_{0}\)
+  处，\(\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p''(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0,I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} > 0\)。
 \end{enumerate}
 
-\[\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0, \quad
-\mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p''(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big] = 0, \quad
-I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p'(\mathbf{x},\boldsymbol{\theta}_{0}) }{ p(\mathbf{x},\boldsymbol{\theta}_{0}) } \big]^{2} > 0\]
-\noindent 其中撇号表示对 \(\boldsymbol{\theta}\) 的微分。记
+\noindent 其中，撇号表示对 \(\boldsymbol{\theta}\) 的微分。记
 \(\hat{\boldsymbol{\theta}}_{n}\) 为 \(n \to \infty\)
 时，似然方程组的相合解，则\(\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))\)。
 \EndKnitrBlock{theorem}
@@ -618,13 +612,12 @@ I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p
 注意到平稳高斯过程 \(\mathcal{S}\) 的方差是一个常数，即
 \(\sigma^2 = \gamma(0)\)， 然后可以定义自相关函数
 \(\rho(u) = \gamma(u)/\sigma^2\)， 并且 \(\rho(u)\)
-满足关于空间距离的对称性， \(\rho(u) = \rho(-u)\)， 因为对
+是关于空间距离\(u\)对称的，即 \(\rho(u) = \rho(-u)\)。 因为对
 \(\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}\)，
 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。
-在本论文中如果不特别说明， 平稳就指上述协方差意义下的平稳，
-因为这种平稳性条件广泛应用于空间数据的统计建模。
-
-不失一般性，给出一维空间下随机过程 \(S(x)\) 的均方连续性和可微性定义。
+如果不特别说明， 平稳就指上述协方差意义下的平稳，
+因为这种平稳性条件广泛应用于空间数据的统计建模。不失一般性，介绍一维空间下随机过程
+\(S(x)\) 的均方连续性和可微性定义。
 
 \BeginKnitrBlock{definition}[连续性和可微性]
 \protect\hypertarget{def:continuous-differentiable}{}{\label{def:continuous-differentiable}
@@ -653,16 +646,13 @@ I(\boldsymbol{\theta}_{0}) = \mathsf{E}_{\boldsymbol{\theta}_{0}} \big[ \frac{ p
 平稳空间高斯过程的自协方差函数是 Matérn
 型（详见第\ref{models}章第\ref{subsec:covariance-function}小节）时，需要用到修正的第二类贝塞尔函数
 \(\mathcal{K}_{\kappa}(u)\)，它是修正的贝塞尔方程的解
-\citep{Abramowitz1972}，函数形式如下
-
-\begin{equation}
+\citep{Abramowitz1972}，函数形式如下 \begin{equation}
 \begin{aligned}
 I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(\frac{u}{2}\big)^{2m + \kappa} \\
 \mathcal{K}_{\kappa}(u) & = \frac{\pi}{2} \frac{I_{-\kappa}(u) - I_{\kappa}(u)}{\sin (\kappa \pi)}
 \end{aligned} \label{eq:besselK-function}
-\end{equation}
-
-\noindent 其中 \(u \geq 0\)，\(\kappa \in \mathbb{R}\)，如果
+\end{equation} \noindent 其中
+\(u \geq 0\)，\(\kappa \in \mathbb{R}\)，如果
 \(\kappa \in \mathbb{Z}\)，则取该点的极限值，\(\mathcal{K}_{\kappa}(u)\)
 的值可由 R 内置的函数 \texttt{besselK} 计算 \citep{Campbell1980}。
 
@@ -708,7 +698,7 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
     f(x; k) & = \frac{ x^{k/2-1} \mathrm{e}^{-x/2} }{ 2^{k/2}\Gamma(k/2) }, x \geq 0 \quad \log f(x) = (k/2 - 1) \log x - x/2 \\
  \log f'(x) & = (k/2-1)/x - 1/2 = 0 \quad \log f''(x)  = -(k/2-1)/x^2
 \end{align*} \noindent 所以，卡方分布的拉普拉斯近似为
-\[ \chi_{k}^2 \overset{LA}{\sim}  N(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]
+\[ \chi_{k}^2 \overset{LA}{\sim}  \mathcal{N}(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]
 \noindent 自由度越大，近似效果越好，对于多元分布的情况不难推广，使用多元泰勒展开和黑塞矩阵即可表示\citep{Tierney1986}。
 
 \hypertarget{sec:bayes-prior}{%
@@ -726,26 +716,8 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
 \BeginKnitrBlock{definition}[后验分布]
 \protect\hypertarget{def:posterior-distribution}{}{\label{def:posterior-distribution}
 \iffalse (后验分布) \fi{} }在获得样本 \(\mathbf{Y}\) 后，模型参数
-\(\boldsymbol{\theta}\) 的后验分布 （posterior distribution） 就是在给定
-\(\mathbf{Y}\) 条件下 \(\boldsymbol{\theta}\)
-的条件分布。根据条件概率定义、链式法则、全概率公式，有 \begin{align}
-\begin{array}{rcll}
-p(\boldsymbol{\theta}|\mathbf{Y})  & =  & \displaystyle \frac{p(\boldsymbol{\theta},\mathbf{Y})}{p(\mathbf{Y})}
-& \mbox{ [条件概率定义]}
-\\[16pt]
-& = & \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta}) p(\boldsymbol{\theta})}{p(\mathbf{Y})}
-& \mbox{ [链式法则]}
-\\[16pt]
-& = & \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})}{\int_{\Theta}p(\mathbf{Y},\boldsymbol{\theta})d\boldsymbol{\theta}}
-& \mbox{ [全概率公式]}
-\\[16pt]
-& = & \displaystyle \frac{p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})}{\int_{\Theta}p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})d\boldsymbol{\theta}}
-& \mbox{ [链式法则]}
-\\[16pt]
-& \propto & \displaystyle p(\mathbf{Y}|\boldsymbol{\theta})p(\boldsymbol{\theta})
-& \mbox{ [$\mathbf{Y}$ 已知]}
-\end{array} \label{eq:bayes-theorem}
-\end{align}
+\(\boldsymbol{\theta}\) 的后验分布 （posterior distribution）
+就是在给定样本 \(\mathbf{Y}\) 的条件下 \(\boldsymbol{\theta}\) 的分布。
 \EndKnitrBlock{definition}
 
 \BeginKnitrBlock{definition}[Jeffreys 先验分布]
@@ -773,7 +745,7 @@ p(\boldsymbol{\theta}|\mathbf{Y})  & =  & \displaystyle \frac{p(\boldsymbol{\the
   \(\mathbf{I}(\theta) = \mathsf{E}_{x|\theta} \big( - \frac{\partial^2 l}{\partial \theta^2} \big)\)；
 \item
   \(\boldsymbol{\theta}\) 的无信息先验密度函数为
-  \(\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\theta) ]^{1/2}\)，在单参数场合，
+  \(\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\boldsymbol{\theta}) ]^{1/2}\)，在单参数场合，
   \(\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}\)。
 \end{enumerate}
 
@@ -954,18 +926,16 @@ School & A & B & C & D & E & F & G & H\tabularnewline
 
 \begin{equation}
 \begin{aligned}
-     \mu & \sim \mathcal{N}(0,5) \\
-    \tau & \sim \text{Half-Cauchy}(0,5) \\
-p(\mu,\tau) & \propto 1 \\
-  \eta_i & \sim \mathcal{N}(0,1) \\
-\theta_i &  =   \mu + \tau \cdot \eta_i \\
-     y_i & \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
+    \mu \sim \mathcal{N}(0,5), \quad \tau \sim \text{Half-Cauchy}(0,5) \\
+    p(\mu,\tau) \propto 1, \quad \eta_i \sim \mathcal{N}(0,1) \\
+    \theta_i  =   \mu + \tau \cdot \eta_i \\
+    y_i \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
 \end{aligned}
 \label{eq:hierarchical-normal-models}
 \end{equation}
 
 根据公式组 \eqref{eq:hierarchical-normal-models}
-指定的各参数的先验分布，分层正态模型可以在 Stan
+指定的各参数先验分布，分层正态模型可以在 Stan
 中写成如下形式，我们在工作目录下把它保存为 \texttt{8schools.stan}
 ，供后续编程使用。
 
@@ -1011,7 +981,7 @@ for 循环语句。最后一段是模型：稍微注意的是，正文中正态�
 代码中使用的是标准差。\texttt{target\ +=\ normal\_lpdf(y\ \textbar{}\ theta,\ sigma)}
 和 \texttt{y\ \textasciitilde{}\ normal(theta,\ sigma)}
 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于
-Stan 的采样、近似和优化算法没有影响 \citep{Stan2017JSS}。
+Stan 的采样、近似和优化算法没有影响。
 
 算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680
 处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本
@@ -1132,16 +1102,16 @@ error）、后验标准差 （standard deviation） \(\mathsf{E}(\sigma|Y)\)
 \end{aligned} \label{eq:potential-scale-reduction}
 \end{equation}
 
-\noindent \(\omega\) 的后验边际方差 \(\omega|Y\) 是 \(W\) 和 \(B\)
-的加权平均
+\noindent \(\omega\) 的后验方差 \(\widehat{\mathsf{Var}}^{+}(\omega|Y)\)
+是 \(W\) 和 \(B\) 的加权平均
 
 \begin{equation}
 \widehat{\mathsf{Var}}^{+}(\omega|Y) = \frac{n-1}{n} W + \frac{1}{n} B 
 \end{equation}
 
-当初始分布发散 （overdispersed）
-时，这个量会高估边际后验方差，但在链条平稳或 \(n \to \infty\)
-时，它是无偏的。同时，对任意有限的 \(n\)，组内方差 \(W\) 应该会低估
+当初始分布发散时，这个量会高估边际后验方差，但在链条平稳或
+\(n \to \infty\) 时，它是无偏的。同时，对任意有限的 \(n\)，组内方差
+\(W\) 应该会低估
 \(\mathsf{Var}(\omega|Y)\)，因为单个链条没有时间覆盖目标分布；在
 \(n \to \infty\)， \(W\) 的期望会是 \(\mathsf{Var}(\omega|Y)\)。
 
@@ -1159,7 +1129,7 @@ error）、后验标准差 （standard deviation） \(\mathsf{E}(\sigma|Y)\)
 \hypertarget{sec:foundations}{%
 \section{本章小结}\label{sec:foundations}}
 
-本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:Laplace-approximation}节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\ref{algorithms}章第\ref{subsec:LA}小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\ref{sec:bayes-prior}节至第\ref{sec:stan-samplers}节分别是与贝叶斯相关的概念定义、参数估计、计算方法。
+本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:Laplace-approximation}节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\ref{algorithms}章第\ref{subsec:LA}小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\ref{sec:bayes-prior}节至第\ref{sec:stan-samplers}节分别是与贝叶斯相关的概念定义。
 
 \hypertarget{models}{%
 \chapter{统计模型}\label{models}}
@@ -1215,13 +1185,14 @@ g(\mu) = X^{\top}\boldsymbol{\beta}  \label{eq:GLM}
 \(Y \sim \mathrm{Poisson}(\lambda)\) 时，响应变量 \(Y\) 的期望
 \(\mu =\mathsf{E}(Y) = \lambda\)， 联系函数\(g(x) = \ln(x)\)， 模型
 \eqref{eq:GLM} 变为 \(\log(\lambda) = X^{\top}\boldsymbol{\beta}\)。
-指数族下其余分布对应的联系函数此处不一一列举， 完整列表可以参看 1989 年
-McCullagh 和 Nelder 所著的《广义线性模型》 \citep{McCullagh1989}。 模型
-\eqref{eq:GLM} 最早由 Nelder 和 Wedderburn 在 1972 年提出
-\citep{Nelder1972}，它弥补了模型 \eqref{eq:LM} 的两个重要缺点：
-一是因变量只能取连续值的情况， 二是期望与自变量只能用线性关系联系
-\citep{Chen2011}。 求解广义线性模型 \eqref{eq:GLM} 的 R 函数是
-\texttt{glm}， 常用拟似然法去估计模型 \eqref{eq:GLM} 的参数。
+指数族下其余分布对应的联系函数此处不一一列举， 完整列表可以参看
+McCullagh 和 Nelder （1989 年 ）\citep{McCullagh1989}
+所著的《广义线性模型》 。 模型 \eqref{eq:GLM} 最早由 Nelder 和 Wedderburn
+（1972 年）\citep{Nelder1972} 提出，它弥补了模型 \eqref{eq:LM}
+的两个重要缺点： 一是因变量只能取连续值的情况，
+二是期望与自变量只能用线性关系联系 \citep{Chen2011}。 求解广义线性模型
+\eqref{eq:GLM} 的 R 函数是 \texttt{glm}， 常用拟似然法去估计模型
+\eqref{eq:GLM} 的参数。
 
 \hypertarget{sec:Generalized-Linear-Mixed-Effects-Models}{%
 \section{广义线性混合效应模型}\label{sec:Generalized-Linear-Mixed-Effects-Models}}
@@ -1238,10 +1209,10 @@ g(\mu) = X^{\top}\boldsymbol{\beta} + Z^{\top}\mathbf{b}  \label{eq:GLMM}
 除了用最新科技做全基因组扫描获取显著的基因位点，
 还应该把那些看似不显著， 联合在一起却显著的位点作为随机效应去考虑
 \citep{Yang2010Common}。求解模型 \eqref{eq:GLMM}的 R 包有 nlme ，mgcv 和
-lme4， 参数估计的方法一般有限制极大似然法。 除了求解模型 \eqref{eq:GLMM}
-外， nlme 可以拟合一些非线性混合效应模型， mgcv
+lme4， 参数估计的方法有限制极大似然法。 除了求解模型 \eqref{eq:GLMM} 外，
+nlme 还可以拟合一些非线性混合效应模型， mgcv
 可以拟合广义可加混合效应模型， lme4 使用了高性能的 Eigen
-数值代数库，可以加快模型的求解过程。
+数值代数库，可以加快模型的求解进程。
 
 \hypertarget{sec:Spatial-Generalized-linear-mixed-effects-models}{%
 \section{空间广义线性混合效应模型}\label{sec:Spatial-Generalized-linear-mixed-effects-models}}
@@ -1254,12 +1225,13 @@ lme4， 参数估计的方法一般有限制极大似然法。 除了求解模�
 g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) + Z_i \label{eq:SGLMM}
 \end{equation} \noindent 其中，\(d^{\top}(x_i)\)
 表示协变量对应的观测数据向量，即 \(p\) 个协变量在第 \(i\) 个位置 \(x_i\)
-的观察值。 此外， 假定 \(\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}\)
-是均值为0， 方差为 \(\sigma^2\)，平稳且各向同性的空间高斯过程，
+的观察值。 这里， 假定 \(\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}\)
+是均值为\(\mathbf{0}\)， 方差为
+\(\sigma^2\)，平稳且各向同性的空间高斯过程，
 \(\rho(x,x') = \mathsf{Corr}\{S(x),S(x')\} \equiv \rho(\|x,x'\|)\)，
-\(\|\cdot\|\) 表示距离， 样本之间的位置间隔不大就用欧氏距离，
+\(\|\cdot\|\) 表示距离。 样本之间的位置间隔不大就用欧氏距离，
 间隔很大可以考虑用球面距离； \(S(x_i)\) 代表了与空间位置 \(x_i\)
-相关的随机效应， 简称空间效应； 这里，
+相关的随机效应， 简称空间效应。
 \(Z_i \stackrel{i.i.d}{\sim} \mathcal{N}(0,\tau^2)\) 的非空间随机效应，
 也称块金效应， 一般解释为测量误差 （measurement error） 或微观变化
 （micro-scale variation） \citep{Christensen2004}， 即
@@ -1289,18 +1261,19 @@ V_{T}(u_{ij})
 \end{aligned} \label{eq:variograms}
 \end{equation} \noindent 从方程 \eqref{eq:variograms} 不难看出系数
 \(\frac{1}{2}\) 的化简作用，类似地，根据协方差定义可推知随机向量
-\(T = (T_1,T_2,\ldots,T_n)\) 的协方差矩阵如下： \begin{equation}
+\(T = (T_1,T_2,\ldots,T_n)\) 的协方差矩阵结构如下： \begin{equation}
 \begin{aligned}
 \mathsf{Cov}(T_{i}(x),T_{i}(x)) &= \mathsf{E}[S(x_i)]^2 + \mathsf{E}Z_{i}^{2}= \sigma^2+\tau^2 \\
 \mathsf{Cov}(T_{i}(x),T_{j}(x)) &= \mathsf{E}[S(x_i)S(x_j)]  = \sigma^2\rho(u_{ij})
 \end{aligned}
-\end{equation} \noindent 相关函数 \(\rho(u)\)
+\end{equation} \noindent 自相关函数 \(\rho(u)\)
 的作用和地位就显而易见了，它是既决定理论变差又决定协方差矩阵的结构。图
 \ref{fig:semi-variance}
 给出一般变差函数的示意图，作为粗略估计，纵截距可以看作是块金效应参数
 \(\tau^2\)，而图中的变差函数基台值，即变差函数 \(V_{T}(u_{ij})\)
 趋于稳定的函数值，它是块金效应和空间效应的和，作为空间效应参数
-\(\sigma^2\) 的粗略估计，我们用它减去块金效应即得。基于样本变差函数图
+\(\sigma^2\)
+的粗略估计，我们用基台值减去块金效应即得。基于样本变差函数图
 \ref{fig:semi-variance}
 我们可以获得随机效应方差分量的初始估计，其使用案列见第
 \ref{applications} 章第 \ref{sec:spatial-random-effects} 节。
@@ -1314,8 +1287,8 @@ V_{T}(u_{ij})
 \caption{变差函数 $V_{T}(u)$ 示意图}\label{fig:semi-variance}
 \end{figure}
 
-常见的自协方差函数有三类，分别是高斯型协方差函数、球面型协方差函数和
-Matérn 型协方差函数，由于 Matérn 型协方差函数的广泛应用性
+常见的自相关函数有三类，分别是高斯型自相关函数、球面型自相关函数和
+Matérn 型自相关函数，由于 Matérn 型自相关函数的广泛应用性
 \citep{Diggle1998, Diggle2002Childhood, Christensen2004}，这里主要介绍它的有关性质特点。
 \begin{equation}
 \rho(u)=\{2^{\kappa -1}\Gamma(\kappa)\}^{-1}(u/\phi)^{\kappa}\mathcal{K}_{\kappa}(u/\phi),u > 0 \label{eq:matern1}
@@ -1330,7 +1303,7 @@ Matérn 型协方差函数，由于 Matérn 型协方差函数的广泛应用性
 章第\ref{sec:modified-bessel-function} 节）， \(\kappa(>0)\)
 是平滑参数，满足这些条件的空间过程 \(\mathcal{S}\) 是
 \(\lceil\kappa\rceil-1\) 次均方可微的。值得注意的是 Matérn
-族其实包含幂指数族 \noindent 当
+型包含幂指数型 \noindent 当
 \(\kappa = 0.5\)时，\(\rho_{0}(u) = \exp(-u)\)， \(S(x)\)
 均方连续但是不可微，当 \(\kappa \to \infty\) 时，
 \(\rho_{0}(u) = \exp(-u^2)\)， \(S(x)\)
@@ -1359,7 +1332,7 @@ Matérn 型协方差函数，由于 Matérn 型协方差函数的广泛应用性
 
 }
 
-\caption{自相关函数 $\rho(u)$ 在不同空间距离$\mathsf{u}$处随贝塞尔函数的阶 $\kappa$ 和尺度参数 $\phi$ 的变化，横轴表示尺度参数 $\phi$，纵轴表示贝塞尔函数的阶$\kappa$，我们用 从蓝到红的颜色变化表示自相关函数 $\rho(u)$ 值由小到大，即表示相关性由弱变强}\label{fig:matern-3d}
+\caption{自相关函数 $\rho(\mathsf{u})$ 在不同空间距离$\mathsf{u}$处随贝塞尔函数的阶 $\kappa$ 和尺度参数 $\phi$ 的变化，横轴表示尺度参数 $\phi$，纵轴表示贝塞尔函数的阶$\kappa$，我们用 从蓝到红的颜色变化表示自相关函数 $\rho(\mathsf{u})$ 值由小到大，即表示相关性由弱变强}\label{fig:matern-3d}
 \end{figure}
 
 从图\ref{fig:matern-2d}可以看出，相比于贝塞尔函数的阶 \(\kappa\)，
@@ -1368,7 +1341,7 @@ Matérn 型协方差函数，由于 Matérn 型协方差函数的广泛应用性
 \(\kappa\) 是可以接受的，为简化编程和表述，Diggle 等 （1998年）
 \citep{Diggle1998} 在真实数据分析中使用幂指数型自相关函数
 \(\rho_{0}(u) = \exp(-(\alpha u)^{\delta}), \alpha > 0, 0 < \delta \leq 2\)。
-虽然其形式大大简化， 但函数图像和性质却与梅隆型有相似之处， 即当
+虽然其形式大大简化， 但函数图像和性质却与Matérn 型有相似之处， 即当
 \(0 < \delta < 2\) 时， \(S(x)\) 均方连续但不可微，当 \(\delta = 2\)
 时， \(S(x)\) 无限次可微。
 
@@ -1385,10 +1358,10 @@ g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) \label{eq:no-nugget-SGLMM}
 \end{equation} 如何区分开 \(Z_{i}\) 与
 \(S(x_i)\)，或者更直接地说，如何估计这两个随机效应的参数
 \(\tau^2, \sigma^2, \phi\)， 即为可识别问题。 向量
-\(T = (T_1,T_2,\ldots,T_n)^{\top}\) 是协方差为矩阵
+\(T = (T_1,T_2,\ldots,T_n)^{\top}\) 是协方差矩阵为
 \(\tau^2I + \sigma^2R\) 的多元高斯分布， 其中， 自相关函数
 \(R_{ij} = \rho(u_{ij}; \phi)\)， \(u_{ij}\) 是 \(x_i\) 与 \(x_j\)
-之间的距离，由线性预测 \(T_{i}\) 的变差公式 \eqref{eq:variograms}
+之间的距离。由线性预测 \(T_{i}\) 的变差公式 \eqref{eq:variograms}
 知，随机过程 \(T(x)\) 的变差 \(\tau^2 + \sigma^2(1-\rho(u_{ij}))\)
 和自相关函数 \eqref{eq:corr-nugget-function} \begin{equation}
 \rho^{\star}(u) =
@@ -1422,8 +1395,7 @@ g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) \label{eq:no-nugget-SGLMM}
 \begin{equation*}
 \log(\nu^2),\log(\sigma^2),\log(\phi)  \sim \mathcal{N}(\cdot,\cdot)
 \end{equation*}
-这些无信息先验分布的选择主要是出于实用和经验的考虑，也可以取别的，只要保持马尔科夫链收敛即可，实际操作中，我们还选取不同初始值，产生多条链，同时去掉迭代初始阶段产生的相对发散的参数迭代值，后续迭代值在链条收敛的情况下，可以把它当作后验分布产生的样本，然后依据该样本估计后验分布的参数。这些无信息先验分布的选择对最终结果几乎没有影响，这是贝叶斯方法的优势，也是贝叶斯推断方法得以被广泛应用的原因之一
-\citep{mao2006}。
+这些无信息先验分布的选择主要是出于实用和经验的考虑，也可以取别的，只要保持马尔科夫链收敛即可。实际操作中，我们还选取不同初始值，产生多条链，同时去掉迭代初始阶段产生的相对发散的参数迭代值，后续迭代值在链条收敛的情况下，可以把它当作后验分布产生的样本，然后依据该样本估计后验分布的参数。
 
 \hypertarget{sec:models}{%
 \section{本章小结}\label{sec:models}}
@@ -1451,41 +1423,42 @@ SGLMM 模型参数，此外，特别提出了基于 Stan 实现的贝叶斯 MCMC
 \section{极大似然估计}\label{sec:mle}}
 
 设研究区域 \(D \subseteq \mathbb{R}^2\)， 对于第 \(i\) 次观测， \(s_i\)
-表示区域 \(D\) 内的位置，\(Y(s_i)\)
+表示区域 \(D\) 内的位置，\(y(s_i)\)
 表示响应变量，\(\mathbf{x}(s_i), i = 1, \ldots, n\) 是一个 \(p\)
 维的固定效应，定义如下的 SGLMM 模型：
 
-\[ \mathrm{E}[Y(s_i)|u(s_i)] = g^{-1}[\mathbf{x}(s_i)'\boldsymbol{\beta} + \mathbf{u}(s_i)], \quad i = 1, \ldots, n \]
+\[ \mathrm{E}[y(s_i)|u(s_i)] = g^{-1}[\mathbf{x}(s_i)^{\top}\boldsymbol{\beta} + \mathbf{u}(s_i)], \quad i = 1, \ldots, n \]
 
-\noindent 其中 \(g(\cdot)\) 是实值可微的逆联系函数， \(\beta\) 是 \(p\)
-维的回归参数，代表 SGLMM
-模型的固定效应。\(\{U(\mathbf{s}): \mathbf{s} \in D\}\)
+\noindent 其中 \(g(\cdot)\) 是实值可微的逆联系函数，
+\(\boldsymbol{\beta}\) 是 \(p\) 维的回归参数向量，代表 SGLMM
+模型的固定效应。随机过程 \(\{U(\mathbf{s}): \mathbf{s} \in D\}\)
 是平稳的空间高斯过程，其均值为 \(\mathbf{0}\)， 自协方差函数
 \(\mathsf{Cov}(U(\mathbf{s}),U(\mathbf{s}')) = C(\mathbf{s} - \mathbf{s}'; \boldsymbol{\theta})\)，
 \(\boldsymbol{\theta}\) 是其中的参数向量。
-\(\mathbf{u} = (u(s_1),u(s_2),\ldots,u(s_n))'\) 是平稳空间高斯过程
-\(U(\cdot)\) 的一个实例。\(Y(\cdot)|U(\cdot)\) 是独立随机过程，如给定
-\(\mathbf{u}\)，观察值 \(\mathbf{y} = (y(s_1),y(s_2),\ldots,y(s_n))'\)
-是相互独立的。
+\(\mathbf{u} = (u(s_1),u(s_2),\ldots,u(s_n))^{\top}\) 是平稳空间高斯过程
+\(U(\cdot)\) 的一个实例。给定 \(\mathbf{u}\)的情况下，观察值
+\(\mathbf{y} = (y(s_1),y(s_2),\ldots,y(s_n))^{\top}\) 是相互独立的。
 
-给定 \(u_i = u(s_i), i = 1, \ldots, n\)， \(y_i = y(s_i)\)
+给定 \(u_i = u(s_i), i = 1, \ldots, n\)的条件下， \(y_i = y(s_i)\)
 的条件概率密度函数是
 \[f(y_i|u_i;\boldsymbol{\beta}) = \exp[a(\mu_i)y_i - b(\mu_i)]c(y_i)\]
-这里 \(\mu_i = Y_i|u_i\)， \(a(\cdot),b(\cdot)\) 和 \(c(\cdot)\)
+其中 \(\mu_i = \mathsf{E}(y_i|u_i)\)， \(a(\cdot),b(\cdot)\) 和
+\(c(\cdot)\)
 是特定的函数，具体的情况视所服从的分布而定，第\ref{prepare}章第\ref{sec:exp}节就不同的分布给出了不同函数形式。
 SGLMM 模型的边际似然函数 \begin{equation}
 L(\boldsymbol{\psi};\mathbf{y}) = \int \prod_{i=1}^{n} f(y_i|u_i;\boldsymbol{\beta})\phi_{n}(\mathbf{u};0,\Sigma_{\boldsymbol{\theta}})\mathrm{d}\mathbf{u} \label{eq:likelihood-function-1}
-\end{equation} \noindent 其中
-\(\boldsymbol{\psi} = (\boldsymbol{\beta},\boldsymbol{\theta})\) 是
-SGLMM 模型的参数， \(\phi_{n}(\cdot;0,\Sigma_{\boldsymbol{\theta}})\)
-表示 \(n\) 元正态密度函数，其均值为 \(\mathbf{0}\)， 协方差矩阵为
+\end{equation} \noindent 记号
+\(\boldsymbol{\psi} = (\boldsymbol{\beta},\boldsymbol{\theta})\) 表示
+SGLMM 模型的全部参数，
+\(\phi_{n}(\cdot;0,\Sigma_{\boldsymbol{\theta}})\) 表示 \(n\)
+元正态密度函数，其均值为 \(\mathbf{0}\)， 协方差矩阵为
 \(\Sigma_{\boldsymbol{\theta}} = (c_{ij}) = (C(s_i - s_j; \boldsymbol{\theta})), i,j = 1, \ldots, n\)。
 边际似然函数 \eqref{eq:likelihood-function-1}
 几乎总是卷入一个难以处理的积分，这是主要面临的问题，并且计算量随观测
-\(y_i\) 的数量增加，因为此积分的维数等于观测点的个数\citep{Diggle2007}。
+\(y_i\) 的数量增加，因为此积分的维数等于观测点的个数。
 
 再从贝叶斯方法的角度来看 SGLMM 模型， 令
-\(\mathbf{y} = (y(s_1),\ldots,y(s_n))'\) 表示观测值，
+\(\mathbf{y} = (y(s_1),\ldots,y(s_n))^{\top}\) 表示观测值，
 \(\pi(\boldsymbol{\psi})\)
 表示模型参数的联合先验密度，那么联合后验密度为 \begin{equation}
 \begin{aligned}
@@ -1513,9 +1486,9 @@ mode） 完全是似然函数的极大似然估计 MLE \citep{Robert1996JASA}。
 \label{eq:gaussian-model}
 \end{equation} \noindent 其中， \(D\) 是 \(n \times p\)
 的观测数据矩阵，\(\boldsymbol{\beta}\)
-是相应的回归参数向量，\(\mathbf{R}\) 依赖于 \(\phi\)，\(\phi\)
-可能含有多个参数。模型 \eqref{eq:gaussian-model} 的对数似然函数
-\begin{equation}
+是\(p\times 1\)维的回归参数向量，\(\mathbf{R}\) 依赖于
+\(\phi\)，这里\(\phi\) 可能含有多个参数。模型 \eqref{eq:gaussian-model}
+的对数似然函数 \begin{equation}
 \begin{aligned}
 L(\boldsymbol{\beta},\tau^2,\sigma^2,\phi) = {} 
  & - 0.5\{ n\log(2\pi) + \log\{|(\sigma^2\mathbf{R}(\phi)+\tau^2\mathbf{I})|\} \\
@@ -1550,21 +1523,21 @@ L(\boldsymbol{\beta},\tau^2,\sigma^2,\phi) = {}
 \end{enumerate}
 
 在空间线性混合效应模型的设置下，上述极大化似然函数的过程可能与自协方差函数的类型有关，如在使用
-Matérn 型自协方差函数的时，形状参数（shape parameter） \(\kappa\)
-也卷入到 \(\phi\) 中，导致识别问题。因此，让 \(\kappa\) 分别取
+Matérn 型自协方差函数的时，平滑参数 \(\kappa\) 也卷入到 \(\phi\)
+中，导致识别问题。因此，让 \(\kappa\) 分别取
 \(0.5,1.5,2.5\)，使得平稳空间高斯过程 \(\mathcal{S}\)
 覆盖到不同程度的均方可微性
 \citep{Warnes1987}。原则上，极大似然估计的变化情况可以通过观察对数似然函数的曲面来分析\footnote{SGLMM
   模型的似然函数通常不止一个极值点}，但是，似然曲面的维数往往不允许直接观察。在这种情形下，另一个基于似然的想法是剖面似然
-（profile likelihood）。一般地，假定我们有一个模型，其含有参数
-\((\alpha,\phi)\)，似然表示为 \(L(\alpha,\phi)\)。则关于 \(\alpha\)
-的剖面似然函数定义为 \begin{equation}
+（profile likelihood）。一般地，假定有一个模型含有参数
+\((\alpha,\phi)\)，其参数的似然函数表示为 \(L(\alpha,\phi)\)。则关于
+\(\alpha\) 的剖面似然函数定义为 \begin{equation}
 L_{p}(\alpha) = L(\alpha,\hat{\psi}(\alpha)) = \max_{\psi} (L(\alpha,\psi))
 \label{eq:profile-log-lik}
 \end{equation} \noindent 即考虑似然函数随 \(\alpha\)
 的变化情况，对每一个 \(\alpha\) （保持 \(\alpha\) 不变），指定 \(\psi\)
 的值使得对数似然取得最大值。剖面似然就是让我们可以观察到关于 \(\alpha\)
-的似然曲面，显然，其维数比完全似然面要低，与只有一个参数的对数似然一样，它也可以用来计算单个参数的置信区间。现在，注意到简化的对数似然
+的似然曲面，显然，其维数比完全似然曲面要低，与只有一个参数的对数似然一样，它也可以用来计算单个参数的置信区间。现在，注意到简化的对数似然
 \eqref{eq:reduced-gauss-log-lik} 其实可以看作模型 \eqref{eq:gaussian-model}
 关于 \((\nu^2,\phi)\) 的剖面对数似然 \citep{Diggle2007}。
 
@@ -1578,7 +1551,7 @@ L_{p}(\alpha) = L(\alpha,\hat{\psi}(\alpha)) = \max_{\psi} (L(\alpha,\psi))
 SGLMM）的结构重新表述如下： \begin{equation}
 \begin{aligned}
 \mathbf{Y(x)} | S(\mathbf{x}) & \sim  f(\cdot;\boldsymbol{\mu(x)},\psi) \\
-g(\boldsymbol{\mu(x)}) & =  D\boldsymbol{\beta} + S(\mathbf{x}) 
+g(\boldsymbol{\mu}(\mathbf{x})) & =  D\boldsymbol{\beta} + S(\mathbf{x}) 
                          = D\boldsymbol{\beta} + \sigma R(\mathbf{x};\phi) + \tau z \\
 S(\mathbf{x}) & \sim  \mathcal{N}(\mathbf{0},\Sigma)
 \end{aligned} \label{eq:sglmm}
@@ -1586,12 +1559,12 @@ S(\mathbf{x}) & \sim  \mathcal{N}(\mathbf{0},\Sigma)
 
 \noindent SGLMM 模型假定在给定高斯空间过程 \(S(\mathbf{x})\) 的条件下，
 \(Y_1,Y_2,\ldots,Y_n\) 是独立的，并且服从分布
-\(f(\cdot;\boldsymbol{\mu(x)},\psi)\)。此分布的参数有两个来源，其一是与联系函数
-\(g\) 关联的线性预测 \(\boldsymbol{\mu(x)}\)，其二是密度分布函数 \(f\)
-的发散参数 \(\psi\)，可以看作是似然函数中的附加参数。空间过程
-\(S(\mathbf{x})\) 分解为空间相关 \(R(\mathbf{x};\phi)\) 和独立过程
-\(Z\)，二者分别被参数 \(\sigma\) 和 \(\tau\)
-归一化而具有单位方差。线性预测包含一组固定效应
+\(f(\cdot;\boldsymbol{\mu}(\mathbf{x}),\psi)\)。此分布的参数有两个来源，其一是与联系函数
+\(g\) 关联的线性预测
+\(\boldsymbol{\mu}(\mathbf{x})\)，其二是密度分布函数 \(f\) 的发散参数
+\(\psi\)，可以看作是似然函数中的附加参数。空间过程 \(S(\mathbf{x})\)
+分解为空间相关 \(R(\mathbf{x};\phi)\) 和独立过程 \(Z\)，二者分别被参数
+\(\sigma\) 和 \(\tau\) 归一化而具有单位方差。线性预测包含一组固定效应
 \(D\boldsymbol{\beta}\)，空间相关的随机效应
 \(R(\mathbf{x};\phi)\)，与空间不相关的随机效应
 \(\tau z \sim \mathcal{N}(\mathbf{0},\tau^2\mathbf{I})\)。\(D\)
@@ -1812,8 +1785,8 @@ L(\boldsymbol{\beta},\boldsymbol{\theta})
 \end{equation} \noindent 其中
 \(\boldsymbol{\beta}_{0},\boldsymbol{\theta}_{0}\)
 作为迭代初始值预先给定，则 \(Y\) 和 \(T\) 的联合分布可以表示成
-\(f(y,t) = \mathcal{N}(t; D\boldsymbol{\beta}_{0}, \Sigma(\boldsymbol{\theta}_{0})) f(y|t)\)。
-再通过蒙特卡罗方法，用求和代替积分近似期望， 做法是从条件分布
+\(f(y,t) = \mathcal{N}(t; D\boldsymbol{\beta}_{0}, \Sigma(\boldsymbol{\theta}_{0})) f(y|t)\)。通过蒙特卡罗方法，用求和代替积分近似期望，
+做法是从条件分布
 \(f(T|Y=y; \boldsymbol{\beta}_0, \boldsymbol{\theta}_0)\) 抽取 \(m\)
 个样本 \(t_{(i)}\)， 那么，可以用方程 \eqref{eq:likelihood-approx}
 近似方程 \eqref{eq:likelihood2} \begin{equation}
@@ -1828,10 +1801,10 @@ L_{m}(\boldsymbol{\beta},\boldsymbol{\theta})=\frac{1}{m}\sum_{i=1}^{n}\frac{\ma
 \(\boldsymbol{\beta},\boldsymbol{\theta}\)
 的极大似然估计，即\(\max_{\boldsymbol{\beta},\boldsymbol{\theta}}L_{m}(\boldsymbol{\beta},\boldsymbol{\theta}) \rightarrow 1, m \rightarrow\infty\)。
 
-既然给定的初始值 \(\boldsymbol{\beta}_{0},\boldsymbol{\theta}_{0}\)
-必定与真实的极大似然估计值不同，第 \(m\) 步迭代获得的似然函数值
+既然初始值 \(\boldsymbol{\beta}_{0},\boldsymbol{\theta}_{0}\)
+与真实的极大似然估计值不同，可以用第 \(m\) 步迭代获得的似然函数值
 \(L_{m}(\hat{\boldsymbol{\beta}}_{m}, \hat{\boldsymbol{\theta})}_{m}\)
-与 1 的距离可以用来刻画蒙特卡罗近似的准确度。实际操作中，用
+与 1 的距离来刻画蒙特卡罗近似的准确度。实际操作中，用
 \(\hat{\boldsymbol{\beta}}_{m}\) 和 \(\hat{\boldsymbol{\theta}}_{m}\)
 表示最大化 \(L_{m}(\boldsymbol{\beta}, \boldsymbol{\theta})\) 获得的
 MCML 估计，重复迭代
@@ -1841,14 +1814,14 @@ MCML 估计，重复迭代
 \(l_{m}(\boldsymbol{\beta}, \boldsymbol{\theta}) = \log L_{m}(\boldsymbol{\beta}, \boldsymbol{\theta})\)
 的极值，可以使用 PrevMap 包，迭代
 \(L_{m}(\boldsymbol{\beta}, \boldsymbol{\theta})\) 的过程中，可以选择
-BFGS 算法。关于 \(\boldsymbol{\psi}\)
-的似然曲面是相当扁平的，为了更好的收敛到全局极大值，做一步重参数化，即令
+BFGS 算法。由于 \(\boldsymbol{\psi}\)
+的似然曲面是相当扁平的，为了更好的收敛，做一步重参数化，即令
 \(\boldsymbol{\psi} = \log(\boldsymbol{\theta})\)，\(L_{m}(\boldsymbol{\beta}, \boldsymbol{\psi})\)
 关于 \(\boldsymbol{\beta}\) 和 \(\boldsymbol{\psi}\)
-的一阶、二阶导数传递给 maxLik 包的 \texttt{maxBFGS} 函数。
-
-蒙特卡罗极大似然估计 \(\boldsymbol{\theta}_{m}\) 的标准误差 （standard
-errors） 取似然函数 \(l_{m}(\boldsymbol{\beta},\boldsymbol{\theta})\)
+的一阶、二阶导数传递给 maxLik 包的 \texttt{maxBFGS}
+函数。蒙特卡罗极大似然估计 \(\boldsymbol{\theta}_{m}\) 的标准误差
+（standard errors） 取似然函数
+\(l_{m}(\boldsymbol{\beta},\boldsymbol{\theta})\)
 的负黑塞矩阵的逆的对角线元素的平方根。迭代次数足够多时，即 \(m\)
 充分大时，一般取到 10000 及以上，此时蒙特卡罗误差可忽略，即用方程
 \eqref{eq:likelihood-approx} 近似 \eqref{eq:likelihood2} 的误差可忽略。
@@ -2071,8 +2044,8 @@ Bürkner 一起开发了 brms 包 \citep{brms2017JSS}，
     从指定的先验分布中均匀抽取新的 \(\boldsymbol{\theta}'\) ；
   \item
     以概率
-    \(\Delta(\boldsymbol{\theta},\boldsymbol{\theta}') = \min \big\{\frac{p(S|\boldsymbol{\theta}')}{p(S|\boldsymbol{\theta})},1\big\}\)，否则不改变
-    \(\boldsymbol{\theta}\)；
+    \(\Delta(\boldsymbol{\theta},\boldsymbol{\theta}') = \min \big\{\frac{p(S|\boldsymbol{\theta}')}{p(S|\boldsymbol{\theta})},1\big\}\)接受\(\boldsymbol{\theta}'\)，否则不改变
+    \(\boldsymbol{\theta}\)。
   \end{enumerate}
 \item
   更新高斯过程 \(S\) 的取值：
@@ -2089,13 +2062,13 @@ Bürkner 一起开发了 brms 包 \citep{brms2017JSS}，
     \(\Delta(S_{i},S_{i}') = \min\big\{ \frac{p(y_{i}|s_{i}',\boldsymbol{\beta})}{p(y_{i}s_{i},\boldsymbol{\beta})},1 \big\}\)
     接受 \(S_{i}'\)，否则不改变\(S_i\)；
   \item
-    重复 (i) 和 (ii) \(\forall i = 1,2,\ldots,n\)；
+    重复 (i) 和 (ii) \(\forall i = 1,2,\ldots,n\)。
   \end{enumerate}
 \item
   更新模型系数 \(\boldsymbol{\beta}\) ：从条件密度
   \(p(\boldsymbol{\beta}'|\boldsymbol{\beta})\) 以概率
   \[\Delta = \min \big\{ \frac{\prod_{j=1}^{n}p(y_i|s_{i},\boldsymbol{\beta}')p(\boldsymbol{\beta}|\boldsymbol{\beta}')}{\prod_{j=1}^{n}p(y_i|s_{i},\boldsymbol{\beta})p(\boldsymbol{\beta}'|\boldsymbol{\beta})},1  \big\}\]
-  接受 \(\boldsymbol{\beta}'\)，否则不改变\(\boldsymbol{\beta}\)。
+  接受 \(\boldsymbol{\beta}'\)，否则不改变\(\boldsymbol{\beta}\)；
 \item
   重复步骤2，3，4 既定的次数，获得参数
   \(\boldsymbol{\beta},\boldsymbol{\theta}\)
@@ -2108,10 +2081,10 @@ Bürkner 一起开发了 brms 包 \citep{brms2017JSS}，
 它包含一套完整的 C++ 开发工具。 然后添加 gcc/g++
 编译器的路径到系统环境变量。 如果在 Linux 系统上， 这些工具都是自带的，
 环境变量也不用配置， 减少了很多麻烦，但是在 Linux
-系统上可以获得更好的算法性能。其它配置细节见 Stan
-开发\href{https://github.com/stan-dev/rstan/wiki}{官网}。其次，在 R
-软件控制台，安装 rstan 和 brms 包以及相关依赖包。然后，加载 rstan 和
-brms 包，配置参数如下：
+系统上可以获得更好的算法性能，其它配置细节见 Stan
+开发\href{https://github.com/stan-dev/rstan/wiki}{官网}。然后，在 R
+软件控制台安装 rstan 和 brms 包以及相关依赖包。最后，加载 rstan 和 brms
+包，设置启动参数如下：
 
 \begin{verbatim}
 # 加载程序包
@@ -2209,7 +2182,7 @@ spBayes\tabularnewline
 
 本章参数估计和算法实现是论文的主要内容之一，首先沿着极大似然估计的思路，尝试写出
 SGLMM
-模型参数的似然函数，但是因为空间随机效应导致的高维积分无法用显式表达式表示，进而出现了以拉普拉斯近似和蒙特卡罗模拟的两类基于似然的方法，前者走近似高维积分的路子，后者走模拟计算的路子，这两类方法在数据分析中，前者尤其需要指定合适的初值，且在数据量不太大的时候才能应用，后者需要指定合适的先验分布。第\ref{sec:STAN-MCMC}节在第\ref{sec:MCMC}小节的基础上提出基于
+模型参数的似然函数，但是因为空间随机效应导致的高维积分无法用显式表达式表示，进而出现了以拉普拉斯近似和蒙特卡罗模拟的两类基于似然的方法，前者走近似高维积分的路子，后者走模拟计算的路子，这两类方法在数据分析中，前者尤其需要指定合适的初值，且在数据量不太大的时候才能应用，后者只需指定合适的先验分布使得马氏链收敛即可。第\ref{sec:STAN-MCMC}节在第\ref{sec:MCMC}小节的基础上提出基于
 Stan 实现的 MCMC 算法。
 
 \hypertarget{simulations}{%
@@ -2337,7 +2310,7 @@ INLA 程序库 \citep{INLA2015}，其内置的近似程序得到了一定的应�
 
 响应变量服从二项分布
 \(Y_{i} \sim \mathrm{Binomial}(m_{i},p(x_{i}))\)，即在位置 \(x_i\)
-处，以概率 \(p(x_i)\) 重复抽取了 \(m_i\) 个样本，总样本数
+处以概率 \(p(x_i)\) 重复抽取了 \(m_i\) 个样本，总样本数
 \(M=\sum_{i=1}^{N}m_i\)，\(N\)
 是采样点的个数，模拟二项型空间广义线性混合效应模型为
 \eqref{eq:binom-SGLMM}，联系函数为
@@ -2372,8 +2345,8 @@ g(\mu_i) = \log\big\{\frac{p(x_i)}{1-p(x_i)}\big\} = \alpha + S(x_i) \label{eq:b
 基于 Langevin-Hastings 采样器实现的马尔科夫链蒙特卡罗算法，参数
 \(\alpha\) 的先验分布选均值为 0，方差为 1 的标准正态分布，参数 \(\phi\)
 的先验分布选期望为 0.2 的指数分布，参数 \(\sigma^2\)
-的先验分布是非中心的逆卡方分布（scaled Inverse Chi Square
-Distribution），其非中心化参数为 0.5，自由度为 5，各参数的先验选择参考
+的先验分布是非中心的逆卡方分布（scaled inverse Chi square
+distribution），其非中心化参数为 0.5，自由度为 5，各参数的先验选择参考
 Christensen 和 Ribeiro (2002年) \citep{geoRglm2002}。Langevin-Hastings
 算法运行 110000 次迭代，前 10000 次迭代用作热身 (warm-up)，后 10
 万次迭代里间隔 100 次迭代采样，获得关于参数 \(\alpha,\phi,\sigma^2\)
@@ -2384,19 +2357,24 @@ Christensen 和 Ribeiro (2002年) \citep{geoRglm2002}。Langevin-Hastings
 算法获得后验分布的样本均值作为参数的估计。贝叶斯估计的定义是使得估计的均方误差达到最小时的估计，因此贝叶斯估计的精度或者说好坏常用后验分布的方差衡量，因为均方误差在参数估计取后验均值时是后验方差，故而表
 \ref{tab:MCLH-vs-NUTS} 不再提供估计的均方误差值，而是提供了 5
 个后验分布的分位点，在 95\% 的置信水平下，样本分位点 0.025 和 0.975
-的值组成了置信区间的上下界。除了获得各参数的估计值外，还获得 64
-个采样点处 \(p(x_i), i = 1, \ldots, 64\) 的后验均值、方差、标准差和
+的值组成了置信区间的上下界。以采样点个数
+\(N =64\)为例，除了获得各参数的估计值外，还获得 64 个采样点处
+\(p(x_i), i = 1, \ldots, 64\) 的后验均值、方差、标准差和
 5个分位点，详见附表 \ref{tab:LH-binom-SGLMM}。
 
+Langevin-Hastings 算法与 HMC
+算法的数值模拟比较见表\ref{tab:MCLH-vs-NUTS}，前者在 R 软件里基于
+geoRglm 包实现，后者基于 Stan 实现。表格中的列依次是模型参数
+\(\alpha,\phi,\sigma^2\) 的真值（初值）、后验均值、后验方差、后验的
+5个分位点、样本量\(N\)和算法运行时间（单位：秒）。采样点数目分别考虑了
+\(N = 36, 64, 81\) 的情况，对于每组参数设置，重复模拟了 100
+次，表格前半部分是 Langevin-Hastings 算法得到的结果，后半部分是 HMC
+算法得到的结果。
+
 \begin{longtable}[]{@{}lrrrrrrrrrr@{}}
-\caption{\label{tab:MCLH-vs-NUTS} Langevin-Hastings 算法与 HMC
-算法的数值模拟比较，前者在R软件里基于 geoRglm 包实现，后者基于 Stan
-实现。表格中的列依次是模型参数 \(\alpha,\phi,\sigma^2\)
-的真值、后验均值、后验方差、后验的
-5个分位点和样本量\(N\)。采样点数目分别考虑了 \(N = 36, 64, 81\)
-的情况，对于每组参数设置，重复模拟了100 次，表格前半部分是
-Langevin-Hastings 算法得到的结果，后半部分是 HMC
-算法得到的结果}\tabularnewline
+\caption{\label{tab:MCLH-vs-NUTS}
+在模型\eqref{eq:binom-SGLMM}的设置下，Langevin-Hastings 算法与 HMC
+算法的数值模拟比较}\tabularnewline
 \toprule
 & true(init) & mean & var & 2.5\% & 25\% & 50\% & 75\% & 97.5\% & N &
 time(s)\tabularnewline
@@ -2407,6 +2385,7 @@ time(s)\tabularnewline
 time(s)\tabularnewline
 \midrule
 \endhead
+& & & & & LH & & & & &\tabularnewline
 \(\alpha\) & 0.0(0.387) & -0.354 & 0.079 & -0.938 & -0.524 & -0.361 &
 -0.173 & 0.215 & 36 & 600.12\tabularnewline
 \(\phi\) & 0.2(0.205) & 0.121 & 0.006 & 0.005 & 0.055 & 0.110 & 0.180 &
@@ -2425,6 +2404,7 @@ time(s)\tabularnewline
 0.280 & &\tabularnewline
 \(\sigma^2\) & 0.5(0.403) & 0.468 & 0.057 & 0.180 & 0.311 & 0.414 & 0.56
 & 1.129 & &\tabularnewline
+& & & & & HMC & & & & &\tabularnewline
 \(\alpha\) & 0.0(-0.813) & -0.230 & 0.209 & -1.127 & -0.521 & -0.214 &
 0.056 & 0.653 & 36 & 6.65\tabularnewline
 \(\phi\) & 0.2(1.692) & 1.103 & 0.364 & 0.459 & 0.721 & 0.936 & 1.284 &
@@ -2446,17 +2426,17 @@ time(s)\tabularnewline
 \bottomrule
 \end{longtable}
 
-为了获得尽量好的效果，在样本量 \(N = 64\) 时，花了近三天时间反复调了
+为了获得尽量好的效果，在样本量 \(N = 64\) 时，花了大量时间反复试错调了
 Langevin-Hastings
-算法的参数，相比较而言，得到了一组非常好的结果。然而，当改变样本量时，考虑到又需要漫长的调参，对样本量是36和81时，只要求迭代序列保持收敛即可。基于
+算法的参数，相比较而言，得到了一组还不错的结果。然而，当改变样本量时，又需要漫长的调参，因此样本量是36和81时，只要求迭代序列保持收敛即可。基于
 Stan 实现的 HMC
-算法没有调参数，初值和先验分布也采用默认的，总迭代次数设为2000次，前1000次迭代作为热身阶段(warm-up)，后1000次的迭代值全部采样，所有的迭代序列都通过了平稳性检验。
+算法没有调参数，初值是随机生成的，先验分布是默认的，总迭代次数设为2000次，前1000次迭代作为预处理，后1000次的迭代值全部采样，所有的迭代序列都通过了平稳性检验。
 
 根据模拟的过程和表\ref{tab:MCLH-vs-NUTS}的结果来看，基于 Stan 实现的 HMC
-算法更易收敛，且对初始值和先验分布相对不那么敏感，不需要耗时的调参过程。表
+算法更易收敛，且对初始值和先验分布不那么敏感，不需要耗时的调参过程。表
 \ref{tab:MCLH-vs-NUTS} 中 Langevin-Hastings 算法的时间由 R 内置的函数
-\texttt{system.time()} 记录。初始值是 burn-in 的位置，即完成 warm-up
-阶段后，开始采样的第一个迭代点。
+\texttt{system.time()} 记录。初始值是 burn-in
+的位置，即完成预处理开始采样的第一个迭代点。
 
 \hypertarget{possion-sglmm}{%
 \subsection{响应变量服从泊松分布}\label{possion-sglmm}}
@@ -2482,14 +2462,17 @@ g(\mu_i) = \log[\lambda(x_i)] = \alpha + S(x_i) \label{eq:pois-SGLMM}
 \ref{tab:HMC-Pois-SGLMM}，参数迭代序列的收敛性分析已在第\ref{prepare}
 章第\ref{sec:stan-samplers}节给出，这里不再赘述，所有的模拟实验都是在完成收敛性分析后给出的。
 
+在模型\eqref{eq:pois-SGLMM}的设置下，Langevin-Hastings 算法和 HMC
+算法的比较见表\ref{tab:Pois-MCLV-vs-NUTS}，模型参数真值为
+\(\alpha = 0.5, \phi = 0.2, \sigma^2 = 2.0, \kappa = 1.5\)，采样点数目分别为
+\(N=36,64,100\)，对于每组参数设置，重复模拟了 100
+次。表格各列依次是参数的真值（初始值）、后验均值、后验方差、后验五个分位点、样本量和算法运行时间（单位：秒）。表格前半部分是
+Langevin-Hastings 算法实现的结果，后半部分是 Stan 实现的结果。
+
 \begin{longtable}[]{@{}lrrrrrrrrrr@{}}
 \caption{\label{tab:Pois-MCLV-vs-NUTS}
 在模型\eqref{eq:pois-SGLMM}的设置下，Langevin-Hastings 算法和 HMC
-算法的比较，模型参数真值设置为
-\(\alpha = 0.5, \phi = 0.2, \sigma^2 = 2.0, \kappa = 1.5\)，采样点数目分别为
-\(N=36,64,100\)，对于每组参数设置，重复模拟了100次。表格各列依次是参数的真值、后验均值、后验方差、后验五个分位点和样本量。表格前半部分是
-Langevin-Hastings 算法实现的结果，后半部分是 Stan
-实现的结果}\tabularnewline
+算法的比较}\tabularnewline
 \toprule
 & true(init) & mean & var & 2.5\% & 25\% & 50\% & 75\% & 97.5\% & N &
 time(s)\tabularnewline
@@ -2500,6 +2483,7 @@ time(s)\tabularnewline
 time(s)\tabularnewline
 \midrule
 \endhead
+& & & & & LH & & & & &\tabularnewline
 \(\alpha\) & 0.5(1.201) & 0.527 & 0.418 & -0.759 & 0.189 & 0.514 & 0.855
 & 1.864 & 36 & 642.66\tabularnewline
 \(\phi\) & 0.2(0.420) & 0.401 & 0.052 & 0.100 & 0.240 & 0.360 & 0.520 &
@@ -2518,6 +2502,7 @@ time(s)\tabularnewline
 1.320 & &\tabularnewline
 \(\sigma^2\) & 2.0(1.395) & 1.479 & 0.498 & 0.545 & 0.941 & 1.352 &
 1.822 & 3.195 & &\tabularnewline
+& & & & & HMC & & & & &\tabularnewline
 \(\alpha\) & 0.5(0.335) & 0.483 & 0.310 & -0.608 & 0.094 & 0.488 & 0.851
 & 1.613 & 36 & 11.25\tabularnewline
 \(\phi\) & 0.2(0.066) & 0.631 & 0.036 & 0.362 & 0.501 & 0.602 & 0.722 &
@@ -2542,19 +2527,20 @@ time(s)\tabularnewline
 100 个采样点的模拟实验中，不断试错调了 Langevin-Hastings
 算法的参数，得到比较好的估计值，在该组参数设置下，更改采样点数目分别为
 36 和 64，又需要重新调整 Langevin-Hastings
-算法的参数设置，以获得参数的后验分布和后续的后验量的计算。
+算法的参数设置，以获得参数的后验分布和后验量的估计值。
 
 在同组参数设置下，基于 Stan 实现的 HMC 算法与 Langevin-Hastings
 算法相比，效果要好，其一体现在后验方差更小，也是贝叶斯估计下的均方误差更小，见表
 \ref{tab:Pois-MCLV-vs-NUTS}；其二对于应用的意义更大，它不需要调参数，对先验分布的要求更加宽松；其三算法收敛的更快，基于
 Langevin-Hastings 算法实现的贝叶斯 MCMC
 算法迭代次数设置为110000，前10000次迭代作为 warm-up，间隔 100
-次迭代采样，收集到的样本量是 1000，基于 Stan 实现的 HMC 算法只进行了
+次迭代采样，收集到的样本量是 1000。而基于 Stan 实现的 HMC 算法只进行了
 2000 次迭代，前 1000 次迭代作为 warm-up 阶段，后 1000
 次迭代全部采样，所以样本量也是
-1000。这里需要补充说明一下，比较两个算法却在迭代次数上做了不同的设置，是因为首先要保证模型参数的迭代序列要收敛，只有这样才能作参数的后验估计，那么同样达到收敛状态，Langevin-Hastings
+1000。这里需要补充说明一下，比较两个算法却在迭代次数上做了不同的设置，是因为首先要保证模型参数的迭代序列收敛，只有这样才能作参数的后验估计，那么同样达到收敛状态，Langevin-Hastings
 算法大约110000次迭代，而基于 Stan 实现的 HMC 算法大于 2000
-次迭代，如果强行继续增加后者算法的迭代次数是意义不大的，因为它已经收敛，增加迭代次数只会无端添加算法运行时间。
+次迭代，如果强行继续增加 HMC
+算法的迭代次数是意义不大的，因为它已经收敛，增加迭代次数只会无端添加算法运行时间。
 
 \hypertarget{sec:simulations}{%
 \section{本章小结}\label{sec:simulations}}
@@ -2562,7 +2548,7 @@ Langevin-Hastings 算法实现的贝叶斯 MCMC
 geoRglm 包实现的 Langevin-Hastings
 算法，相比较而言，收敛速度慢，迭代序列自相关性表现拖尾，因此在上述模拟实验中，为了降低相关性，采样间隔取100，这就直接要求增加总的迭代次数以达到足够的后验样本量，这样才能用于后验量的计算。此外，在调参数的过程中面临不收敛的情况是常有的，而这个不收敛的原因至少有两个，其一是参数初值不合适，其二是总迭代次数不够。因此，我们也遭遇了
 Christensen
-迭代上百万次的\href{http://gbi.agrsci.dk/~ofch/geoRglm/Intro/books.html}{情形}，在尽量保持统一的参数设置下，我们选择继续调整参数，而保持总迭代次数110000次不变。在每组模型设置下都获得最佳的参数，这无疑是一件十分耗时的工作，因为该算法的参数只有不断试错才能获得更加合适的参数设置，特别地，在已经收敛的情形下，再去调参数，这个过程会更加漫长。
+迭代上百万次的\href{http://gbi.agrsci.dk/~ofch/geoRglm/Intro/books.html}{情形}，在尽量保持统一的参数设置下，我们选择继续调整参数，而保持总迭代次数110000次不变。在每组模型设置下都获得最佳的参数，这无疑是一件十分耗时的工作，因为该算法的参数只有不断试错才能获得更加合适的参数设置，在已经收敛的情形下调参数，这个过程会更加漫长。
 
 基于 Stan 实现的贝叶斯 STAN-MCMC 算法，其内置的 HMC 算法是结合了 NUTS
 采样器\citep{hoffman2014}，搜索模型参数的策略更加友好，不需要手动调参数，只需要指定合适的参数先验，使得迭代序列保持收敛即可，编程过程中，模型参数的重参数化（reparameterization）对迭代进程和结果会产生一定影响，如第\ref{prepare}章第\ref{sec:stan-samplers}节基于
@@ -2570,7 +2556,7 @@ Eight Schools 数据集介绍分层正态模型就对参数 \(\mu\) 和 \(\sigma
 做了重参数化。
 
 基于似然推断的算法，如第\ref{algorithms}章第\ref{subsec:MCML}小节介绍的蒙特卡罗极大似然算法和第\ref{subsec:LA}小节介绍的拉普拉斯近似算法，都需要非常接近真值的参数初值，才能得到好的结果，因为在大多数情形下，SGLMM
-模型的对数似然曲面是呈现山岭或峡谷状，局部极值点多而且对数似然函数值变化不大，导致收敛速度极慢或者陷入局部极值点的收敛，非常难获得全局极值点。因此，一个合适的策略是在合理的初值周围打网格，格点作为迭代初值，以不同的初值进行迭代，将计算的剖面似然函数轮廓画在二维平面上，通过这种降维观察的方式，获得一个可靠的全局极值点，作为参数的最佳似然估计，在后续的第\ref{applications}章第\ref{case-rongelap}节以分析朗格拉普岛核污染数据集为例，介绍这一策略。
+模型的对数似然曲面是呈现山岭或峡谷状，局部极值点多而且对数似然函数值变化不大，导致收敛速度极慢或者陷入局部极值点的收敛，非常难获得全局极值点。因此，一个合适的策略是在合理的初值周围打网格，格点作为迭代初值，以不同的初值进行迭代，将计算的剖面似然函数轮廓画在二维平面上，通过这种降维观察的方式，获得一个可靠的全局极值点，作为参数的最佳似然估计，在后续的第\ref{applications}章第\ref{case-rongelap}节以分析朗格拉普岛核污染数据集为例介绍这一策略。
 
 \hypertarget{applications}{%
 \chapter{数据分析}\label{applications}}
@@ -2593,7 +2579,7 @@ Stroup 和 Baenziger （1994年） \citep{Stroup1994}
 实验记录了小麦产量、品种、位置以及土地肥力等数据， Pinheiro 和 Bates
 （2000年） \citep{Pinheiro2000} 将该数据集命名为 Wheat2 ，整理后放在
 nlme 包里。
-这里利用该真实的农业生产数据构建带空间效应的线性混合效应模型，详述选初值、诊断和添加空间效应的过程。
+利用该真实的农业生产数据构建带空间效应的线性混合效应模型，与上述文献不同的是详述选初值、诊断和添加空间效应的过程。
 
 \begin{figure}
 
@@ -2792,9 +2778,42 @@ III\strut
 关于响应变量\(Y\)的条件分布时，使用了第\ref{algorithms}章第\ref{sec:MCMC}节介绍的
 Langevin-Hastings 算法 \citep{Omiros2003}，157 个站点意味着有 157
 个条件分布需要模拟，共产生
-157个迭代链，每条链需保持平稳才可用于模型参数的推断，因此需要先检验每条链的平稳性，可以采用自相关图和时序图来检验，篇幅所限，取部分站点展示，见附图\ref{fig:rongelap-trace-plot}
+157个迭代链，每条链需保持平稳才可用于模型参数的推断，因此需要先检验每条链的平稳性，可以采用自相关图和时序图来检验，篇幅所限，取部分站点展示，见图\ref{fig:rongelap-trace-plot}
 和图
 \ref{fig:rongelap-acf-plot}，经观察157个站点处的\(S_i\)的迭代点列没有出现不平稳的现象。
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/rongelap-mcml-diagnosis-trace-9} 
+
+}
+
+\caption{Langevin-Hastings 算法模拟条件分布
+\([S(x_{i})|Y_{i}], i = 1,\ldots,4\)，\([\cdot]\)
+表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布}\label{fig:rongelap-trace-plot}
+\end{figure}
+
+从图 \ref{fig:rongelap-trace-plot} 可以看出迭代序列符合平稳性的特征。
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/rongelap-mcml-diagnosis-acf-9} 
+
+}
+
+\caption{条件分布 \([S(x_{i})|Y_{i}], i = 1, \ldots, 4\)
+的采样序列的自相关图}\label{fig:rongelap-acf-plot}
+\end{figure}
+
+从图 \ref{fig:rongelap-acf-plot}
+可以看出迭代序列满足马尔科夫性，没有明显的延迟相关性。
+
+
+
+
+
+
+
 
 \begin{longtable}[]{@{}clllll@{}}
 \caption{\label{tab:rongelap-mcml-result}
@@ -2894,7 +2913,7 @@ MCL\strut
 \caption{泊松型空间广义线性混合效应模型
 \eqref{eq:rongelap-with-nugget-effect} 关于 \(\phi\) 和相对块金效应
 \(\tau^2_{rel} = \tau^2 / \sigma^2\)
-的剖面似然函数曲面，平稳空间高斯过程 \(S(x)\) 的自协方差函数选用指数型
+的剖面似然函数轮廓，平稳空间高斯过程 \(S(x)\) 的自协方差函数选用指数型
 \(\mathsf{Cov}( S(x_i), S(x_j) ) = \sigma^2 \exp( -\|x_i -x_j\|_{2} / \phi )\)，剖面似然函数值由
 geoRglm 包提供的 proflik.glsm 函数计算}\label{fig:profile-phi-tausq}
 \end{figure}
@@ -3176,43 +3195,6 @@ lp\_\_ & 722.28 & 0.39 & 6.83 & 708.00 & 718.14 & 722.49 & 726.91 &
 734.71 & 312.69 & 1.03\tabularnewline
 \bottomrule
 \end{longtable}
-
-\hypertarget{simulate-plot}{%
-\section*{图}\label{simulate-plot}}
-\addcontentsline{toc}{section}{图}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{figures/rongelap-mcml-diagnosis-trace-9} 
-
-}
-
-\caption{Langevin-Hastings 算法模拟条件分布
-\([S(x_{i})|Y_{i}], i = 1,\ldots,4\)，\([\cdot]\)
-表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布}\label{fig:rongelap-trace-plot}
-\end{figure}
-
-从图 \ref{fig:rongelap-trace-plot} 可以看出迭代序列符合平稳性的特征。
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{figures/rongelap-mcml-diagnosis-acf-9} 
-
-}
-
-\caption{条件分布 \([S(x_{i})|Y_{i}], i = 1, \ldots, 4\)
-的采样序列的自相关图}\label{fig:rongelap-acf-plot}
-\end{figure}
-
-从图 \ref{fig:rongelap-acf-plot}
-可以看出迭代序列满足马尔科夫性，没有明显的延迟相关性。
-
-
-
-
-
-
-
 
 \hypertarget{simulate-code}{%
 \section*{代码}\label{simulate-code}}

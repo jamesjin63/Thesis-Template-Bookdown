@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-24">
+<meta name="date" content="2018-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,8 +193,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录</a><ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#tables-simulations"><i class="fa fa-check"></i>表格</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-plot"><i class="fa fa-check"></i>图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-code"><i class="fa fa-check"></i>代码</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#Interactive-Web-Maps"><i class="fa fa-check"></i>交互图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compileinfo"><i class="fa fa-check"></i>编译信息</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#hardwareinfo"><i class="fa fa-check"></i>硬件环境</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sysinfo"><i class="fa fa-check"></i>系统环境</a></li>
@@ -238,7 +238,7 @@ Y = X^{\top}\boldsymbol{\beta} + \boldsymbol{\epsilon}, \mathsf{E}(\boldsymbol{\
 <span class="math display" id="eq:GLM">\[\begin{equation}
 g(\mu) = X^{\top}\boldsymbol{\beta}  \tag{3.2}
 \end{equation}\]</span>
-其中，<span class="math inline">\(\mu \equiv \mathsf{E}(Y)\)</span>， <span class="math inline">\(g\)</span> 代表联系函数，特别地，当 <span class="math inline">\(Y \sim \mathcal{N}(\mu,\sigma^2)\)</span> 时，联系函数 <span class="math inline">\(g(x) = x\)</span>，模型 <a href="models.html#eq:GLM">(3.2)</a> 变为一般线性模型 <a href="models.html#eq:LM">(3.1)</a>。当 <span class="math inline">\(Y \sim \mathrm{Binomial}(n,p)\)</span> 时，响应变量 <span class="math inline">\(Y\)</span> 的期望 <span class="math inline">\(\mu =\mathsf{E}(Y) = np\)</span>， 联系函数 <span class="math inline">\(g(x)=\ln(\frac{x}{1-x})\)</span>，模型 <a href="models.html#eq:GLM">(3.2)</a> 变为<span class="math inline">\(\log(\frac{p}{1-p})=X^{\top}\boldsymbol{\beta}\)</span>。 当 <span class="math inline">\(Y \sim \mathrm{Poisson}(\lambda)\)</span> 时，响应变量 <span class="math inline">\(Y\)</span> 的期望 <span class="math inline">\(\mu =\mathsf{E}(Y) = \lambda\)</span>， 联系函数<span class="math inline">\(g(x) = \ln(x)\)</span>， 模型 <a href="models.html#eq:GLM">(3.2)</a> 变为 <span class="math inline">\(\log(\lambda) = X^{\top}\boldsymbol{\beta}\)</span>。 指数族下其余分布对应的联系函数此处不一一列举， 完整列表可以参看 1989 年 McCullagh 和 Nelder 所著的《广义线性模型》 <span class="citation">(McCullagh and Nelder <a href="#ref-McCullagh1989">1989</a>)</span>。 模型 <a href="models.html#eq:GLM">(3.2)</a> 最早由 Nelder 和 Wedderburn 在 1972 年提出 <span class="citation">(Nelder and Wedderburn <a href="#ref-Nelder1972">1972</a>)</span>，它弥补了模型 <a href="models.html#eq:LM">(3.1)</a> 的两个重要缺点： 一是因变量只能取连续值的情况， 二是期望与自变量只能用线性关系联系 <span class="citation">(陈希孺 <a href="#ref-Chen2011">2011</a>)</span>。 求解广义线性模型 <a href="models.html#eq:GLM">(3.2)</a> 的 R 函数是 <code>glm</code>， 常用拟似然法去估计模型 <a href="models.html#eq:GLM">(3.2)</a> 的参数。</p>
+其中，<span class="math inline">\(\mu \equiv \mathsf{E}(Y)\)</span>， <span class="math inline">\(g\)</span> 代表联系函数，特别地，当 <span class="math inline">\(Y \sim \mathcal{N}(\mu,\sigma^2)\)</span> 时，联系函数 <span class="math inline">\(g(x) = x\)</span>，模型 <a href="models.html#eq:GLM">(3.2)</a> 变为一般线性模型 <a href="models.html#eq:LM">(3.1)</a>。当 <span class="math inline">\(Y \sim \mathrm{Binomial}(n,p)\)</span> 时，响应变量 <span class="math inline">\(Y\)</span> 的期望 <span class="math inline">\(\mu =\mathsf{E}(Y) = np\)</span>， 联系函数 <span class="math inline">\(g(x)=\ln(\frac{x}{1-x})\)</span>，模型 <a href="models.html#eq:GLM">(3.2)</a> 变为<span class="math inline">\(\log(\frac{p}{1-p})=X^{\top}\boldsymbol{\beta}\)</span>。 当 <span class="math inline">\(Y \sim \mathrm{Poisson}(\lambda)\)</span> 时，响应变量 <span class="math inline">\(Y\)</span> 的期望 <span class="math inline">\(\mu =\mathsf{E}(Y) = \lambda\)</span>， 联系函数<span class="math inline">\(g(x) = \ln(x)\)</span>， 模型 <a href="models.html#eq:GLM">(3.2)</a> 变为 <span class="math inline">\(\log(\lambda) = X^{\top}\boldsymbol{\beta}\)</span>。 指数族下其余分布对应的联系函数此处不一一列举， 完整列表可以参看 McCullagh 和 Nelder （1989 年 ）<span class="citation">(McCullagh and Nelder <a href="#ref-McCullagh1989">1989</a>)</span> 所著的《广义线性模型》 。 模型 <a href="models.html#eq:GLM">(3.2)</a> 最早由 Nelder 和 Wedderburn （1972 年）<span class="citation">(Nelder and Wedderburn <a href="#ref-Nelder1972">1972</a>)</span> 提出，它弥补了模型 <a href="models.html#eq:LM">(3.1)</a> 的两个重要缺点： 一是因变量只能取连续值的情况， 二是期望与自变量只能用线性关系联系 <span class="citation">(陈希孺 <a href="#ref-Chen2011">2011</a>)</span>。 求解广义线性模型 <a href="models.html#eq:GLM">(3.2)</a> 的 R 函数是 <code>glm</code>， 常用拟似然法去估计模型 <a href="models.html#eq:GLM">(3.2)</a> 的参数。</p>
 </div>
 <div id="sec:Generalized-Linear-Mixed-Effects-Models" class="section level2">
 <h2><span class="header-section-number">3.3</span> 广义线性混合效应模型</h2>
@@ -246,7 +246,7 @@ g(\mu) = X^{\top}\boldsymbol{\beta}  \tag{3.2}
 <span class="math display" id="eq:GLMM">\[\begin{equation}
 g(\mu) = X^{\top}\boldsymbol{\beta} + Z^{\top}\mathbf{b}  \tag{3.3}
 \end{equation}\]</span>
-其中， <span class="math inline">\(Z^{\top}\)</span> 是 <span class="math inline">\(q\)</span> 维随机效应 <span class="math inline">\(\mathbf{b}\)</span> 的 <span class="math inline">\(n \times q\)</span> 的数据矩阵，其它符号含义如前所述。广义线性混合效应模型中既包含固定效应 <span class="math inline">\(\boldsymbol{\beta}\)</span> 又包含随机效应 <span class="math inline">\(\mathbf{b}\)</span> 。 线性模型 <a href="models.html#eq:LM">(3.1)</a> 和广义线性模型 <a href="models.html#eq:GLM">(3.2)</a> 中的协变量都是固定效应， 而随机效应是那些不能直接观察到的潜效应， 但是对响应变量却产生显著影响。 特别是在基因变异位点与表现型的关系研究中， 除了用最新科技做全基因组扫描获取显著的基因位点， 还应该把那些看似不显著， 联合在一起却显著的位点作为随机效应去考虑 <span class="citation">(Yang et al. <a href="#ref-Yang2010Common">2010</a>)</span>。求解模型 <a href="models.html#eq:GLMM">(3.3)</a>的 R 包有 nlme ，mgcv 和 lme4， 参数估计的方法一般有限制极大似然法。 除了求解模型 <a href="models.html#eq:GLMM">(3.3)</a> 外， nlme 可以拟合一些非线性混合效应模型， mgcv 可以拟合广义可加混合效应模型， lme4 使用了高性能的 Eigen 数值代数库，可以加快模型的求解过程。</p>
+其中， <span class="math inline">\(Z^{\top}\)</span> 是 <span class="math inline">\(q\)</span> 维随机效应 <span class="math inline">\(\mathbf{b}\)</span> 的 <span class="math inline">\(n \times q\)</span> 的数据矩阵，其它符号含义如前所述。广义线性混合效应模型中既包含固定效应 <span class="math inline">\(\boldsymbol{\beta}\)</span> 又包含随机效应 <span class="math inline">\(\mathbf{b}\)</span> 。 线性模型 <a href="models.html#eq:LM">(3.1)</a> 和广义线性模型 <a href="models.html#eq:GLM">(3.2)</a> 中的协变量都是固定效应， 而随机效应是那些不能直接观察到的潜效应， 但是对响应变量却产生显著影响。 特别是在基因变异位点与表现型的关系研究中， 除了用最新科技做全基因组扫描获取显著的基因位点， 还应该把那些看似不显著， 联合在一起却显著的位点作为随机效应去考虑 <span class="citation">(Yang et al. <a href="#ref-Yang2010Common">2010</a>)</span>。求解模型 <a href="models.html#eq:GLMM">(3.3)</a>的 R 包有 nlme ，mgcv 和 lme4， 参数估计的方法有限制极大似然法。 除了求解模型 <a href="models.html#eq:GLMM">(3.3)</a> 外， nlme 还可以拟合一些非线性混合效应模型， mgcv 可以拟合广义可加混合效应模型， lme4 使用了高性能的 Eigen 数值代数库，可以加快模型的求解进程。</p>
 </div>
 <div id="sec:Spatial-Generalized-linear-mixed-effects-models" class="section level2">
 <h2><span class="header-section-number">3.4</span> 空间广义线性混合效应模型</h2>
@@ -256,11 +256,11 @@ g(\mu) = X^{\top}\boldsymbol{\beta} + Z^{\top}\mathbf{b}  \tag{3.3}
 <span class="math display" id="eq:SGLMM">\[\begin{equation}
 g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) + Z_i \tag{3.4}
 \end{equation}\]</span>
-其中，<span class="math inline">\(d^{\top}(x_i)\)</span> 表示协变量对应的观测数据向量，即 <span class="math inline">\(p\)</span> 个协变量在第 <span class="math inline">\(i\)</span> 个位置 <span class="math inline">\(x_i\)</span> 的观察值。 此外， 假定 <span class="math inline">\(\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}\)</span> 是均值为0， 方差为 <span class="math inline">\(\sigma^2\)</span>，平稳且各向同性的空间高斯过程， <span class="math inline">\(\rho(x,x&#39;) = \mathsf{Corr}\{S(x),S(x&#39;)\} \equiv \rho(\|x,x&#39;\|)\)</span>， <span class="math inline">\(\|\cdot\|\)</span> 表示距离， 样本之间的位置间隔不大就用欧氏距离， 间隔很大可以考虑用球面距离； <span class="math inline">\(S(x_i)\)</span> 代表了与空间位置 <span class="math inline">\(x_i\)</span> 相关的随机效应， 简称空间效应； 这里， <span class="math inline">\(Z_i \stackrel{i.i.d}{\sim} \mathcal{N}(0,\tau^2)\)</span> 的非空间随机效应， 也称块金效应， 一般解释为测量误差 （measurement error） 或微观变化 （micro-scale variation） <span class="citation">(Christensen <a href="#ref-Christensen2004">2004</a>)</span>， 即 <span class="math inline">\(\tau^2=\mathsf{Var}(Y_{i}|S(x_{i})),\forall i = 1,2, \ldots, N\)</span>， <span class="math inline">\(N\)</span> 是采样点的数目， 其它符号含义不变。</p>
+其中，<span class="math inline">\(d^{\top}(x_i)\)</span> 表示协变量对应的观测数据向量，即 <span class="math inline">\(p\)</span> 个协变量在第 <span class="math inline">\(i\)</span> 个位置 <span class="math inline">\(x_i\)</span> 的观察值。 这里， 假定 <span class="math inline">\(\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}\)</span> 是均值为<span class="math inline">\(\mathbf{0}\)</span>， 方差为 <span class="math inline">\(\sigma^2\)</span>，平稳且各向同性的空间高斯过程， <span class="math inline">\(\rho(x,x&#39;) = \mathsf{Corr}\{S(x),S(x&#39;)\} \equiv \rho(\|x,x&#39;\|)\)</span>， <span class="math inline">\(\|\cdot\|\)</span> 表示距离。 样本之间的位置间隔不大就用欧氏距离， 间隔很大可以考虑用球面距离； <span class="math inline">\(S(x_i)\)</span> 代表了与空间位置 <span class="math inline">\(x_i\)</span> 相关的随机效应， 简称空间效应。 <span class="math inline">\(Z_i \stackrel{i.i.d}{\sim} \mathcal{N}(0,\tau^2)\)</span> 的非空间随机效应， 也称块金效应， 一般解释为测量误差 （measurement error） 或微观变化 （micro-scale variation） <span class="citation">(Christensen <a href="#ref-Christensen2004">2004</a>)</span>， 即 <span class="math inline">\(\tau^2=\mathsf{Var}(Y_{i}|S(x_{i})),\forall i = 1,2, \ldots, N\)</span>， <span class="math inline">\(N\)</span> 是采样点的数目， 其它符号含义不变。</p>
 </div>
 <div id="subsec:covariance-function" class="section level3">
 <h3><span class="header-section-number">3.4.2</span> 自协方差函数</h3>
-<p>模型 <a href="models.html#eq:SGLMM">(3.4)</a> 的空间效应结构设定为随机过程 <span class="math inline">\(\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}\)</span>，它由自协方差函数决定。在给出随机过程 <span class="math inline">\(\mathcal{S}\)</span> 的自协方差函数之前， 先计算一下它的理论变差 <span class="math inline">\(V(x,x&#39;)\)</span><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>，模型 <a href="models.html#eq:SGLMM">(3.4)</a> 的线性预测 <span class="math inline">\(T_{i}\)</span> 的变差 <span class="math inline">\(V_{T}(u_{ij})\)</span>。为方便起见，记 <span class="math inline">\(T_{i} = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) + Z_i\)</span>
+<p>模型 <a href="models.html#eq:SGLMM">(3.4)</a> 的空间效应结构设定为随机过程 <span class="math inline">\(\mathcal{S} = \{S(x): x \in \mathbb{R}^2\}\)</span>，它由自协方差函数决定。在给出随机过程 <span class="math inline">\(\mathcal{S}\)</span> 的自协方差函数之前， 先计算一下它的理论变差 <span class="math inline">\(V(x,x&#39;)\)</span><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>，模型 <a href="models.html#eq:SGLMM">(3.4)</a> 的线性预测 <span class="math inline">\(T_{i}\)</span> 的变差 <span class="math inline">\(V_{T}(u_{ij})\)</span>。为方便起见，记 <span class="math inline">\(T_{i} = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) + Z_i\)</span>
 <span class="math display" id="eq:variograms">\[\begin{equation}
 \begin{aligned}
 V(x,x&#39;) 
@@ -273,21 +273,21 @@ V_{T}(u_{ij})
       &amp;= \frac{1}{2}\mathsf{E}[(T_{i}-T_{j})^2]=\tau^2+\sigma^2(1-\rho(u_{ij})) 
 \end{aligned} \tag{3.5}
 \end{equation}\]</span>
-从方程 <a href="models.html#eq:variograms">(3.5)</a> 不难看出系数 <span class="math inline">\(\frac{1}{2}\)</span> 的化简作用，类似地，根据协方差定义可推知随机向量 <span class="math inline">\(T = (T_1,T_2,\ldots,T_n)\)</span> 的协方差矩阵如下：
+从方程 <a href="models.html#eq:variograms">(3.5)</a> 不难看出系数 <span class="math inline">\(\frac{1}{2}\)</span> 的化简作用，类似地，根据协方差定义可推知随机向量 <span class="math inline">\(T = (T_1,T_2,\ldots,T_n)\)</span> 的协方差矩阵结构如下：
 <span class="math display">\[\begin{equation}
 \begin{aligned}
 \mathsf{Cov}(T_{i}(x),T_{i}(x)) &amp;= \mathsf{E}[S(x_i)]^2 + \mathsf{E}Z_{i}^{2}= \sigma^2+\tau^2 \\
 \mathsf{Cov}(T_{i}(x),T_{j}(x)) &amp;= \mathsf{E}[S(x_i)S(x_j)]  = \sigma^2\rho(u_{ij})
 \end{aligned}
 \end{equation}\]</span>
-相关函数 <span class="math inline">\(\rho(u)\)</span> 的作用和地位就显而易见了，它是既决定理论变差又决定协方差矩阵的结构。图 <a href="models.html#fig:semi-variance">3.1</a> 给出一般变差函数的示意图，作为粗略估计，纵截距可以看作是块金效应参数 <span class="math inline">\(\tau^2\)</span>，而图中的变差函数基台值，即变差函数 <span class="math inline">\(V_{T}(u_{ij})\)</span> 趋于稳定的函数值，它是块金效应和空间效应的和，作为空间效应参数 <span class="math inline">\(\sigma^2\)</span> 的粗略估计，我们用它减去块金效应即得。基于样本变差函数图 <a href="models.html#fig:semi-variance">3.1</a> 我们可以获得随机效应方差分量的初始估计，其使用案列见第 <a href="applications.html#applications">6</a> 章第 <a href="applications.html#sec:spatial-random-effects">6.1</a> 节。</p>
+自相关函数 <span class="math inline">\(\rho(u)\)</span> 的作用和地位就显而易见了，它是既决定理论变差又决定协方差矩阵的结构。图 <a href="models.html#fig:semi-variance">3.1</a> 给出一般变差函数的示意图，作为粗略估计，纵截距可以看作是块金效应参数 <span class="math inline">\(\tau^2\)</span>，而图中的变差函数基台值，即变差函数 <span class="math inline">\(V_{T}(u_{ij})\)</span> 趋于稳定的函数值，它是块金效应和空间效应的和，作为空间效应参数 <span class="math inline">\(\sigma^2\)</span> 的粗略估计，我们用基台值减去块金效应即得。基于样本变差函数图 <a href="models.html#fig:semi-variance">3.1</a> 我们可以获得随机效应方差分量的初始估计，其使用案列见第 <a href="applications.html#applications">6</a> 章第 <a href="applications.html#sec:spatial-random-effects">6.1</a> 节。</p>
 <div class="figure" style="text-align: center"><span id="fig:semi-variance"></span>
 <img src="figures/semi-variance.png" alt="变差函数 $V_{T}(u)$ 示意图" width="70%" />
 <p class="caption">
 图 3.1: 变差函数 <span class="math inline">\(V_{T}(u)\)</span> 示意图
 </p>
 </div>
-<p>常见的自协方差函数有三类，分别是高斯型协方差函数、球面型协方差函数和 Matérn 型协方差函数，由于 Matérn 型协方差函数的广泛应用性 <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>; Peter J. Diggle, Moyeed, et al. <a href="#ref-Diggle2002Childhood">2002</a>; Christensen <a href="#ref-Christensen2004">2004</a>)</span>，这里主要介绍它的有关性质特点。
+<p>常见的自相关函数有三类，分别是高斯型自相关函数、球面型自相关函数和 Matérn 型自相关函数，由于 Matérn 型自相关函数的广泛应用性 <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>; Diggle et al. <a href="#ref-Diggle2002Childhood">2002</a>; Christensen <a href="#ref-Christensen2004">2004</a>)</span>，这里主要介绍它的有关性质特点。
 <span class="math display" id="eq:matern1">\[\begin{equation}
 \rho(u)=\{2^{\kappa -1}\Gamma(\kappa)\}^{-1}(u/\phi)^{\kappa}\mathcal{K}_{\kappa}(u/\phi),u &gt; 0 \tag{3.6}
 \end{equation}\]</span>
@@ -295,8 +295,8 @@ V_{T}(u_{ij})
 <span class="math display" id="eq:matern2">\[\begin{equation}
 \rho_{0}(u)=\{2^{\kappa -1}\Gamma(\kappa)\}^{-1}(u)^{\kappa}\mathcal{K}_{\kappa}(u),u &gt; 0 \tag{3.7}
 \end{equation}\]</span>
-其中，<span class="math inline">\(\mathcal{K}_{\kappa}(\cdot)\)</span> 是阶数为 <span class="math inline">\(\kappa\)</span> 的第二类修正的贝塞尔函数（详见第 <a href="prepare.html#prepare">2</a> 章第<a href="prepare.html#sec:modified-bessel-function">2.5</a> 节）， <span class="math inline">\(\kappa(&gt;0)\)</span> 是平滑参数，满足这些条件的空间过程 <span class="math inline">\(\mathcal{S}\)</span> 是 <span class="math inline">\(\lceil\kappa\rceil-1\)</span> 次均方可微的。值得注意的是 Matérn 族其实包含幂指数族
-当 <span class="math inline">\(\kappa = 0.5\)</span>时，<span class="math inline">\(\rho_{0}(u) = \exp(-u)\)</span>， <span class="math inline">\(S(x)\)</span> 均方连续但是不可微，当 <span class="math inline">\(\kappa \to \infty\)</span> 时， <span class="math inline">\(\rho_{0}(u) = \exp(-u^2)\)</span>， <span class="math inline">\(S(x)\)</span> 无限次均方可微<span class="citation">(Peter J. Diggle and Ribeiro Jr. <a href="#ref-Diggle2007">2007</a>)</span>。</p>
+其中，<span class="math inline">\(\mathcal{K}_{\kappa}(\cdot)\)</span> 是阶数为 <span class="math inline">\(\kappa\)</span> 的第二类修正的贝塞尔函数（详见第 <a href="prepare.html#prepare">2</a> 章第<a href="prepare.html#sec:modified-bessel-function">2.5</a> 节）， <span class="math inline">\(\kappa(&gt;0)\)</span> 是平滑参数，满足这些条件的空间过程 <span class="math inline">\(\mathcal{S}\)</span> 是 <span class="math inline">\(\lceil\kappa\rceil-1\)</span> 次均方可微的。值得注意的是 Matérn 型包含幂指数型
+当 <span class="math inline">\(\kappa = 0.5\)</span>时，<span class="math inline">\(\rho_{0}(u) = \exp(-u)\)</span>， <span class="math inline">\(S(x)\)</span> 均方连续但是不可微，当 <span class="math inline">\(\kappa \to \infty\)</span> 时， <span class="math inline">\(\rho_{0}(u) = \exp(-u^2)\)</span>， <span class="math inline">\(S(x)\)</span> 无限次均方可微<span class="citation">(Peter J. Diggle and Ribeiro Jr., <a href="#ref-Diggle2007">n.d.</a>)</span>。</p>
 <p>在实际数据分析中，估计 <span class="math inline">\(\kappa\)</span> 时，为了节省计算，又不失一般性，经验做法是取离散的 <span class="math inline">\(\kappa\)</span> 值，如 <span class="math inline">\(\kappa = 0.5, 1.5, 2.5\)</span>， 这样，平稳空间高斯过程就分别具有均方连续不可微、一次可微和二次可微三种不同程度的光滑性。根据第 <a href="prepare.html#prepare">2</a> 章第 <a href="prepare.html#sec:stationary-gaussian-process">2.4</a> 节定理 <a href="prepare.html#thm:stationary-mean-square-properties">2.4</a>，自相关函数 <span class="math inline">\(\rho(u)\)</span> 的可微性表示了空间过程 <span class="math inline">\(\mathcal{S}\)</span> 的曲面平滑程度。为更加直观地观察 <span class="math inline">\(\rho(u)\)</span>，作图 <a href="models.html#fig:matern-2d">3.2</a> 和图 <a href="models.html#fig:matern-3d">3.3</a>。</p>
 <div class="figure" style="text-align: center"><span id="fig:matern-2d"></span>
 <img src="figures/matern.png" alt="左图：固定尺度参数 $\phi$，自相关函数 $\rho(u)$ 随空间距离 $u$ 的变化；右图：固定贝塞尔函数的阶 $\kappa$，自相关函数$\rho(u)$ 随空间距离 $u$ 的变化" width="80%" />
@@ -305,12 +305,12 @@ V_{T}(u_{ij})
 </p>
 </div>
 <div class="figure" style="text-align: center"><span id="fig:matern-3d"></span>
-<img src="figures/matern-3d.png" alt="自相关函数 $\rho(u)$ 在不同空间距离$\mathsf{u}$处随贝塞尔函数的阶 $\kappa$ 和尺度参数 $\phi$ 的变化，横轴表示尺度参数 $\phi$，纵轴表示贝塞尔函数的阶$\kappa$，我们用 从蓝到红的颜色变化表示自相关函数 $\rho(u)$ 值由小到大，即表示相关性由弱变强" width="80%" />
+<img src="figures/matern-3d.png" alt="自相关函数 $\rho(\mathsf{u})$ 在不同空间距离$\mathsf{u}$处随贝塞尔函数的阶 $\kappa$ 和尺度参数 $\phi$ 的变化，横轴表示尺度参数 $\phi$，纵轴表示贝塞尔函数的阶$\kappa$，我们用 从蓝到红的颜色变化表示自相关函数 $\rho(\mathsf{u})$ 值由小到大，即表示相关性由弱变强" width="80%" />
 <p class="caption">
-图 3.3: 自相关函数 <span class="math inline">\(\rho(u)\)</span> 在不同空间距离<span class="math inline">\(\mathsf{u}\)</span>处随贝塞尔函数的阶 <span class="math inline">\(\kappa\)</span> 和尺度参数 <span class="math inline">\(\phi\)</span> 的变化，横轴表示尺度参数 <span class="math inline">\(\phi\)</span>，纵轴表示贝塞尔函数的阶<span class="math inline">\(\kappa\)</span>，我们用 从蓝到红的颜色变化表示自相关函数 <span class="math inline">\(\rho(u)\)</span> 值由小到大，即表示相关性由弱变强
+图 3.3: 自相关函数 <span class="math inline">\(\rho(\mathsf{u})\)</span> 在不同空间距离<span class="math inline">\(\mathsf{u}\)</span>处随贝塞尔函数的阶 <span class="math inline">\(\kappa\)</span> 和尺度参数 <span class="math inline">\(\phi\)</span> 的变化，横轴表示尺度参数 <span class="math inline">\(\phi\)</span>，纵轴表示贝塞尔函数的阶<span class="math inline">\(\kappa\)</span>，我们用 从蓝到红的颜色变化表示自相关函数 <span class="math inline">\(\rho(\mathsf{u})\)</span> 值由小到大，即表示相关性由弱变强
 </p>
 </div>
-<p>从图<a href="models.html#fig:matern-2d">3.2</a>可以看出，相比于贝塞尔函数的阶 <span class="math inline">\(\kappa\)</span>， 尺度参数 <span class="math inline">\(\phi\)</span> 对相关函数的影响大些，由图<a href="models.html#fig:matern-2d">3.2</a>看出随着空间距离的增加，相关性减弱地特别快。在实际应用中，先固定下 <span class="math inline">\(\kappa\)</span> 是可以接受的，为简化编程和表述，Diggle 等 （1998年） <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span> 在真实数据分析中使用幂指数型自相关函数 <span class="math inline">\(\rho_{0}(u) = \exp(-(\alpha u)^{\delta}), \alpha &gt; 0, 0 &lt; \delta \leq 2\)</span>。 虽然其形式大大简化， 但函数图像和性质却与梅隆型有相似之处， 即当 <span class="math inline">\(0 &lt; \delta &lt; 2\)</span> 时， <span class="math inline">\(S(x)\)</span> 均方连续但不可微，当 <span class="math inline">\(\delta = 2\)</span> 时， <span class="math inline">\(S(x)\)</span> 无限次可微。</p>
+<p>从图<a href="models.html#fig:matern-2d">3.2</a>可以看出，相比于贝塞尔函数的阶 <span class="math inline">\(\kappa\)</span>， 尺度参数 <span class="math inline">\(\phi\)</span> 对相关函数的影响大些，由图<a href="models.html#fig:matern-2d">3.2</a>看出随着空间距离的增加，相关性减弱地特别快。在实际应用中，先固定下 <span class="math inline">\(\kappa\)</span> 是可以接受的，为简化编程和表述，Diggle 等 （1998年） <span class="citation">(Diggle, Tawn, and Moyeed <a href="#ref-Diggle1998">1998</a>)</span> 在真实数据分析中使用幂指数型自相关函数 <span class="math inline">\(\rho_{0}(u) = \exp(-(\alpha u)^{\delta}), \alpha &gt; 0, 0 &lt; \delta \leq 2\)</span>。 虽然其形式大大简化， 但函数图像和性质却与Matérn 型有相似之处， 即当 <span class="math inline">\(0 &lt; \delta &lt; 2\)</span> 时， <span class="math inline">\(S(x)\)</span> 均方连续但不可微，当 <span class="math inline">\(\delta = 2\)</span> 时， <span class="math inline">\(S(x)\)</span> 无限次可微。</p>
 </div>
 <div id="subsec:identify" class="section level3">
 <h3><span class="header-section-number">3.4.3</span> 模型识别</h3>
@@ -318,7 +318,7 @@ V_{T}(u_{ij})
 <span class="math display" id="eq:no-nugget-SGLMM">\[\begin{equation}
 g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) \tag{3.8}
 \end{equation}\]</span>
-如何区分开 <span class="math inline">\(Z_{i}\)</span> 与 <span class="math inline">\(S(x_i)\)</span>，或者更直接地说，如何估计这两个随机效应的参数 <span class="math inline">\(\tau^2, \sigma^2, \phi\)</span>， 即为可识别问题。 向量 <span class="math inline">\(T = (T_1,T_2,\ldots,T_n)^{\top}\)</span> 是协方差为矩阵 <span class="math inline">\(\tau^2I + \sigma^2R\)</span> 的多元高斯分布， 其中， 自相关函数 <span class="math inline">\(R_{ij} = \rho(u_{ij}; \phi)\)</span>， <span class="math inline">\(u_{ij}\)</span> 是 <span class="math inline">\(x_i\)</span> 与 <span class="math inline">\(x_j\)</span> 之间的距离，由线性预测 <span class="math inline">\(T_{i}\)</span> 的变差公式 <a href="models.html#eq:variograms">(3.5)</a> 知，随机过程 <span class="math inline">\(T(x)\)</span> 的变差 <span class="math inline">\(\tau^2 + \sigma^2(1-\rho(u_{ij}))\)</span> 和自相关函数 <a href="models.html#eq:corr-nugget-function">(3.9)</a>
+如何区分开 <span class="math inline">\(Z_{i}\)</span> 与 <span class="math inline">\(S(x_i)\)</span>，或者更直接地说，如何估计这两个随机效应的参数 <span class="math inline">\(\tau^2, \sigma^2, \phi\)</span>， 即为可识别问题。 向量 <span class="math inline">\(T = (T_1,T_2,\ldots,T_n)^{\top}\)</span> 是协方差矩阵为 <span class="math inline">\(\tau^2I + \sigma^2R\)</span> 的多元高斯分布， 其中， 自相关函数 <span class="math inline">\(R_{ij} = \rho(u_{ij}; \phi)\)</span>， <span class="math inline">\(u_{ij}\)</span> 是 <span class="math inline">\(x_i\)</span> 与 <span class="math inline">\(x_j\)</span> 之间的距离。由线性预测 <span class="math inline">\(T_{i}\)</span> 的变差公式 <a href="models.html#eq:variograms">(3.5)</a> 知，随机过程 <span class="math inline">\(T(x)\)</span> 的变差 <span class="math inline">\(\tau^2 + \sigma^2(1-\rho(u_{ij}))\)</span> 和自相关函数 <a href="models.html#eq:corr-nugget-function">(3.9)</a>
 <span class="math display" id="eq:corr-nugget-function">\[\begin{equation}
 \rho^{\star}(u) =
 \begin{cases}
@@ -326,17 +326,17 @@ g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) \tag{3.8}
 \sigma^2\rho(u_{ij})/(\sigma^2+\tau^2) &amp; : x_{i} \neq x_{j}
 \end{cases} \tag{3.9}
 \end{equation}\]</span>
-在原点不连续，只有当 <span class="math inline">\(\tau^2 = \mathsf{Var}[Y_i|S(x_i)]\)</span> 已知或者在同一位置可以用重复测量的方法直接获得时，参数 <span class="math inline">\(\tau^2, \sigma^2, \phi\)</span> 是可识别的 <span class="citation">(Peter J. Diggle, Moyeed, et al. <a href="#ref-Diggle2002Childhood">2002</a>; Peter J. Diggle and Ribeiro Jr. <a href="#ref-Diggle2007">2007</a>)</span>。如果通过探索性数据分析观察到不可忽略的非空间效应 <span class="math inline">\(\tau^2\)</span> 时，Christensen （2004年） <span class="citation">(Christensen <a href="#ref-Christensen2004">2004</a>)</span> 建议使用样本变差函数对 <span class="math inline">\(\tau^2\)</span> 作初步估计，然后计算关于 <span class="math inline">\(\tau^2\)</span> 的剖面似然函数曲线，或者协方差参数 <span class="math inline">\(\phi,\tau^2\)</span>一起确定最佳的值，第 <a href="applications.html#applications">6</a> 章第 <a href="applications.html#case-rongelap">6.2</a> 节将用剖面似然函数曲面的方法获取真实数据场景中的参数估计值。</p>
+在原点不连续，只有当 <span class="math inline">\(\tau^2 = \mathsf{Var}[Y_i|S(x_i)]\)</span> 已知或者在同一位置可以用重复测量的方法直接获得时，参数 <span class="math inline">\(\tau^2, \sigma^2, \phi\)</span> 是可识别的 <span class="citation">(Diggle et al. <a href="#ref-Diggle2002Childhood">2002</a>; Peter J. Diggle and Ribeiro Jr., <a href="#ref-Diggle2007">n.d.</a>)</span>。如果通过探索性数据分析观察到不可忽略的非空间效应 <span class="math inline">\(\tau^2\)</span> 时，Christensen （2004年） <span class="citation">(Christensen <a href="#ref-Christensen2004">2004</a>)</span> 建议使用样本变差函数对 <span class="math inline">\(\tau^2\)</span> 作初步估计，然后计算关于 <span class="math inline">\(\tau^2\)</span> 的剖面似然函数曲线，或者协方差参数 <span class="math inline">\(\phi,\tau^2\)</span>一起确定最佳的值，第 <a href="applications.html#applications">6</a> 章第 <a href="applications.html#case-rongelap">6.2</a> 节将用剖面似然函数曲面的方法获取真实数据场景中的参数估计值。</p>
 </div>
 <div id="subsec:prior-sglmm" class="section level3">
 <h3><span class="header-section-number">3.4.4</span> 先验分布</h3>
-<p>基于贝叶斯方法实现模型 <a href="models.html#eq:SGLMM">(3.4)</a> 的参数估计，必然使用 MCMC 算法，自然地，需要指定模型参数 <span class="math inline">\(\boldsymbol{\theta} = (\boldsymbol{\beta},\tau^2,\sigma^2,\phi)\)</span> 的先验分布。对于 <span class="math inline">\(\boldsymbol{\beta}\)</span>，Diggle 等 （2002 年） <span class="citation">(Peter J. Diggle, Moyeed, et al. <a href="#ref-Diggle2002Childhood">2002</a>)</span> 选择相互独立的均匀先验，而对于参数 <span class="math inline">\(\tau^2,\sigma^2,\phi\)</span>，选取如下模糊先验：
+<p>基于贝叶斯方法实现模型 <a href="models.html#eq:SGLMM">(3.4)</a> 的参数估计，必然使用 MCMC 算法，自然地，需要指定模型参数 <span class="math inline">\(\boldsymbol{\theta} = (\boldsymbol{\beta},\tau^2,\sigma^2,\phi)\)</span> 的先验分布。对于 <span class="math inline">\(\boldsymbol{\beta}\)</span>，Diggle 等 （2002 年） <span class="citation">(Diggle et al. <a href="#ref-Diggle2002Childhood">2002</a>)</span> 选择相互独立的均匀先验，而对于参数 <span class="math inline">\(\tau^2,\sigma^2,\phi\)</span>，选取如下模糊先验：
 <span class="math display">\[f(\tau^2) \propto \frac{1}{\tau^2};f(\sigma^2) \propto \frac{1}{\sigma^2};f(\phi) \propto \frac{1}{\phi^2}\]</span>
-其中，<span class="math inline">\(\tau^2\)</span> 和 <span class="math inline">\(\sigma^2\)</span> 为 Jeffreys 先验，Diggle 等 （2002 年） <span class="citation">(Peter J. Diggle, Moyeed, et al. <a href="#ref-Diggle2002Childhood">2002</a>)</span> 使用如下先验分布
+其中，<span class="math inline">\(\tau^2\)</span> 和 <span class="math inline">\(\sigma^2\)</span> 为 Jeffreys 先验，Diggle 等 （2002 年） <span class="citation">(Diggle et al. <a href="#ref-Diggle2002Childhood">2002</a>)</span> 使用如下先验分布
 <span class="math display">\[\begin{equation*}
 \log(\nu^2),\log(\sigma^2),\log(\phi)  \sim \mathcal{N}(\cdot,\cdot)
 \end{equation*}\]</span>
-这些无信息先验分布的选择主要是出于实用和经验的考虑，也可以取别的，只要保持马尔科夫链收敛即可，实际操作中，我们还选取不同初始值，产生多条链，同时去掉迭代初始阶段产生的相对发散的参数迭代值，后续迭代值在链条收敛的情况下，可以把它当作后验分布产生的样本，然后依据该样本估计后验分布的参数。这些无信息先验分布的选择对最终结果几乎没有影响，这是贝叶斯方法的优势，也是贝叶斯推断方法得以被广泛应用的原因之一 <span class="citation">(茆诗松, 王静龙, and 濮晓龙 <a href="#ref-mao2006">2006</a>)</span>。</p>
+这些无信息先验分布的选择主要是出于实用和经验的考虑，也可以取别的，只要保持马尔科夫链收敛即可。实际操作中，我们还选取不同初始值，产生多条链，同时去掉迭代初始阶段产生的相对发散的参数迭代值，后续迭代值在链条收敛的情况下，可以把它当作后验分布产生的样本，然后依据该样本估计后验分布的参数。</p>
 </div>
 </div>
 <div id="sec:models" class="section level2">
@@ -369,16 +369,13 @@ g(\mu_i) = d(x_i)^{\top}\boldsymbol{\beta} + S(x_i) \tag{3.8}
 <p>Diggle, Peter J., Rana Moyeed, Barry Rowlingson, and Madeleine Thomson. 2002. “Childhood Malaria in the Gambia: A Case-Study in Model-Based Geostatistics.” <em>Journal of the Royal Statistical Society, Series C</em> 51 (4): 493–506.</p>
 </div>
 <div id="ref-Diggle2007">
-<p>Diggle, Peter J., and Paulo J. Ribeiro Jr. 2007. <em>Model-Based Geostatistics</em>. New York, NY: Springer-Verlag.</p>
-</div>
-<div id="ref-mao2006">
-<p>茆诗松, 王静龙, and 濮晓龙. 2006. <em>高等数理统计</em>. 第二版. 北京: 高等教育出版社.</p>
+<p>Diggle, Peter J., and Paulo J. Ribeiro Jr. n.d. <em>Model-Based Geostatistics</em>. New York, NY: Springer-Verlag.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p>变差来源于采矿术语，其实是空间过程 <span class="math inline">\(\mathcal{S}\)</span> 的自协方差函数的一半<a href="models.html#fnref2" class="footnote-back">↩</a></p></li>
+<ol start="1">
+<li id="fn1"><p>变差来源于采矿术语，其实是空间过程 <span class="math inline">\(\mathcal{S}\)</span> 的自协方差函数的一半<a href="models.html#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-24">
+<meta name="date" content="2018-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,8 +193,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录</a><ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#tables-simulations"><i class="fa fa-check"></i>表格</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-plot"><i class="fa fa-check"></i>图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-code"><i class="fa fa-check"></i>代码</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#Interactive-Web-Maps"><i class="fa fa-check"></i>交互图</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compileinfo"><i class="fa fa-check"></i>编译信息</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#hardwareinfo"><i class="fa fa-check"></i>硬件环境</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sysinfo"><i class="fa fa-check"></i>系统环境</a></li>
@@ -1021,25 +1021,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div id="simulate-plot" class="section level2 unnumbered">
-<h2>图</h2>
-<div class="figure" style="text-align: center"><span id="fig:rongelap-trace-plot"></span>
-<img src="figures/rongelap-mcml-diagnosis-trace-9.png" alt="Langevin-Hastings 算法模拟条件分布 \([S(x_{i})|Y_{i}], i = 1,\ldots,4\)，\([\cdot]\) 表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布" width="70%" />
-<p class="caption">
-图 7.1: Langevin-Hastings 算法模拟条件分布 <span class="math inline">\([S(x_{i})|Y_{i}], i = 1,\ldots,4\)</span>，<span class="math inline">\([\cdot]\)</span> 表示某某的分布，第一列是迭代序列轨迹图，第二列是对应的密度分布
-</p>
-</div>
-<p>从图 <a href="appendix.html#fig:rongelap-trace-plot">7.1</a> 可以看出迭代序列符合平稳性的特征。</p>
-<div class="figure" style="text-align: center"><span id="fig:rongelap-acf-plot"></span>
-<img src="figures/rongelap-mcml-diagnosis-acf-9.png" alt="条件分布 \([S(x_{i})|Y_{i}], i = 1, \ldots, 4\) 的采样序列的自相关图" width="70%" />
-<p class="caption">
-图 7.2: 条件分布 <span class="math inline">\([S(x_{i})|Y_{i}], i = 1, \ldots, 4\)</span> 的采样序列的自相关图
-</p>
-</div>
-<p>从图 <a href="appendix.html#fig:rongelap-acf-plot">7.2</a> 可以看出迭代序列满足马尔科夫性，没有明显的延迟相关性。</p>
-
-
-</div>
 <div id="simulate-code" class="section level2 unnumbered">
 <h2>代码</h2>
 <p>模拟平稳空间高斯过程</p>
@@ -1165,21 +1146,43 @@ benchmark.poisson &lt;-<span class="st"> </span>microbenchmark<span class="op">:
 <span class="kw">summary</span>(fit.poisson)
 <span class="kw">plot</span>(fit.poisson)</code></pre>
 </div>
+<div id="Interactive-Web-Maps" class="section level2 unnumbered">
+<h2>交互图</h2>
+<pre><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; rgdal: version: 1.3-6, (SVN revision 773)
+#&gt;  Geospatial Data Abstraction Library extensions to R successfully loaded
+#&gt;  Loaded GDAL runtime: GDAL 2.1.0, released 2016/04/25
+#&gt;  Path to GDAL shared files: /usr/share/gdal/2.1
+#&gt;  GDAL binary built with GEOS: TRUE 
+#&gt;  Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+#&gt;  Path to PROJ.4 shared files: (autodetected)
+#&gt;  Linking to sp version: 1.3-1</code></pre>
+</div>
 <div id="compileinfo" class="section level2 unnumbered">
 <h2>编译信息</h2>
 <div class="figure" style="text-align: center"><span id="fig:compiling-sampling"></span>
 <img src="figures/compiling.png" alt="基于 Stan 编程的模型编译和采样过程图" width="70%" /><img src="figures/sampling.png" alt="基于 Stan 编程的模型编译和采样过程图" width="70%" />
 <p class="caption">
-图 7.3: 基于 Stan 编程的模型编译和采样过程图
+图 7.1: 基于 Stan 编程的模型编译和采样过程图
 </p>
 </div>
 </div>
 <div id="hardwareinfo" class="section level2 unnumbered">
 <h2>硬件环境</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="kw">system</span>(<span class="st">&quot;cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c&quot;</span>, <span class="dt">intern =</span> <span class="ot">TRUE</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
-<span class="co">#&gt;      32  Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz</span>
+<span class="co">#&gt;       2  Intel(R) Xeon(R) CPU @ 2.50GHz</span>
 parallel<span class="op">::</span><span class="kw">detectCores</span>()
-<span class="co">#&gt; [1] 32</span></code></pre>
+<span class="co">#&gt; [1] 2</span></code></pre>
 </div>
 <div id="sysinfo" class="section level2 unnumbered">
 <h2>系统环境</h2>
@@ -1193,7 +1196,7 @@ parallel<span class="op">::</span><span class="kw">detectCores</span>()
 <tbody>
 <tr class="odd">
 <td align="left">version</td>
-<td align="left">R version 3.5.0 (2017-01-27)</td>
+<td align="left">R version 3.5.1 (2017-01-27)</td>
 </tr>
 <tr class="even">
 <td align="left">os</td>
@@ -1225,7 +1228,7 @@ parallel<span class="op">::</span><span class="kw">detectCores</span>()
 </tr>
 <tr class="odd">
 <td align="left">date</td>
-<td align="left">2018-10-24</td>
+<td align="left">2018-10-26</td>
 </tr>
 </tbody>
 </table>
@@ -1244,22 +1247,22 @@ parallel<span class="op">::</span><span class="kw">detectCores</span>()
 <tr class="odd">
 <td align="left">assertthat</td>
 <td align="left">0.2.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">backports</td>
 <td align="left">1.1.2</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">base64enc</td>
 <td align="left">0.1-3</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">BH</td>
 <td align="left">1.66.0-1</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">bookdown</td>
@@ -1267,254 +1270,309 @@ parallel<span class="op">::</span><span class="kw">detectCores</span>()
 <td align="left">Github (rstudio/bookdown@d1f44e5)</td>
 </tr>
 <tr class="even">
+<td align="left">callr</td>
+<td align="left">3.0.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">cli</td>
 <td align="left">1.0.1</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">colorspace</td>
 <td align="left">1.3-2</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">crayon</td>
 <td align="left">1.3.4</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">desc</td>
 <td align="left">1.2.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">digest</td>
 <td align="left">0.6.18</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">evaluate</td>
 <td align="left">0.12</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">fansi</td>
 <td align="left">0.4.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">formatR</td>
 <td align="left">1.5</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">gdtools</td>
 <td align="left">0.1.7</td>
-<td align="left">CRAN (R 3.5.0)</td>
-</tr>
-<tr class="odd">
-<td align="left">ggplot2</td>
-<td align="left">3.0.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
+<td align="left">ggplot2</td>
+<td align="left">3.1.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">glue</td>
 <td align="left">1.3.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">gridExtra</td>
 <td align="left">2.3</td>
-<td align="left">CRAN (R 3.5.0)</td>
-</tr>
-<tr class="even">
-<td align="left">gtable</td>
-<td align="left">0.2.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
-<td align="left">highr</td>
-<td align="left">0.7</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">gtable</td>
+<td align="left">0.2.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
+<td align="left">highr</td>
+<td align="left">0.7</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">htmldeps</td>
 <td align="left">0.1.1</td>
 <td align="left">Github (rstudio/htmldeps@c1023e0)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">htmltools</td>
 <td align="left">0.3.6</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">inline</td>
+<td align="left">0.3.15</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">jsonlite</td>
 <td align="left">1.5</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">knitr</td>
 <td align="left">1.20</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">labeling</td>
 <td align="left">0.3</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">lattice</td>
 <td align="left">0.20-35</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">lazyeval</td>
 <td align="left">0.2.1</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
+<td align="left">loo</td>
+<td align="left">2.0.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="even">
 <td align="left">magrittr</td>
 <td align="left">1.5</td>
-<td align="left">CRAN (R 3.5.0)</td>
-</tr>
-<tr class="even">
-<td align="left">markdown</td>
-<td align="left">0.8</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
-<td align="left">MASS</td>
-<td align="left">7.3-49</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">markdown</td>
+<td align="left">0.8</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
+<td align="left">MASS</td>
+<td align="left">7.3-50</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">Matrix</td>
 <td align="left">1.2-14</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="even">
+<td align="left">matrixStats</td>
+<td align="left">0.54.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">mgcv</td>
-<td align="left">1.8-23</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">1.8-24</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">mime</td>
 <td align="left">0.6</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">munsell</td>
 <td align="left">0.5.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">nlme</td>
 <td align="left">3.1-137</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">pillar</td>
 <td align="left">1.3.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
+<td align="left">pkgbuild</td>
+<td align="left">1.0.2</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">plyr</td>
 <td align="left">1.8.4</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="even">
+<td align="left">prettyunits</td>
+<td align="left">1.0.2</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">processx</td>
+<td align="left">3.2.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="even">
+<td align="left">ps</td>
+<td align="left">1.2.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">R6</td>
 <td align="left">2.3.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">RColorBrewer</td>
 <td align="left">1.1-2</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">Rcpp</td>
 <td align="left">0.12.19</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
-<td align="left">reshape2</td>
-<td align="left">1.4.3</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">RcppEigen</td>
+<td align="left">0.3.3.4.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
-<td align="left">rlang</td>
-<td align="left">0.3.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">reshape2</td>
+<td align="left">1.4.3</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
+<td align="left">rlang</td>
+<td align="left">0.3.0.1</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">rmarkdown</td>
 <td align="left">1.10.14</td>
 <td align="left">Github (rstudio/rmarkdown@442e5bf)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">rprojroot</td>
 <td align="left">1.3-2</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">rstan</td>
+<td align="left">2.18.1</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
 <td align="left">scales</td>
 <td align="left">1.0.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
 <td align="left">sessioninfo</td>
 <td align="left">1.1.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
+<td align="left">StanHeaders</td>
+<td align="left">2.18.0</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="odd">
 <td align="left">stringi</td>
 <td align="left">1.2.4</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">stringr</td>
 <td align="left">1.3.1</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">svglite</td>
 <td align="left">1.2.1</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">tibble</td>
 <td align="left">1.4.2</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">tinytex</td>
 <td align="left">0.9</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">utf8</td>
 <td align="left">1.1.4</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">viridisLite</td>
 <td align="left">0.3.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
-</tr>
-<tr class="odd">
-<td align="left">withr</td>
-<td align="left">2.1.2</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="even">
-<td align="left">xfun</td>
-<td align="left">0.4</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">withr</td>
+<td align="left">2.1.2</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 <tr class="odd">
+<td align="left">xfun</td>
+<td align="left">0.4</td>
+<td align="left">CRAN (R 3.5.1)</td>
+</tr>
+<tr class="even">
 <td align="left">yaml</td>
 <td align="left">2.2.0</td>
-<td align="left">CRAN (R 3.5.0)</td>
+<td align="left">CRAN (R 3.5.1)</td>
 </tr>
 </tbody>
 </table>
