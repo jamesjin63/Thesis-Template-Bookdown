@@ -146,7 +146,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{China University of Mining and Technology, Beijing}
 \author{Xiang-Yun Huang}
-\date{2018-10-26}
+\date{2018-10-28}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{定理}[chapter]
@@ -289,11 +289,11 @@ SGLMM
 模型似然函数的一般形式；在第\ref{sec:profile-likelihood}节详细介绍了剖面似然的思想和计算过程；其三，在
 Langevin-Hastings 算法的基础上，提出 Stan
 程序库实现的汉密尔顿蒙特卡罗算法（简称
-HMC），在文中为了方便，也称作贝叶斯 STAN-MCMC 算法。
+HMC），在文中为了方便，也称作贝叶斯 STAN-HMC 算法。
 
 第 \ref{simulations}
 章首先实现了一维和二维情形下平稳空间高斯过程的模拟，然后在二维情形下，分别模拟了响应变量服从二项分布和泊松分布的
-SGLMM 模型，比较了贝叶斯 MCMC 算法和我们提出的贝叶斯 STAN-MCMC
+SGLMM 模型，比较了贝叶斯 MCMC 算法和我们提出的贝叶斯 STAN-HMC
 算法，在获得相似估计效果的情形下，我们提出的算法所需迭代次数少，迭代初值可以随机生成，运行时间短。
 
 第 \ref{applications}
@@ -314,11 +314,7 @@ SGLMM 模型，比较了贝叶斯 MCMC 算法和我们提出的贝叶斯 STAN-MC
 \ref{sec:stationary-gaussian-process}
 节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第
 \ref{sec:Laplace-approximation} 节介绍拉普拉斯近似方法。第
-\ref{sec:bayes-prior} 介绍先验、后验分布和 Jeffreys 无信息先验分布。第
-\ref{sec:stan-samplers} 节首先从 Stan
-的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight
-Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan
-实现作铺垫。
+\ref{sec:bayes-prior} 介绍先验、后验分布和 Jeffreys 无信息先验分布。
 
 \hypertarget{sec:exp}{%
 \section{指数族}\label{sec:exp}}
@@ -512,7 +508,8 @@ logit\strut
 \] \noindent 称 \(\tilde{\boldsymbol{\beta}}_{LS}\)
 为广义最小二乘估计，特别地，当
 \(\mathbf{G} = \mathrm{diag}(\sigma^2_{1},\ldots,\sigma^2_{n})\)，\(\sigma^2_{i},i = 1,\ldots,n\)
-已知时，称 \(\tilde{\boldsymbol{\beta}}_{LS}\) 为加权最小二乘估计。
+已知时，称 \(\tilde{\boldsymbol{\beta}}_{LS}\)
+为加权最小二乘估计\citep{wang2004}。
 \EndKnitrBlock{theorem}
 
 \hypertarget{sec:def-mle}{%
@@ -547,7 +544,8 @@ logit\strut
 \begin{equation}
 \partial l(\boldsymbol{\theta},\mathbf{x})/ \partial \boldsymbol{\theta}_{i} = 0, \quad i = 1,\ldots, m \label{eq:likelihood-equations}
 \end{equation} \noindent 的解。\(p(\mathbf{x};\boldsymbol{\theta})\)
-属于指数族时，似然方程组 \eqref{eq:likelihood-equations} 的解唯一。
+属于指数族时，似然方程组 \eqref{eq:likelihood-equations}
+的解唯一\citep{mao2006}。
 
 \BeginKnitrBlock{theorem}[相合性]
 \protect\hypertarget{thm:consistency}{}{\label{thm:consistency}
@@ -562,7 +560,7 @@ logit\strut
 \(\forall \boldsymbol{\theta}_1 \neq \boldsymbol{\theta}_2, \{\mathbf{x}: p(\mathbf{x};\boldsymbol{\theta}_1) \neq p(\mathbf{x}; \boldsymbol{\theta}_2)\}\)
 不是零测集），则似然方程 \eqref{eq:likelihood-equations} 在
 \(n \to \infty\) 时，以概率 \(1\) 有解，且此解关于
-\(\boldsymbol{\theta}\) 是相合的。
+\(\boldsymbol{\theta}\) 是相合的\citep{mao2006}。
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{theorem}[渐近正态性]
@@ -590,7 +588,7 @@ logit\strut
 
 \noindent 其中，撇号表示对 \(\boldsymbol{\theta}\) 的微分。记
 \(\hat{\boldsymbol{\theta}}_{n}\) 为 \(n \to \infty\)
-时，似然方程组的相合解，则\(\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))\)。
+时，似然方程组的相合解，则\(\sqrt{n}(\hat{\boldsymbol{\theta}}_{n} - \boldsymbol{\theta}_{0}) \longrightarrow \mathcal{N}(\mathbf{0},I^{-1}(\boldsymbol{\theta}))\)\citep{mao2006}。
 \EndKnitrBlock{theorem}
 
 \hypertarget{sec:stationary-gaussian-process}{%
@@ -640,35 +638,6 @@ logit\strut
 处是 \(2k\) 次可微的。
 \EndKnitrBlock{theorem}
 
-\hypertarget{sec:modified-bessel-function}{%
-\section{修正的第二类贝塞尔函数}\label{sec:modified-bessel-function}}
-
-平稳空间高斯过程的自协方差函数是 Matérn
-型（详见第\ref{models}章第\ref{subsec:covariance-function}小节）时，需要用到修正的第二类贝塞尔函数
-\(\mathcal{K}_{\kappa}(u)\)，它是修正的贝塞尔方程的解
-\citep{Abramowitz1972}，函数形式如下 \begin{equation}
-\begin{aligned}
-I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(\frac{u}{2}\big)^{2m + \kappa} \\
-\mathcal{K}_{\kappa}(u) & = \frac{\pi}{2} \frac{I_{-\kappa}(u) - I_{\kappa}(u)}{\sin (\kappa \pi)}
-\end{aligned} \label{eq:besselK-function}
-\end{equation} \noindent 其中
-\(u \geq 0\)，\(\kappa \in \mathbb{R}\)，如果
-\(\kappa \in \mathbb{Z}\)，则取该点的极限值，\(\mathcal{K}_{\kappa}(u)\)
-的值可由 R 内置的函数 \texttt{besselK} 计算 \citep{Campbell1980}。
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{figures/bessel} 
-
-}
-
-\caption{在 \(\kappa\)
-取不同值时的贝塞尔函数图像：横轴表示距离\(u\)，纵轴表示函数值\(\mathcal{K}_{\kappa}(u)\)}\label{fig:bessel-function}
-\end{figure}
-
-
-
-
 \hypertarget{sec:Laplace-approximation}{%
 \section{拉普拉斯近似}\label{sec:Laplace-approximation}}
 
@@ -710,14 +679,15 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
 \BeginKnitrBlock{definition}[先验分布]
 \protect\hypertarget{def:prior-distribution}{}{\label{def:prior-distribution}
 \iffalse (先验分布) \fi{} }参数空间 \(\Theta\)
-上的任一概率分布都称作先验分布 （prior distribution）。
+上的任一概率分布都称作先验分布 （prior distribution）\citep{mao2006}。
 \EndKnitrBlock{definition}
 
 \BeginKnitrBlock{definition}[后验分布]
 \protect\hypertarget{def:posterior-distribution}{}{\label{def:posterior-distribution}
 \iffalse (后验分布) \fi{} }在获得样本 \(\mathbf{Y}\) 后，模型参数
 \(\boldsymbol{\theta}\) 的后验分布 （posterior distribution）
-就是在给定样本 \(\mathbf{Y}\) 的条件下 \(\boldsymbol{\theta}\) 的分布。
+就是在给定样本 \(\mathbf{Y}\) 的条件下 \(\boldsymbol{\theta}\)
+的分布\citep{mao2006}。
 \EndKnitrBlock{definition}
 
 \BeginKnitrBlock{definition}[Jeffreys 先验分布]
@@ -746,11 +716,11 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
 \item
   \(\boldsymbol{\theta}\) 的无信息先验密度函数为
   \(\pi(\boldsymbol{\theta}) = [\det \mathbf{I}(\boldsymbol{\theta}) ]^{1/2}\)，在单参数场合，
-  \(\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}\)。
+  \(\pi(\boldsymbol{\theta}) = [\mathbf{I}(\theta) ]^{1/2}\)\citep{mao2006}。
 \end{enumerate}
 
-\hypertarget{bayes-estimates}{%
-\section{常用贝叶斯估计}\label{bayes-estimates}}
+\hypertarget{sec:bayes-estimates}{%
+\section{常用贝叶斯估计}\label{sec:bayes-estimates}}
 
 \BeginKnitrBlock{theorem}[平方损失]
 \protect\hypertarget{thm:bayes-estimate-square}{}{\label{thm:bayes-estimate-square}
@@ -760,7 +730,7 @@ I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(
 下，\(\boldsymbol{\theta}\) 的贝叶斯估计
 \(\boldsymbol{\delta}^{\pi}(x)\) 为后验分布
 \(\pi(\boldsymbol{\theta}|x)\) 的均值，即
-\(\boldsymbol{\delta}^{\pi}(x) = \mathsf{E}(\boldsymbol{\theta}|x)\)。
+\(\boldsymbol{\delta}^{\pi}(x) = \mathsf{E}(\boldsymbol{\theta}|x)\)\citep{mao2006}。
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{theorem}[0 - 1 损失]
@@ -778,7 +748,7 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 
 当 \(\epsilon\) 较小时，\(\boldsymbol{\theta}\)
 的贝叶斯估计\(\boldsymbol{\delta}^{\pi}(x)\)为后验分布
-\(\pi(\boldsymbol{\theta}|x)\) 的众数。
+\(\pi(\boldsymbol{\theta}|x)\) 的众数\citep{mao2006}。
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{theorem}[绝对值损失]
@@ -788,7 +758,7 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 \(L(\boldsymbol{\theta},\boldsymbol{\delta}) = |\boldsymbol{\delta} - \boldsymbol{\theta}|\)
 下，\(\boldsymbol{\theta}\) 的贝叶斯估计
 \(\boldsymbol{\delta}^{\pi}(x)\) 为后验分布
-\(\pi(\boldsymbol{\theta}|x)\) 的中位数。
+\(\pi(\boldsymbol{\theta}|x)\) 的中位数\citep{mao2006}。
 \EndKnitrBlock{theorem}
 
 评价贝叶斯估计 \(\boldsymbol{\delta}^{\pi}(x)\) 的精度常用后验均方误差
@@ -801,8 +771,8 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 \([\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)]^{1/2}\) 表示
 \citep{mao2006}。
 
-\hypertarget{Curse-of-Dimensionality}{%
-\section{蒙特卡罗积分}\label{Curse-of-Dimensionality}}
+\hypertarget{sec:Curse-of-Dimensionality}{%
+\section{蒙特卡罗积分}\label{sec:Curse-of-Dimensionality}}
 
 一般地，空间广义线性混合效应模型的统计推断总是不可避免的要面对高维积分，处理高维积分的方法一个是寻找近似方法避免求积分，一个是寻找有效的随机模拟方法直接求积分。这里，介绍蒙特卡罗方法求积分，以计算
 \(N\) 维超立方体的内切球的体积为例说明。
@@ -861,275 +831,10 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 0.3\%，可以预见如果这个积分是 100
 维甚至更多，那么内切球相比于正方体仅仅是一个极小的角落，随机点会越来越难以落在内切球内。甚至会因为所需要的随机数太多或者计算机资源的限制，而不可计算，开发更加高效的随机模拟算法也就势在必行。
 
-\hypertarget{sec:stan-samplers}{%
-\section{Stan 简介}\label{sec:stan-samplers}}
-
-在上世纪 40\textasciitilde{}50
-年代，由梅特罗波利斯，冯\(\cdot\)诺依曼和乌拉姆 （Stanislaw Ulam）
-创立蒙特卡罗方法，为了纪念乌拉姆，Stan 就以他的名字命名。Stan 是一门基于
-C++
-的概率编程语言，主要用于贝叶斯推断，它的代码完全\href{http://mc-stan.org/}{开源}的，托管在
-\href{https://github.com/stan-dev/stan}{Github} 上，自 2012 年 8 月 30
-日发布第一个 1.0 版本以来，截至写作时间已发布 33 个版本，目前最新版本是
-2.18.0。使用 Stan，用户需提供数据、Stan 代码写的脚本模型，编译 Stan
-写的程序，然后与数据一起运行，模型参数的后验模拟过程是自动实现的。除了可以在命令行环境下编译运行
-Stan 脚本中写模型外，Stan 还提供其他编程语言的接口，如
-R、Python、Matlab、Mathematica、Julia
-等等，这使得熟悉其他编程语言的用户可以方便地调用和分析数据。但是，与
-Python、R等 这类解释型编程语言不同， Stan 代码需要先翻译成 C++
-代码，然后使用系统编译器 （如 GCC） 编译，若使用 R
-语言接口，编译后的动态链接库可以载入 R 内存中，再被其他 R 函数调用执行。
-
-随机模拟的前提是有能产生高质量高效的伪随机数发生器，只有周期长，生成速度快，能通过一系列统计检验的伪随机数才能用作统计模拟，Stan
-内置了 Mersenne-Twister 发生器，它的周期长达
-\(2^{19937}-1\)，通过了一系列严格的检验，被广泛采用到现代软件中，如
-Octave 和 Matlab 等 \citep{Huang2017COS}。除了 Mersenne Twister
-随机数发生器，Stan 还使用了 \href{https://www.boost.org/}{Boost C++} 和
-\href{http://eigen.tuxfamily.org/index.php?title=Main_Page}{Eigen C++}
-等模版库用于线性代数计算，这样的底层设计路线使得 Stan 的运算效率很高。
-
-Stan 内置的采样器 No-U-Turn （简称 NUTS） 源于汉密尔顿蒙特卡罗算法
-（Hamiltonian Monte Carlo，简称 HMC），最早由 Hoffman 和 Gelman
-（2014年） \citep{hoffman2014} 提出。与 Stan 有相似功能的软件 BUGS 和
-JAGS 主要采用的是 Gibbs 采样器，前者基于 Pascal 语言开发于 1989 年至
-2004 年，后者基于 C++ 活跃开发于 2007 年至 2013 年。在时间上， Stan
-具有后发优势，特别在灵活性和扩展性方面，它支持任意的目标函数，模型语言也更加简单易于推广学习，其每一行都是命令式的语句，而
-BUGS 和 JAGS 采用声明式；在大量数据的建模分析中， Stan
-可以更快地处理复杂模型，这一部分归功于它高效的算法实现和内存管理，另一部分在于高级的
-MCMC 算法 --- 带 NUTS 采样器的 HMC 算法。
-
-Rubin （1981年） \citep{Rubin1981} 分析了 Alderman 和 Powers
-\citep{Alderman1980} 收集的原始数据，得出表
-\ref{tab:eight-high-schools}， Gelman 和 Carlin 等 （2003年）
-\citep{Gelman2003} 建立分层正态模型 \eqref{eq:hierarchical-normal-models}
-分析 Eight Schools
-数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了
-8 所高中，学生的成绩作为培训效应的估计 \(y_j\)，其样本方差
-\(\sigma^2_j\)，数据集见表
-\ref{tab:eight-high-schools}。这里再次以该数据集和模型为例介绍 Stan
-的使用。
-
-\begin{longtable}[]{@{}ccccccccc@{}}
-\caption{\label{tab:eight-high-schools} Eight Schools 数据集}\tabularnewline
-\toprule
-School & A & B & C & D & E & F & G & H\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-School & A & B & C & D & E & F & G & H\tabularnewline
-\midrule
-\endhead
-\(y_i\) & 28 & 8 & -3 & 7 & -1 & 1 & 18 & 12\tabularnewline
-\(\sigma_i\) & 15 & 10 & 16 & 11 & 9 & 11 & 10 & 18\tabularnewline
-\bottomrule
-\end{longtable}
-
-\begin{equation}
-\begin{aligned}
-    \mu \sim \mathcal{N}(0,5), \quad \tau \sim \text{Half-Cauchy}(0,5) \\
-    p(\mu,\tau) \propto 1, \quad \eta_i \sim \mathcal{N}(0,1) \\
-    \theta_i  =   \mu + \tau \cdot \eta_i \\
-    y_i \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
-\end{aligned}
-\label{eq:hierarchical-normal-models}
-\end{equation}
-
-根据公式组 \eqref{eq:hierarchical-normal-models}
-指定的各参数先验分布，分层正态模型可以在 Stan
-中写成如下形式，我们在工作目录下把它保存为 \texttt{8schools.stan}
-，供后续编程使用。
-
-\begin{verbatim}
-// saved as 8schools.stan
-data {
-  int<lower=0> J; // number of schools 
-  real y[J]; // estimated treatment effects
-  real<lower=0> sigma[J]; // s.e. of effect estimates 
-}
-parameters {
-  real mu; // population mean
-  real<lower=0> tau; // population sd
-  real eta[J]; // school-level errors
-}
-transformed parameters {
-  real theta[J];  // schools effects
-  for (j in 1:J)
-    theta[j] = mu + tau * eta[j];
-  // theta = mu + tau*eta;
-}
-model {
-  // set prior for mu or uniform prior distribution default
-  // target += normal_lpdf(mu  | 0, 10); 
-  // target += cauchy_lpdf(tau | 0, 25); # the same as mu
-  target += normal_lpdf(eta | 0, 1);
-  target += normal_lpdf(y | theta, sigma); // target distribution
-  // y ~ normal(theta, sigma);
-}
-\end{verbatim}
-
-上述 Stan 代码的第一段提供数据：学校的数目 \(J\)，估计值
-\(y_1,\ldots,y_{J}\)，标准差
-\(\sigma_1,\ldots,\sigma_{J}\)，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中
-\(J\) 限制为非负， \(\sigma_{J}\) 必须是正的，另外两个反斜杠 //
-表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应
-\(\theta_j\)，均值 \(\mu\)，标准差 \(\tau\)，学校水平上的误差 \(\eta\)
-和效应 \(\theta\)。在这个模型中，用 \(\mu,\tau,\eta\) 表示 \(\theta\)
-而不是直接声明 \(\theta\)
-作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替
-for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布
-\(\mathcal{N}(\cdot,\cdot)\) 中后一个位置是方差，而 Stan
-代码中使用的是标准差。\texttt{target\ +=\ normal\_lpdf(y\ \textbar{}\ theta,\ sigma)}
-和 \texttt{y\ \textasciitilde{}\ normal(theta,\ sigma)}
-对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于
-Stan 的采样、近似和优化算法没有影响。
-
-算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680
-处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本
-2.17.3。算法参数设置了 4 条迭代链，每条链迭代 10000
-次，为复现模型结果随机数种子设为 2018。
-
-分层正态模型\eqref{eq:hierarchical-normal-models} 的参数
-\(\mu,\tau\)，及其参数化引入的中间参数
-\(\eta_i,\theta_i,i=1,\ldots,8\)，还有对数后验 \(\mathrm{lp}\_\_\)
-的估计值见表 \ref{tab:eight-schools-output}。
-
-\begin{longtable}[]{@{}lrrrrrrrrrr@{}}
-\caption{\label{tab:eight-schools-output} 对 Eight Schools
-数据集建立分层正态模型 \eqref{eq:hierarchical-normal-models}，采用 HMC
-算法估计模型各参数值}\tabularnewline
-\toprule
-& mean & se\_mean & sd & 2.5\% & 25\% & 50\% & 75\% & 97.5\% & n\_eff &
-Rhat\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-& mean & se\_mean & sd & 2.5\% & 25\% & 50\% & 75\% & 97.5\% & n\_eff &
-Rhat\tabularnewline
-\midrule
-\endhead
-\(\mu\) & 7.99 & 0.05 & 5.02 & -1.65 & 4.75 & 7.92 & 11.15 & 18.10 &
-8455 & 1\tabularnewline
-\(\tau\) & 6.47 & 0.06 & 5.44 & 0.22 & 2.45 & 5.18 & 9.07 & 20.50 & 7375
-& 1\tabularnewline
-\(\eta_1\) & 0.40 & 0.01 & 0.93 & -1.49 & -0.21 & 0.42 & 1.02 & 2.19 &
-16637 & 1\tabularnewline
-\(\eta_2\) & 0.00 & 0.01 & 0.87 & -1.73 & -0.58 & 0.00 & 0.57 & 1.70 &
-16486 & 1\tabularnewline
-\(\eta_3\) & -0.20 & 0.01 & 0.93 & -1.99 & -0.82 & -0.20 & 0.41 & 1.66 &
-20000 & 1\tabularnewline
-\(\eta_4\) & -0.04 & 0.01 & 0.88 & -1.80 & -0.60 & -0.04 & 0.53 & 1.74 &
-20000 & 1\tabularnewline
-\(\eta_5\) & -0.36 & 0.01 & 0.88 & -2.06 & -0.94 & -0.38 & 0.20 & 1.42 &
-15489 & 1\tabularnewline
-\(\eta_6\) & -0.22 & 0.01 & 0.90 & -1.96 & -0.82 & -0.23 & 0.37 & 1.57 &
-20000 & 1\tabularnewline
-\(\eta_7\) & 0.34 & 0.01 & 0.89 & -1.49 & -0.24 & 0.36 & 0.93 & 2.04 &
-16262 & 1\tabularnewline
-\(\eta_8\) & 0.05 & 0.01 & 0.94 & -1.81 & -0.57 & 0.06 & 0.69 & 1.91 &
-20000 & 1\tabularnewline
-\(\theta_1\) & 11.45 & 0.08 & 8.27 & -1.86 & 6.07 & 10.27 & 15.50 &
-31.68 & 11788 & 1\tabularnewline
-\(\theta_2\) & 7.93 & 0.04 & 6.15 & -4.45 & 3.99 & 7.90 & 11.74 & 20.44
-& 20000 & 1\tabularnewline
-\(\theta_3\) & 6.17 & 0.06 & 7.67 & -11.17 & 2.07 & 6.74 & 10.89 & 19.94
-& 16041 & 1\tabularnewline
-\(\theta_4\) & 7.66 & 0.05 & 6.51 & -5.63 & 3.75 & 7.72 & 11.62 & 20.78
-& 20000 & 1\tabularnewline
-\(\theta_5\) & 5.13 & 0.05 & 6.41 & -9.51 & 1.37 & 5.66 & 9.43 & 16.41 &
-20000 & 1\tabularnewline
-\(\theta_6\) & 6.14 & 0.05 & 6.66 & -8.63 & 2.35 & 6.58 & 10.40 & 18.47
-& 20000 & 1\tabularnewline
-\(\theta_7\) & 10.64 & 0.05 & 6.76 & -1.14 & 6.11 & 10.11 & 14.52 &
-25.88 & 20000 & 1\tabularnewline
-\(\theta_8\) & 8.42 & 0.06 & 7.86 & -7.24 & 3.91 & 8.26 & 12.60 & 25.24
-& 16598 & 1\tabularnewline
-lp\_\_ & -39.55 & 0.03 & 2.64 & -45.41 & -41.15 & -39.31 & -37.67 &
--35.12 & 6325 & 1\tabularnewline
-\bottomrule
-\end{longtable}
-
-表 \ref{tab:eight-schools-output} 的列为后验量的估计值：依次是后验均值
-\(\mathsf{E}(\mu|Y)\)、 蒙特卡罗标准误（Monte Carlo standard
-error）、后验标准差 （standard deviation） \(\mathsf{E}(\sigma|Y)\)
-、后验分布的 5 个分位点、有效样本数 \(n_{eff}\) 和潜在尺度缩减因子
-（potential scale reduction factor），最后两个量
-用来分析采样效率和评估迭代序列的平稳性；最后一行表示每次迭代的未正则的对数后验密度
-（unnormalized log-posterior density）
-\(\hat{R}\)，当链条都收敛到同一平稳分布的时候，\(\hat{R}\) 接近 1。
-
-这里对 \(\tau\) 采用的非信息先验是均匀先验，参数 \(\tau\) 的 95\%
-的置信区间是 \((0.22,20.5)\)， 数据支持 \(\tau\) 的范围低于 20.5。
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{figures/posterior_mu_tau} 
-
-}
-
-\caption{对 $\mu,\tau$ 给定均匀先验，后验均值 $\mu$ 和标准差 $\tau$ 的直方图}\label{fig:posterior-mu-tau}
-\end{figure}
-
-为了得到可靠的后验估计，做出合理的推断，诊断序列的平稳性是必不可少的部分，前
-5000 次迭代作为 warm-up 阶段，后 5000 次迭代用作参数的推断，图
-\ref{fig:posterior-mu-tau} (a) 给出 \(\mu\) 和 \(\log(\tau)\)
-的迭代序列图，其中橘黄色线分别是对应的后验均值（表
-\ref{tab:eight-schools-output}的第一列），图 \ref{fig:posterior-mu-tau}
-(b) 分别给出 \(\log(\tau)\)
-的蒙特卡罗误差，图中显示随着迭代次数增加，蒙特卡罗误差趋于稳定，说明参数
-\(\tau\)
-的迭代序列达到平稳分布，即迭代点列可以看作来自参数的后验分布的样本。
-
-\begin{figure}[!htb]
-
-{\centering \subfloat[参数 $\log(\tau)$ 和 $\mu$ 的迭代序列图(trace plot)\label{fig:diagnostic1}]{\includegraphics[width=0.7\linewidth]{figures/trace_mu_log_tau} }\\\subfloat[参数 $\log(\tau)$ 的蒙特卡罗均值误差随迭代次数的变化，右图参数 $\log(\tau),\mu$ 的迭代点对的散点图，其中橘黄色点表示使迭代发散的点\label{fig:diagnostic2}]{\includegraphics[width=0.7\linewidth]{figures/mcmc_mean_tau_div} }
-
-}
-
-\caption{诊断参数$\mu,\log(\tau)$迭代序列的平稳性}\label{fig:diagnostic}
-\end{figure}
-
-为了评估链条之间和内部的混合效果，Gelman 等 \citep{Gelman2013R}
-使用潜在尺度缩减因子 （potential scale reduction factor） \(\hat{R}\)
-描述链条的波动程度，类似一组数据的方差含义，方差越小波动性越小，数据越集中，这里意味着链条波动性小。一般地，对于每个待估的量
-\(\omega\)，模拟产生 \(m\) 条链，每条链有 \(n\) 次迭代值
-\(\omega_{ij} (i = 1,\ldots,n;j=1,\ldots,m)\)，用 \(B\) 和 \(W\)
-分别表示链条之间（不妨看作组间方差）和内部的方差（组内方差）
-
-\begin{equation}
-\begin{aligned}
-& B = \frac{n}{m-1}\sum_{j=1}^{m}(\bar{\omega}_{.j} - \bar{\omega}_{..} ), \quad \bar{\omega}_{.j} = \frac{1}{n}\sum_{i=1}^{n}\omega_{ij}, \quad \bar{\omega}_{..} = \frac{1}{m}\sum_{j=1}^{m} \bar{\omega}_{.j}\\
-& W = \frac{1}{m}\sum_{j=1}^{m}s^{2}_{j}, \quad s^{2}_{j} = \frac{1}{n-1}\sum_{i=1}^{n}(\omega_{ij} - \bar{\omega}_{.j})^2
-\end{aligned} \label{eq:potential-scale-reduction}
-\end{equation}
-
-\noindent \(\omega\) 的后验方差 \(\widehat{\mathsf{Var}}^{+}(\omega|Y)\)
-是 \(W\) 和 \(B\) 的加权平均
-
-\begin{equation}
-\widehat{\mathsf{Var}}^{+}(\omega|Y) = \frac{n-1}{n} W + \frac{1}{n} B 
-\end{equation}
-
-当初始分布发散时，这个量会高估边际后验方差，但在链条平稳或
-\(n \to \infty\) 时，它是无偏的。同时，对任意有限的 \(n\)，组内方差
-\(W\) 应该会低估
-\(\mathsf{Var}(\omega|Y)\)，因为单个链条没有时间覆盖目标分布；在
-\(n \to \infty\)， \(W\) 的期望会是 \(\mathsf{Var}(\omega|Y)\)。
-
-通过迭代序列采集的样本估计 \(\hat{R}\) 以检测链条的收敛性
-
-\begin{equation}
-\hat{R} = \sqrt{\frac{\widehat{\mathsf{Var}}^{+}(\omega|Y)}{W}}
-\end{equation}
-
-\noindent 随着 \(n \to \infty\)， \(\hat{R}\) 下降到 1。如果 \(\hat{R}\)
-比较大，我们有理由认为需要增加模拟次数以改进待估参数 \(\omega\)
-的后验分布。从表 \ref{tab:eight-schools-output} 来看，各参数的
-\(\hat{R}\) 值都是 1，说明各个迭代链混合得好。
-
 \hypertarget{sec:foundations}{%
 \section{本章小结}\label{sec:foundations}}
 
-本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:Laplace-approximation}节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\ref{algorithms}章第\ref{subsec:LA}小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\ref{sec:bayes-prior}节至第\ref{sec:stan-samplers}节分别是与贝叶斯相关的概念定义。
+本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:Laplace-approximation}节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\ref{algorithms}章第\ref{subsec:LA}小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\ref{sec:bayes-prior}节至第\ref{sec:Curse-of-Dimensionality}节分别是与贝叶斯相关的概念定义。
 
 \hypertarget{models}{%
 \chapter{统计模型}\label{models}}
@@ -1299,8 +1004,8 @@ Matérn 型自相关函数，由于 Matérn 型自相关函数的广泛应用性
 \begin{equation}
 \rho_{0}(u)=\{2^{\kappa -1}\Gamma(\kappa)\}^{-1}(u)^{\kappa}\mathcal{K}_{\kappa}(u),u > 0 \label{eq:matern2}
 \end{equation} \noindent 其中，\(\mathcal{K}_{\kappa}(\cdot)\) 是阶数为
-\(\kappa\) 的第二类修正的贝塞尔函数（详见第 \ref{prepare}
-章第\ref{sec:modified-bessel-function} 节）， \(\kappa(>0)\)
+\(\kappa\) 的第二类修正的贝塞尔函数，函数图像见图
+\ref{fig:bessel-function}， \(\kappa(>0)\)
 是平滑参数，满足这些条件的空间过程 \(\mathcal{S}\) 是
 \(\lceil\kappa\rceil-1\) 次均方可微的。值得注意的是 Matérn
 型包含幂指数型 \noindent 当
@@ -1308,6 +1013,32 @@ Matérn 型自相关函数，由于 Matérn 型自相关函数的广泛应用性
 均方连续但是不可微，当 \(\kappa \to \infty\) 时，
 \(\rho_{0}(u) = \exp(-u^2)\)， \(S(x)\)
 无限次均方可微\citep{Diggle2007}。
+
+下面详细给出修正的第二类贝塞尔函数
+\(\mathcal{K}_{\kappa}(u)\)，它是修正的贝塞尔方程的解
+\citep{Abramowitz1972}，函数形式如下
+
+\begin{equation}
+\begin{aligned}
+I_{-\kappa}(u) & =  \sum_{m=0}^{\infty} \frac{1}{m!\Gamma(m + \kappa + 1)} \big(\frac{u}{2}\big)^{2m + \kappa} \\
+\mathcal{K}_{\kappa}(u) & = \frac{\pi}{2} \frac{I_{-\kappa}(u) - I_{\kappa}(u)}{\sin (\kappa \pi)}
+\end{aligned} \label{eq:besselK-function}
+\end{equation}
+
+\noindent 其中 \(u \geq 0\)，\(\kappa \in \mathbb{R}\)，如果
+\(\kappa \in \mathbb{Z}\)，则取该点的极限值，\(\mathcal{K}_{\kappa}(u)\)
+的值可由 R 内置的函数 \texttt{besselK} 计算。
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/bessel} 
+
+}
+
+\caption{修正的第二类贝塞尔函数图像}\label{fig:bessel-function}
+\end{figure}
+
+
 
 在实际数据分析中，估计 \(\kappa\)
 时，为了节省计算，又不失一般性，经验做法是取离散的 \(\kappa\) 值，如
@@ -1324,7 +1055,7 @@ Matérn 型自相关函数，由于 Matérn 型自相关函数的广泛应用性
 
 }
 
-\caption{左图：固定尺度参数 $\phi$，自相关函数 $\rho(u)$ 随空间距离 $u$ 的变化；右图：固定贝塞尔函数的阶 $\kappa$，自相关函数$\rho(u)$ 随空间距离 $u$ 的变化}\label{fig:matern-2d}
+\caption{自相关函数 $\rho(u)$ 随尺度参数 $\phi$（左图）和平滑参数 $\kappa$ （右图）的变化}\label{fig:matern-2d}
 \end{figure}
 \begin{figure}
 
@@ -1332,7 +1063,7 @@ Matérn 型自相关函数，由于 Matérn 型自相关函数的广泛应用性
 
 }
 
-\caption{自相关函数 $\rho(\mathsf{u})$ 在不同空间距离$\mathsf{u}$处随贝塞尔函数的阶 $\kappa$ 和尺度参数 $\phi$ 的变化，横轴表示尺度参数 $\phi$，纵轴表示贝塞尔函数的阶$\kappa$，我们用 从蓝到红的颜色变化表示自相关函数 $\rho(\mathsf{u})$ 值由小到大，即表示相关性由弱变强}\label{fig:matern-3d}
+\caption{$\rho(\mathsf{u})$ 在不同空间距离 $\mathsf{u}$处随 $\kappa$ 和 $\phi$ 的变化，从蓝到红的颜色变化表示 $\rho(\mathsf{u})$ 的值由小到大}\label{fig:matern-3d}
 \end{figure}
 
 从图\ref{fig:matern-2d}可以看出，相比于贝塞尔函数的阶 \(\kappa\)，
@@ -1416,8 +1147,12 @@ SGLMM 模型参数，此外，特别提出了基于 Stan 实现的贝叶斯 MCMC
 小节介绍的蒙特卡罗极大似然算法（简称 MCML）， 第 \ref{sec:MCMC}
 小节介绍的贝叶斯框架下的马尔科夫链蒙特卡罗算法 （简称贝叶斯 MCMC），第
 \ref{LowRank} 小节介绍的低秩近似算法（简称 Low-Rank），在第
-\ref{sec:STAN-MCMC} 节详细介绍在贝叶斯 MCMC 算法的基础上提出的 STAN-MCMC
-算法。
+\ref{sec:stan-hmc} 节详细介绍在贝叶斯 MCMC 算法的基础上提出的 STAN-HMC
+算法，并分三个小节进行，第\ref{subsec:motivations}小节介绍算法提出的背景和意义，第
+\ref{subsec:stan-samplers} 小节从 Stan
+的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight
+Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan
+实现作铺垫，第\ref{subsec:stan-hmc}小节介绍 STAN-HMC 算法实现过程。
 
 \hypertarget{sec:mle}{%
 \section{极大似然估计}\label{sec:mle}}
@@ -1990,8 +1725,11 @@ S(x) \approx \sum_{i = 1}^r K(\|x-\tilde{x}_{i}\|; \phi, \kappa) U_{i} \label{eq
 \end{eqnarray*} \noindent 类似地，行列式运算的维数从 \(n\times n\)
 降到了 \(r\times r\) \citep{Diggle2007}。
 
-\hypertarget{sec:STAN-MCMC}{%
-\section{贝叶斯 STAN-MCMC 算法}\label{sec:STAN-MCMC}}
+\hypertarget{sec:stan-hmc}{%
+\section{贝叶斯 STAN-HMC 算法}\label{sec:stan-hmc}}
+
+\hypertarget{subsec:motivations}{%
+\subsection{算法提出的背景和意义}\label{subsec:motivations}}
 
 贝叶斯 MCMC
 算法是一个计算密集型的算法，高效的实现对理论和应用都有非常重要的意义。因此，早在
@@ -2015,8 +1753,276 @@ PyStan、 RStan 等等。 在大数据的背景下，
 拥有数千台服务器的企业越来越多， 计算机资源达到前所未有的规模， 这为
 Stan 的广泛应用打下了基础。
 
+\hypertarget{subsec:stan-samplers}{%
+\subsection{Stan 简介}\label{subsec:stan-samplers}}
+
+在上世纪 40\textasciitilde{}50
+年代，由梅特罗波利斯，冯\(\cdot\)诺依曼和乌拉姆 （Stanislaw Ulam）
+创立蒙特卡罗方法，为了纪念乌拉姆，Stan 就以他的名字命名。Stan 是一门基于
+C++
+的概率编程语言，主要用于贝叶斯推断，它的代码完全\href{http://mc-stan.org/}{开源}的，托管在
+\href{https://github.com/stan-dev/stan}{Github} 上，自 2012 年 8 月 30
+日发布第一个 1.0 版本以来，截至写作时间已发布 33 个版本，目前最新版本是
+2.18.0。使用 Stan，用户需提供数据、Stan 代码写的脚本模型，编译 Stan
+写的程序，然后与数据一起运行，模型参数的后验模拟过程是自动实现的。除了可以在命令行环境下编译运行
+Stan 脚本中写模型外，Stan 还提供其他编程语言的接口，如
+R、Python、Matlab、Mathematica、Julia
+等等，这使得熟悉其他编程语言的用户可以方便地调用和分析数据。但是，与
+Python、R等 这类解释型编程语言不同， Stan 代码需要先翻译成 C++
+代码，然后使用系统编译器 （如 GCC） 编译，若使用 R
+语言接口，编译后的动态链接库可以载入 R 内存中，再被其他 R 函数调用执行。
+
+随机模拟的前提是有能产生高质量高效的伪随机数发生器，只有周期长，生成速度快，能通过一系列统计检验的伪随机数才能用作统计模拟，Stan
+内置了 Mersenne-Twister 发生器，它的周期长达
+\(2^{19937}-1\)，通过了一系列严格的检验，被广泛采用到现代软件中，如
+Octave 和 Matlab 等 \citep{Huang2017COS}。除了 Mersenne Twister
+随机数发生器，Stan 还使用了 \href{https://www.boost.org/}{Boost C++} 和
+\href{http://eigen.tuxfamily.org/index.php?title=Main_Page}{Eigen C++}
+等模版库用于线性代数计算，这样的底层设计路线使得 Stan 的运算效率很高。
+
+Stan 内置的采样器 No-U-Turn （简称 NUTS） 源于汉密尔顿蒙特卡罗算法
+（Hamiltonian Monte Carlo，简称 HMC），最早由 Hoffman 和 Gelman
+（2014年） \citep{hoffman2014} 提出。与 Stan 有相似功能的软件 BUGS 和
+JAGS 主要采用的是 Gibbs 采样器，前者基于 Pascal 语言开发于 1989 年至
+2004 年，后者基于 C++ 活跃开发于 2007 年至 2013 年。在时间上， Stan
+具有后发优势，特别在灵活性和扩展性方面，它支持任意的目标函数，模型语言也更加简单易于推广学习，其每一行都是命令式的语句，而
+BUGS 和 JAGS 采用声明式；在大量数据的建模分析中， Stan
+可以更快地处理复杂模型，这一部分归功于它高效的算法实现和内存管理，另一部分在于高级的
+MCMC 算法 --- 带 NUTS 采样器的 HMC 算法。
+
+Rubin （1981年） \citep{Rubin1981} 分析了 Alderman 和 Powers
+\citep{Alderman1980} 收集的原始数据，得出表
+\ref{tab:eight-high-schools}， Gelman 和 Carlin 等 （2003年）
+\citep{Gelman2003} 建立分层正态模型 \eqref{eq:hierarchical-normal-models}
+分析 Eight Schools
+数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了
+8 所高中，学生的成绩作为培训效应的估计 \(y_j\)，其样本方差
+\(\sigma^2_j\)，数据集见表
+\ref{tab:eight-high-schools}。这里再次以该数据集和模型为例介绍 Stan
+的使用。
+
+\begin{longtable}[]{@{}ccccccccc@{}}
+\caption{\label{tab:eight-high-schools} Eight Schools 数据集}\tabularnewline
+\toprule
+School & A & B & C & D & E & F & G & H\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+School & A & B & C & D & E & F & G & H\tabularnewline
+\midrule
+\endhead
+\(y_i\) & 28 & 8 & -3 & 7 & -1 & 1 & 18 & 12\tabularnewline
+\(\sigma_i\) & 15 & 10 & 16 & 11 & 9 & 11 & 10 & 18\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{equation}
+\begin{aligned}
+    \mu \sim \mathcal{N}(0,5), \quad \tau \sim \text{Half-Cauchy}(0,5) \\
+    p(\mu,\tau) \propto 1, \quad \eta_i \sim \mathcal{N}(0,1) \\
+    \theta_i  =   \mu + \tau \cdot \eta_i \\
+    y_i \sim \mathcal{N}(\theta_i,\sigma^2_{i}), i = 1,\ldots,8
+\end{aligned}
+\label{eq:hierarchical-normal-models}
+\end{equation}
+
+根据公式组 \eqref{eq:hierarchical-normal-models}
+指定的各参数先验分布，分层正态模型可以在 Stan
+中写成如下形式，我们在工作目录下把它保存为 \texttt{8schools.stan}
+，供后续编程使用。
+
+\begin{verbatim}
+// saved as 8schools.stan
+data {
+  int<lower=0> J; // number of schools 
+  real y[J]; // estimated treatment effects
+  real<lower=0> sigma[J]; // s.e. of effect estimates 
+}
+parameters {
+  real mu; // population mean
+  real<lower=0> tau; // population sd
+  real eta[J]; // school-level errors
+}
+transformed parameters {
+  real theta[J];  // schools effects
+  for (j in 1:J)
+    theta[j] = mu + tau * eta[j];
+  // theta = mu + tau*eta;
+}
+model {
+  // set prior for mu or uniform prior distribution default
+  // target += normal_lpdf(mu  | 0, 10); 
+  // target += cauchy_lpdf(tau | 0, 25); # the same as mu
+  target += normal_lpdf(eta | 0, 1);
+  target += normal_lpdf(y | theta, sigma); // target distribution
+  // y ~ normal(theta, sigma);
+}
+\end{verbatim}
+
+上述 Stan 代码的第一段提供数据：学校的数目 \(J\)，估计值
+\(y_1,\ldots,y_{J}\)，标准差
+\(\sigma_1,\ldots,\sigma_{J}\)，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中
+\(J\) 限制为非负， \(\sigma_{J}\) 必须是正的，另外两个反斜杠 //
+表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应
+\(\theta_j\)，均值 \(\mu\)，标准差 \(\tau\)，学校水平上的误差 \(\eta\)
+和效应 \(\theta\)。在这个模型中，用 \(\mu,\tau,\eta\) 表示 \(\theta\)
+而不是直接声明 \(\theta\)
+作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替
+for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布
+\(\mathcal{N}(\cdot,\cdot)\) 中后一个位置是方差，而 Stan
+代码中使用的是标准差。\texttt{target\ +=\ normal\_lpdf(y\ \textbar{}\ theta,\ sigma)}
+和 \texttt{y\ \textasciitilde{}\ normal(theta,\ sigma)}
+对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于
+Stan 的采样、近似和优化算法没有影响。
+
+算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680
+处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本
+2.17.3。算法参数设置了 4 条迭代链，每条链迭代 10000
+次，为复现模型结果随机数种子设为 2018。
+
+分层正态模型\eqref{eq:hierarchical-normal-models} 的参数
+\(\mu,\tau\)，及其参数化引入的中间参数
+\(\eta_i,\theta_i,i=1,\ldots,8\)，还有对数后验 \(\mathrm{lp}\_\_\)
+的估计值见表 \ref{tab:eight-schools-output}。
+
+\begin{longtable}[]{@{}lrrrrrrrrrr@{}}
+\caption{\label{tab:eight-schools-output} 对 Eight Schools
+数据集建立分层正态模型 \eqref{eq:hierarchical-normal-models}，采用 HMC
+算法估计模型各参数值}\tabularnewline
+\toprule
+& mean & se\_mean & sd & 2.5\% & 25\% & 50\% & 75\% & 97.5\% & n\_eff &
+Rhat\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& mean & se\_mean & sd & 2.5\% & 25\% & 50\% & 75\% & 97.5\% & n\_eff &
+Rhat\tabularnewline
+\midrule
+\endhead
+\(\mu\) & 7.99 & 0.05 & 5.02 & -1.65 & 4.75 & 7.92 & 11.15 & 18.10 &
+8455 & 1\tabularnewline
+\(\tau\) & 6.47 & 0.06 & 5.44 & 0.22 & 2.45 & 5.18 & 9.07 & 20.50 & 7375
+& 1\tabularnewline
+\(\eta_1\) & 0.40 & 0.01 & 0.93 & -1.49 & -0.21 & 0.42 & 1.02 & 2.19 &
+16637 & 1\tabularnewline
+\(\eta_2\) & 0.00 & 0.01 & 0.87 & -1.73 & -0.58 & 0.00 & 0.57 & 1.70 &
+16486 & 1\tabularnewline
+\(\eta_3\) & -0.20 & 0.01 & 0.93 & -1.99 & -0.82 & -0.20 & 0.41 & 1.66 &
+20000 & 1\tabularnewline
+\(\eta_4\) & -0.04 & 0.01 & 0.88 & -1.80 & -0.60 & -0.04 & 0.53 & 1.74 &
+20000 & 1\tabularnewline
+\(\eta_5\) & -0.36 & 0.01 & 0.88 & -2.06 & -0.94 & -0.38 & 0.20 & 1.42 &
+15489 & 1\tabularnewline
+\(\eta_6\) & -0.22 & 0.01 & 0.90 & -1.96 & -0.82 & -0.23 & 0.37 & 1.57 &
+20000 & 1\tabularnewline
+\(\eta_7\) & 0.34 & 0.01 & 0.89 & -1.49 & -0.24 & 0.36 & 0.93 & 2.04 &
+16262 & 1\tabularnewline
+\(\eta_8\) & 0.05 & 0.01 & 0.94 & -1.81 & -0.57 & 0.06 & 0.69 & 1.91 &
+20000 & 1\tabularnewline
+\(\theta_1\) & 11.45 & 0.08 & 8.27 & -1.86 & 6.07 & 10.27 & 15.50 &
+31.68 & 11788 & 1\tabularnewline
+\(\theta_2\) & 7.93 & 0.04 & 6.15 & -4.45 & 3.99 & 7.90 & 11.74 & 20.44
+& 20000 & 1\tabularnewline
+\(\theta_3\) & 6.17 & 0.06 & 7.67 & -11.17 & 2.07 & 6.74 & 10.89 & 19.94
+& 16041 & 1\tabularnewline
+\(\theta_4\) & 7.66 & 0.05 & 6.51 & -5.63 & 3.75 & 7.72 & 11.62 & 20.78
+& 20000 & 1\tabularnewline
+\(\theta_5\) & 5.13 & 0.05 & 6.41 & -9.51 & 1.37 & 5.66 & 9.43 & 16.41 &
+20000 & 1\tabularnewline
+\(\theta_6\) & 6.14 & 0.05 & 6.66 & -8.63 & 2.35 & 6.58 & 10.40 & 18.47
+& 20000 & 1\tabularnewline
+\(\theta_7\) & 10.64 & 0.05 & 6.76 & -1.14 & 6.11 & 10.11 & 14.52 &
+25.88 & 20000 & 1\tabularnewline
+\(\theta_8\) & 8.42 & 0.06 & 7.86 & -7.24 & 3.91 & 8.26 & 12.60 & 25.24
+& 16598 & 1\tabularnewline
+lp\_\_ & -39.55 & 0.03 & 2.64 & -45.41 & -41.15 & -39.31 & -37.67 &
+-35.12 & 6325 & 1\tabularnewline
+\bottomrule
+\end{longtable}
+
+表 \ref{tab:eight-schools-output} 的列为后验量的估计值：依次是后验均值
+\(\mathsf{E}(\mu|Y)\)、 蒙特卡罗标准误（Monte Carlo standard
+error）、后验标准差 （standard deviation） \(\mathsf{E}(\sigma|Y)\)
+、后验分布的 5 个分位点、有效样本数 \(n_{eff}\) 和潜在尺度缩减因子
+（potential scale reduction factor），最后两个量
+用来分析采样效率和评估迭代序列的平稳性；最后一行表示每次迭代的未正则的对数后验密度
+（unnormalized log-posterior density）
+\(\hat{R}\)，当链条都收敛到同一平稳分布的时候，\(\hat{R}\) 接近 1。
+
+这里对 \(\tau\) 采用的非信息先验是均匀先验，参数 \(\tau\) 的 95\%
+的置信区间是 \((0.22,20.5)\)， 数据支持 \(\tau\) 的范围低于 20.5。
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/posterior_mu_tau} 
+
+}
+
+\caption{对 $\mu,\tau$ 给定均匀先验，后验均值 $\mu$ 和标准差 $\tau$ 的直方图}\label{fig:posterior-mu-tau}
+\end{figure}
+
+为了得到可靠的后验估计，做出合理的推断，诊断序列的平稳性是必不可少的部分，前
+5000 次迭代作为 warm-up 阶段，后 5000 次迭代用作参数的推断，图
+\ref{fig:posterior-mu-tau} (a) 给出 \(\mu\) 和 \(\log(\tau)\)
+的迭代序列图，其中橘黄色线分别是对应的后验均值（表
+\ref{tab:eight-schools-output}的第一列），图 \ref{fig:posterior-mu-tau}
+(b) 分别给出 \(\log(\tau)\)
+的蒙特卡罗误差，图中显示随着迭代次数增加，蒙特卡罗误差趋于稳定，说明参数
+\(\tau\)
+的迭代序列达到平稳分布，即迭代点列可以看作来自参数的后验分布的样本。
+
+\begin{figure}[!htb]
+
+{\centering \subfloat[参数 $\log(\tau)$ 和 $\mu$ 的迭代序列图(trace plot)\label{fig:diagnostic1}]{\includegraphics[width=0.7\linewidth]{figures/trace_mu_log_tau} }\\\subfloat[参数 $\log(\tau)$ 的蒙特卡罗均值误差随迭代次数的变化，右图参数 $\log(\tau),\mu$ 的迭代点对的散点图，其中橘黄色点表示使迭代发散的点\label{fig:diagnostic2}]{\includegraphics[width=0.7\linewidth]{figures/mcmc_mean_tau_div} }
+
+}
+
+\caption{诊断参数$\mu,\log(\tau)$迭代序列的平稳性}\label{fig:diagnostic}
+\end{figure}
+
+为了评估链条之间和内部的混合效果，Gelman 等 \citep{Gelman2013R}
+使用潜在尺度缩减因子 （potential scale reduction factor） \(\hat{R}\)
+描述链条的波动程度，类似一组数据的方差含义，方差越小波动性越小，数据越集中，这里意味着链条波动性小。一般地，对于每个待估的量
+\(\omega\)，模拟产生 \(m\) 条链，每条链有 \(n\) 次迭代值
+\(\omega_{ij} (i = 1,\ldots,n;j=1,\ldots,m)\)，用 \(B\) 和 \(W\)
+分别表示链条之间（不妨看作组间方差）和内部的方差（组内方差）
+
+\begin{equation}
+\begin{aligned}
+& B = \frac{n}{m-1}\sum_{j=1}^{m}(\bar{\omega}_{.j} - \bar{\omega}_{..} ), \quad \bar{\omega}_{.j} = \frac{1}{n}\sum_{i=1}^{n}\omega_{ij}, \quad \bar{\omega}_{..} = \frac{1}{m}\sum_{j=1}^{m} \bar{\omega}_{.j}\\
+& W = \frac{1}{m}\sum_{j=1}^{m}s^{2}_{j}, \quad s^{2}_{j} = \frac{1}{n-1}\sum_{i=1}^{n}(\omega_{ij} - \bar{\omega}_{.j})^2
+\end{aligned} \label{eq:potential-scale-reduction}
+\end{equation}
+
+\noindent \(\omega\) 的后验方差 \(\widehat{\mathsf{Var}}^{+}(\omega|Y)\)
+是 \(W\) 和 \(B\) 的加权平均
+
+\begin{equation}
+\widehat{\mathsf{Var}}^{+}(\omega|Y) = \frac{n-1}{n} W + \frac{1}{n} B 
+\end{equation}
+
+当初始分布发散时，这个量会高估边际后验方差，但在链条平稳或
+\(n \to \infty\) 时，它是无偏的。同时，对任意有限的 \(n\)，组内方差
+\(W\) 应该会低估
+\(\mathsf{Var}(\omega|Y)\)，因为单个链条没有时间覆盖目标分布；在
+\(n \to \infty\)， \(W\) 的期望会是 \(\mathsf{Var}(\omega|Y)\)。
+
+通过迭代序列采集的样本估计 \(\hat{R}\) 以检测链条的收敛性
+
+\begin{equation}
+\hat{R} = \sqrt{\frac{\widehat{\mathsf{Var}}^{+}(\omega|Y)}{W}}
+\end{equation}
+
+\noindent 随着 \(n \to \infty\)， \(\hat{R}\) 下降到 1。如果 \(\hat{R}\)
+比较大，我们有理由认为需要增加模拟次数以改进待估参数 \(\omega\)
+的后验分布。从表 \ref{tab:eight-schools-output} 来看，各参数的
+\(\hat{R}\) 值都是 1，说明各个迭代链混合得好。
+
+\hypertarget{subsec:stan-hmc}{%
+\subsection{实现 STAN-HMC 算法的过程}\label{subsec:stan-hmc}}
+
 为了与本章第 \ref{sec:MCMC} 节提出的贝叶斯 MCMC 算法比较，我们基于 Stan
-实现求解 SGLMM 模型的贝叶斯 MCMC 算法(简称 STAN-MCMC)。目前，我与
+实现求解 SGLMM 模型的贝叶斯 MCMC 算法 (简称 STAN-MCMC)。目前，我与
 Bürkner 一起开发了 brms 包 \citep{brms2017JSS}，
 主要工作是修复程序调用和文档书写错误， 特别是与求解 SGLMM 模型相关的
 \texttt{gp} 函数，相关细节见 brms 的 Github 开发仓库。
@@ -2182,7 +2188,7 @@ spBayes\tabularnewline
 
 本章参数估计和算法实现是论文的主要内容之一，首先沿着极大似然估计的思路，尝试写出
 SGLMM
-模型参数的似然函数，但是因为空间随机效应导致的高维积分无法用显式表达式表示，进而出现了以拉普拉斯近似和蒙特卡罗模拟的两类基于似然的方法，前者走近似高维积分的路子，后者走模拟计算的路子，这两类方法在数据分析中，前者尤其需要指定合适的初值，且在数据量不太大的时候才能应用，后者只需指定合适的先验分布使得马氏链收敛即可。第\ref{sec:STAN-MCMC}节在第\ref{sec:MCMC}小节的基础上提出基于
+模型参数的似然函数，但是因为空间随机效应导致的高维积分无法用显式表达式表示，进而出现了以拉普拉斯近似和蒙特卡罗模拟的两类基于似然的方法，前者走近似高维积分的路子，后者走模拟计算的路子，这两类方法在数据分析中，前者尤其需要指定合适的初值，且在数据量不太大的时候才能应用，后者只需指定合适的先验分布使得马氏链收敛即可。第\ref{sec:stan-hmc}节在第\ref{sec:MCMC}小节的基础上提出基于
 Stan 实现的 MCMC 算法。
 
 \hypertarget{simulations}{%
@@ -2197,9 +2203,9 @@ Stan 实现的 MCMC 算法。
 \ref{sim-binomal-sglmm} 小节模拟响应变量服从二项分布的情形， 第
 \ref{possion-sglmm}
 小节模拟响应变量服从泊松分布的情形，在这两个小节里，比较了第\ref{algorithms}章第\ref{sec:MCMC}小节介绍的贝叶斯马尔科夫链蒙特卡罗算法（简称贝叶斯
-MCMC）和第\ref{sec:STAN-MCMC}节介绍的贝叶斯 STAN-MCMC 算法的表现，贝叶斯
+MCMC）和第\ref{sec:stan-hmc}节介绍的贝叶斯 STAN-HMC 算法的表现，贝叶斯
 MCMC 算法基于 R 包 geoRglm 内置的 Langevin-Hastings 算法实现，贝叶斯
-STAN-MCMC 算法基于 Stan 内置的 HMC 算法实现。
+STAN-HMC 算法基于 Stan 内置的 HMC 算法实现。
 
 \hypertarget{spatial-gaussian-processes}{%
 \section{平稳空间高斯过程}\label{spatial-gaussian-processes}}
@@ -2460,7 +2466,7 @@ g(\mu_i) = \log[\lambda(x_i)] = \alpha + S(x_i) \label{eq:pois-SGLMM}
 潜在尺度缩减因子 \(\hat{R}\) 和蒙特卡罗均值误差 se\_mean
 的完整表格见附表
 \ref{tab:HMC-Pois-SGLMM}，参数迭代序列的收敛性分析已在第\ref{prepare}
-章第\ref{sec:stan-samplers}节给出，这里不再赘述，所有的模拟实验都是在完成收敛性分析后给出的。
+章第\ref{subsec:stan-samplers}节给出，这里不再赘述，所有的模拟实验都是在完成收敛性分析后给出的。
 
 在模型\eqref{eq:pois-SGLMM}的设置下，Langevin-Hastings 算法和 HMC
 算法的比较见表\ref{tab:Pois-MCLV-vs-NUTS}，模型参数真值为
@@ -2550,8 +2556,8 @@ geoRglm 包实现的 Langevin-Hastings
 Christensen
 迭代上百万次的\href{http://gbi.agrsci.dk/~ofch/geoRglm/Intro/books.html}{情形}，在尽量保持统一的参数设置下，我们选择继续调整参数，而保持总迭代次数110000次不变。在每组模型设置下都获得最佳的参数，这无疑是一件十分耗时的工作，因为该算法的参数只有不断试错才能获得更加合适的参数设置，在已经收敛的情形下调参数，这个过程会更加漫长。
 
-基于 Stan 实现的贝叶斯 STAN-MCMC 算法，其内置的 HMC 算法是结合了 NUTS
-采样器\citep{hoffman2014}，搜索模型参数的策略更加友好，不需要手动调参数，只需要指定合适的参数先验，使得迭代序列保持收敛即可，编程过程中，模型参数的重参数化（reparameterization）对迭代进程和结果会产生一定影响，如第\ref{prepare}章第\ref{sec:stan-samplers}节基于
+基于 Stan 实现的贝叶斯 STAN-HMC 算法，其内置的 HMC 算法是结合了 NUTS
+采样器\citep{hoffman2014}，搜索模型参数的策略更加友好，不需要手动调参数，只需要指定合适的参数先验，使得迭代序列保持收敛即可，编程过程中，模型参数的重参数化（reparameterization）对迭代进程和结果会产生一定影响，如第\ref{prepare}章第\ref{subsec:stan-samplers}小节基于
 Eight Schools 数据集介绍分层正态模型就对参数 \(\mu\) 和 \(\sigma\)
 做了重参数化。
 
