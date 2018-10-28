@@ -274,9 +274,7 @@ MCMC
 模型参数估计的贝叶斯 MCMC 和 MCML等算法及其应用情况。
 
 第 \ref{prepare}
-章介绍了指数族，最小二乘估计，极大似然估计，平稳高斯过程，拉普拉斯近似和蒙特卡罗积分等基础知识。主要有三大部分是补充文献中没有的内容：其一，给出了拉普拉斯近似方法详细过程，并举例子补充了一维情形下的近似；其二，以计算\(n\)维超球体积的积分过程给出蒙特卡罗积分的原理和局限；其三，归纳总结
-Stan 的历史，以 Eight Schools 数据集为例介绍 Stan
-的使用，在原来文献上补充了代码注解，平稳性检验的全过程。
+章介绍了指数族，最小二乘估计，极大似然估计，平稳高斯过程，拉普拉斯近似和蒙特卡罗积分等基础知识。主要有两大部分是补充文献中没有的内容：其一，给出了拉普拉斯近似方法详细过程，并举例子补充了一维情形下的近似；其二，。
 
 第 \ref{models} 章除了回顾了一般线性模型到 SGLMM 模型的结构，
 指出了模型从简单到复杂的变化过程，及其中的区别和联系。
@@ -289,7 +287,11 @@ SGLMM
 模型似然函数的一般形式；在第\ref{sec:profile-likelihood}节详细介绍了剖面似然的思想和计算过程；其三，在
 Langevin-Hastings 算法的基础上，提出 Stan
 程序库实现的汉密尔顿蒙特卡罗算法（简称
-HMC），在文中为了方便，也称作贝叶斯 STAN-HMC 算法。
+HMC），在文中为了方便，也称作贝叶斯 STAN-HMC
+算法。并分四节进行详细介绍，其一以计算\(n\)维超球体积的积分过程给出蒙特卡罗积分的原理和局限；其二算法提出的背景和意义；其三归纳总结了
+Stan 的历史，并以 Eight Schools 数据集为例介绍 Stan
+的使用，在原来文献上补充了代码注解，平稳性检验的全过程；其四给出实现
+STAN-HMC 算法的过程。
 
 第 \ref{simulations}
 章首先实现了一维和二维情形下平稳空间高斯过程的模拟，然后在二维情形下，分别模拟了响应变量服从二项分布和泊松分布的
@@ -771,70 +773,10 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 \([\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)]^{1/2}\) 表示
 \citep{mao2006}。
 
-\hypertarget{sec:Curse-of-Dimensionality}{%
-\section{蒙特卡罗积分}\label{sec:Curse-of-Dimensionality}}
-
-一般地，空间广义线性混合效应模型的统计推断总是不可避免的要面对高维积分，处理高维积分的方法一个是寻找近似方法避免求积分，一个是寻找有效的随机模拟方法直接求积分。这里，介绍蒙特卡罗方法求积分，以计算
-\(N\) 维超立方体的内切球的体积为例说明。
-
-假设我们有一个 \(N\) 维超立方体，其中心在坐标
-\(\mathbf{0} = (0,\ldots,0)\)。超立方体在点
-\((\pm 1/2,\ldots,\pm 1/2)\)，有 \(2^{N}\)
-个角落，超立方体边长是1，\(1^{N}=1\)，所以它的体积是1。如果
-\(N=1\)，超立方体是一条从 \(-\frac{1}{2}\) 到 \(\frac{1}{2}\)
-的单位长度的线，如果 \(N=2\)，超立方体是一个单位正方形，对角是
-\(\left( -\frac{1}{2}, -\frac{1}{2} \right)\) 和
-\(\left( \frac{1}{2}, \frac{1}{2} \right)\)，如果
-\(N=3\)，超立方体就是单位体积的立方体，对角是
-\(\left( -\frac{1}{2}, -\frac{1}{2}, -\frac{1}{2} \right)\) 和
-\(\left( \frac{1}{2}, \frac{1}{2}, \frac{1}{2} \right)\)，依此类推，\(N\)
-维超立方体体积是1，对角是
-\(\left( -\frac{1}{2}, \ldots, -\frac{1}{2} \right)\) 和
-\(\left( \frac{1}{2}, \ldots, \frac{1}{2} \right)\)。
-
-现在，考虑 \(N\) 维超立方体的内切球，我们把它称为 \(N\)
-维超球，它的中心在原点，半径是 \(\frac{1}{2}\)。我们说点 \(y\)
-在超球内，意味着它到原点的距离小于半径，即
-\(\| y \| < \frac{1}{2}\)。一维情形下，超球是从的线，包含了整个超立方体。二维情形下，超球是中心在原点，半径为
-\(\frac{1}{2}\)
-的圆。三维情形下，超球是立方体的内切球。已知单位超立方体的体积是1，但是其内的内切球的体积是多少呢？我们已经学过如何去定义一个积分计算半径为
-\(r\) 的二维球（即圆）的体积（即面积）是
-\(\pi r^2\)，三维情形下，内切球是
-\(\frac{4}{3}\pi r^3\)。但是更高维的欧式空间里，内切球的体积是多少呢？
-
-在这种简单的体积积分设置下，当然可以去计算越来越复杂的多重积分，但是这里介绍采样的方法去计算积分，即所谓的蒙特卡罗方法，由梅特罗波利斯，冯\(\cdot\)诺依曼和乌拉姆等在美国核武器研究实验室创立，当时正值二战期间，为了研制原子弹，出于保密的需要，与随机模拟相关的技术就代号蒙特卡罗。现在，蒙特卡罗方法占据现代统计计算的核心地位，特别是与贝叶斯相关的领域。
-
-用蒙特卡罗方法去计算单位超立方体内的超球，首先需要在单位超立方体内产生随机点，然后计算落在超球内的点的比例，即超球的体积。随着点的数目增加，估计的体积会收敛到真实的体积。因为这些点都独立同均匀分布，根据中心极限定理，误差下降的比率是
-\(\mathcal{O}\left( 1 / \sqrt{n} \right)\)，这也意味着每增加一个小数点的准确度，样本量要增加
-100 倍。
-
-\begin{longtable}[]{@{}lcccccccccc@{}}
-\caption{\label{tab:calculate-volume-of-hyperball} 前 10
-维单位超立方体内切球的体积，超立方体内随机模拟的点的个数是
-100000（已经四舍五入保留小数点后三位）}\tabularnewline
-\toprule
-维数 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-维数 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\tabularnewline
-\midrule
-\endhead
-体积 & 1.000 & 0.784 & 0.525 & 0.307 & 0.166 & 0.081 & 0.037 & 0.016 &
-0.006 & 0.0027\tabularnewline
-\bottomrule
-\end{longtable}
-
-表 \ref{tab:calculate-volume-of-hyperball} 列出了前 10
-维超球的体积，从上述计算过程中，我们发现随着维数增加，超球的体积迅速变小。这里有一个反直观的现象，内切球的体积竟然随着维数的增加变小，并且在
-10 维的情形下，内切球的体积已不到超立方体的
-0.3\%，可以预见如果这个积分是 100
-维甚至更多，那么内切球相比于正方体仅仅是一个极小的角落，随机点会越来越难以落在内切球内。甚至会因为所需要的随机数太多或者计算机资源的限制，而不可计算，开发更加高效的随机模拟算法也就势在必行。
-
 \hypertarget{sec:foundations}{%
 \section{本章小结}\label{sec:foundations}}
 
-本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:Laplace-approximation}节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\ref{algorithms}章第\ref{subsec:LA}小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\ref{sec:bayes-prior}节至第\ref{sec:Curse-of-Dimensionality}节分别是与贝叶斯相关的概念定义。
+本章第\ref{sec:exp}节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第\ref{models}章统计模型和第\ref{algorithms}章参数估计作铺垫。接着，第\ref{sec:lse}节和第\ref{sec:def-mle}节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第\ref{sec:stationary-gaussian-process}节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第\ref{sec:Laplace-approximation}节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第\ref{algorithms}章第\ref{subsec:LA}小节当中，用以近似似然函数中关于空间随机效应的高维积分。第\ref{sec:bayes-prior}节至第\ref{sec:bayes-estimates}节分别是与贝叶斯相关的概念定义。
 
 \hypertarget{models}{%
 \chapter{统计模型}\label{models}}
@@ -851,7 +793,7 @@ SGLMM），分四个小节介绍模型中的重要成分， 第
 模型的各个成分，协变量相关的固定效应和空间位置相关的随机效应，从而引出平稳空间高斯过程，第
 \ref{subsec:covariance-function} 小节介绍决定平稳空间高斯过程的关键部分
 --- 自协方差函数或自相关函数， 第 \ref{subsec:identify}
-小节介绍非空间的随机效应，在地质统计中常称为块金效应，以及它带来的 SGLMM
+小节介绍非空间的随机效应，以及它带来的 SGLMM
 模型可识别问题与相应处理方式，第\ref{subsec:prior-sglmm}节介绍文献中使用的先验分布。
 
 \hypertarget{sec:Linear-Models}{%
@@ -1728,6 +1670,66 @@ S(x) \approx \sum_{i = 1}^r K(\|x-\tilde{x}_{i}\|; \phi, \kappa) U_{i} \label{eq
 \hypertarget{sec:stan-hmc}{%
 \section{贝叶斯 STAN-HMC 算法}\label{sec:stan-hmc}}
 
+\hypertarget{subsec:Curse-of-Dimensionality}{%
+\subsection{蒙特卡罗积分}\label{subsec:Curse-of-Dimensionality}}
+
+一般地，空间广义线性混合效应模型的统计推断总是不可避免的要面对高维积分，处理高维积分的方法一个是寻找近似方法避免求积分，一个是寻找有效的随机模拟方法直接求积分。这里，介绍蒙特卡罗方法求积分，以计算
+\(N\) 维超立方体的内切球的体积为例说明。
+
+假设我们有一个 \(N\) 维超立方体，其中心在坐标
+\(\mathbf{0} = (0,\ldots,0)\)。超立方体在点
+\((\pm 1/2,\ldots,\pm 1/2)\)，有 \(2^{N}\)
+个角落，超立方体边长是1，\(1^{N}=1\)，所以它的体积是1。如果
+\(N=1\)，超立方体是一条从 \(-\frac{1}{2}\) 到 \(\frac{1}{2}\)
+的单位长度的线，如果 \(N=2\)，超立方体是一个单位正方形，对角是
+\(\left( -\frac{1}{2}, -\frac{1}{2} \right)\) 和
+\(\left( \frac{1}{2}, \frac{1}{2} \right)\)，如果
+\(N=3\)，超立方体就是单位体积的立方体，对角是
+\(\left( -\frac{1}{2}, -\frac{1}{2}, -\frac{1}{2} \right)\) 和
+\(\left( \frac{1}{2}, \frac{1}{2}, \frac{1}{2} \right)\)，依此类推，\(N\)
+维超立方体体积是1，对角是
+\(\left( -\frac{1}{2}, \ldots, -\frac{1}{2} \right)\) 和
+\(\left( \frac{1}{2}, \ldots, \frac{1}{2} \right)\)。
+
+现在，考虑 \(N\) 维超立方体的内切球，我们把它称为 \(N\)
+维超球，它的中心在原点，半径是 \(\frac{1}{2}\)。我们说点 \(y\)
+在超球内，意味着它到原点的距离小于半径，即
+\(\| y \| < \frac{1}{2}\)。一维情形下，超球是从的线，包含了整个超立方体。二维情形下，超球是中心在原点，半径为
+\(\frac{1}{2}\)
+的圆。三维情形下，超球是立方体的内切球。已知单位超立方体的体积是1，但是其内的内切球的体积是多少呢？我们已经学过如何去定义一个积分计算半径为
+\(r\) 的二维球（即圆）的体积（即面积）是
+\(\pi r^2\)，三维情形下，内切球是
+\(\frac{4}{3}\pi r^3\)。但是更高维的欧式空间里，内切球的体积是多少呢？
+
+在这种简单的体积积分设置下，当然可以去计算越来越复杂的多重积分，但是这里介绍采样的方法去计算积分，即所谓的蒙特卡罗方法，由梅特罗波利斯，冯\(\cdot\)诺依曼和乌拉姆等在美国核武器研究实验室创立，当时正值二战期间，为了研制原子弹，出于保密的需要，与随机模拟相关的技术就代号蒙特卡罗。现在，蒙特卡罗方法占据现代统计计算的核心地位，特别是与贝叶斯相关的领域。
+
+用蒙特卡罗方法去计算单位超立方体内的超球，首先需要在单位超立方体内产生随机点，然后计算落在超球内的点的比例，即超球的体积。随着点的数目增加，估计的体积会收敛到真实的体积。因为这些点都独立同均匀分布，根据中心极限定理，误差下降的比率是
+\(\mathcal{O}\left( 1 / \sqrt{n} \right)\)，这也意味着每增加一个小数点的准确度，样本量要增加
+100 倍。
+
+\begin{longtable}[]{@{}lcccccccccc@{}}
+\caption{\label{tab:calculate-volume-of-hyperball} 前 10
+维单位超立方体内切球的体积，超立方体内随机模拟的点的个数是
+100000（已经四舍五入保留小数点后三位）}\tabularnewline
+\toprule
+维数 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+维数 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\tabularnewline
+\midrule
+\endhead
+体积 & 1.000 & 0.784 & 0.525 & 0.307 & 0.166 & 0.081 & 0.037 & 0.016 &
+0.006 & 0.0027\tabularnewline
+\bottomrule
+\end{longtable}
+
+表 \ref{tab:calculate-volume-of-hyperball} 列出了前 10
+维超球的体积，从上述计算过程中，我们发现随着维数增加，超球的体积迅速变小。这里有一个反直观的现象，内切球的体积竟然随着维数的增加变小，并且在
+10 维的情形下，内切球的体积已不到超立方体的
+0.3\%，可以预见如果这个积分是 100
+维甚至更多，那么内切球相比于正方体仅仅是一个极小的角落，随机点会越来越难以落在内切球内。甚至会因为所需要的随机数太多或者计算机资源的限制，而不可计算，开发更加高效的随机模拟算法也就势在必行。
+
 \hypertarget{subsec:motivations}{%
 \subsection{算法提出的背景和意义}\label{subsec:motivations}}
 
@@ -2022,16 +2024,15 @@ error）、后验标准差 （standard deviation） \(\mathsf{E}(\sigma|Y)\)
 \subsection{实现 STAN-HMC 算法的过程}\label{subsec:stan-hmc}}
 
 为了与本章第 \ref{sec:MCMC} 节提出的贝叶斯 MCMC 算法比较，我们基于 Stan
-实现求解 SGLMM 模型的贝叶斯 MCMC 算法 (简称 STAN-MCMC)。目前，我与
+实现求解 SGLMM 模型的贝叶斯 MCMC 算法 (简称 STAN-HMC)。目前，我与
 Bürkner 一起开发了 brms 包 \citep{brms2017JSS}，
 主要工作是修复程序调用和文档书写错误， 特别是与求解 SGLMM 模型相关的
 \texttt{gp} 函数，相关细节见 brms 的 Github 开发仓库。
 
 在 SGLMM 模型下，STAN-MCMC 算法，先从条件分布
-\([S|\boldsymbol{\theta},\boldsymbol{\beta},Y]\) 抽样，然后是
-\([\boldsymbol{\theta}|S]\) ，最后是
-\([\boldsymbol{\beta}|S,Y]\)，这里符号 \([\cdot]\)
-表示随机变（向）量的分布，具体步骤如下：
+\(S|\boldsymbol{\theta},\boldsymbol{\beta},Y\) 抽样，然后从条件分布
+\(\boldsymbol{\theta}|S\) 抽样，最后从条件分布
+\(\boldsymbol{\beta}|S,Y\) 抽样，具体步骤如下：
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2128,11 +2129,11 @@ fit.binomal <- brm(formula = y | trials(units.m) ~
 \item
   \texttt{data} ： SGLMM 模型拟合的数据\texttt{sim\_binom\_data}
 \item
-  \texttt{prior} ： 设置SGLMM模型参数的先验分布
+  \texttt{prior} ： 设置 SGLMM 模型参数的先验分布
 \item
   \texttt{chains} ： 指定同时生成马尔科夫链的数目
 \item
-  \texttt{iter} ： STAN-MCMC 算法总迭代次数
+  \texttt{iter} ： 算法总迭代次数
 \item
   \texttt{thin} ： \texttt{burn-in} 位置之后，每隔 \texttt{thin}
   的间距就采一个样本

@@ -152,8 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>2.5</b> 拉普拉斯近似</a></li>
 <li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.6</b> 先验和后验分布</a></li>
 <li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.7</b> 常用贝叶斯估计</a></li>
-<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>2.8</b> 蒙特卡罗积分</a></li>
-<li class="chapter" data-level="2.9" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.9</b> 本章小结</a></li>
+<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.8</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
 <li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#sec:Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 简单线性模型</a></li>
@@ -177,9 +176,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.3.4</b> 低秩近似算法</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.4</b> 贝叶斯 STAN-HMC 算法</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.1</b> 算法提出的背景和意义</a></li>
-<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.2</b> Stan 简介</a></li>
-<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.3</b> 实现 STAN-HMC 算法的过程</a></li>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.4.1</b> 蒙特卡罗积分</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.2</b> 算法提出的背景和意义</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.3</b> Stan 简介</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.4</b> 实现 STAN-HMC 算法的过程</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.5</b> 实现参数估计的 R 包</a></li>
 <li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.6</b> 本章小结</a></li>
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="algorithms" class="section level1">
 <h1><span class="header-section-number">第 4 章</span> 参数估计</h1>
-<p>模型的参数估计是建模分析的重要步骤，鉴于空间广义线性混合效应模型（简称 SGLMM）的复杂性，文献中的参数估计方法，如最小二乘估计（简称 LSE）和极大似然估计（简称 MLE） 都没有显式的表达式，因此必须发展有效的算法。目前，文献中的出现的算法有拉普拉斯近似算法、蒙特卡罗极大似然算法、贝叶斯马尔科夫链蒙特卡罗算法和低秩近似算法，应用这些算法去估计 SGLMM 模型参数，此外，特别提出了基于 Stan 实现的贝叶斯 MCMC 算法。第<a href="algorithms.html#sec:mle">4.1</a>节和第<a href="algorithms.html#sec:profile-likelihood">4.2</a>节分别介绍 SGLMM 模型的极大似然估计和空间线性混合模型下的剖面似然估计，由于估计中空间随机效应带来的高维积分问题，文献中出现了三类估计模型参数的算法，分别是第 <a href="algorithms.html#subsec:LA">4.3.1</a> 小节介绍的拉普拉斯近似算法、第 <a href="algorithms.html#subsec:MCML">4.3.2</a> 小节介绍的蒙特卡罗极大似然算法（简称 MCML）， 第 <a href="algorithms.html#sec:MCMC">4.3.3</a> 小节介绍的贝叶斯框架下的马尔科夫链蒙特卡罗算法 （简称贝叶斯 MCMC），第 <a href="algorithms.html#LowRank">4.3.4</a> 小节介绍的低秩近似算法（简称 Low-Rank），在第 <a href="algorithms.html#sec:stan-hmc">4.4</a> 节详细介绍在贝叶斯 MCMC 算法的基础上提出的 STAN-HMC 算法，并分三个小节进行，第<a href="algorithms.html#subsec:motivations">4.4.1</a>小节介绍算法提出的背景和意义，第 <a href="algorithms.html#subsec:stan-samplers">4.4.2</a> 小节从 Stan 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan 实现作铺垫，第<a href="algorithms.html#subsec:stan-hmc">4.4.3</a>小节介绍 STAN-HMC 算法实现过程。</p>
+<p>模型的参数估计是建模分析的重要步骤，鉴于空间广义线性混合效应模型（简称 SGLMM）的复杂性，文献中的参数估计方法，如最小二乘估计（简称 LSE）和极大似然估计（简称 MLE） 都没有显式的表达式，因此必须发展有效的算法。目前，文献中的出现的算法有拉普拉斯近似算法、蒙特卡罗极大似然算法、贝叶斯马尔科夫链蒙特卡罗算法和低秩近似算法，应用这些算法去估计 SGLMM 模型参数，此外，特别提出了基于 Stan 实现的贝叶斯 MCMC 算法。第<a href="algorithms.html#sec:mle">4.1</a>节和第<a href="algorithms.html#sec:profile-likelihood">4.2</a>节分别介绍 SGLMM 模型的极大似然估计和空间线性混合模型下的剖面似然估计，由于估计中空间随机效应带来的高维积分问题，文献中出现了三类估计模型参数的算法，分别是第 <a href="algorithms.html#subsec:LA">4.3.1</a> 小节介绍的拉普拉斯近似算法、第 <a href="algorithms.html#subsec:MCML">4.3.2</a> 小节介绍的蒙特卡罗极大似然算法（简称 MCML）， 第 <a href="algorithms.html#sec:MCMC">4.3.3</a> 小节介绍的贝叶斯框架下的马尔科夫链蒙特卡罗算法 （简称贝叶斯 MCMC），第 <a href="algorithms.html#LowRank">4.3.4</a> 小节介绍的低秩近似算法（简称 Low-Rank），在第 <a href="algorithms.html#sec:stan-hmc">4.4</a> 节详细介绍在贝叶斯 MCMC 算法的基础上提出的 STAN-HMC 算法，并分三个小节进行，第<a href="algorithms.html#subsec:motivations">4.4.2</a>小节介绍算法提出的背景和意义，第 <a href="algorithms.html#subsec:stan-samplers">4.4.3</a> 小节从 Stan 的发展、内置算法设置以及与同类软件的比较等三方面介绍，然后以数据集 Eight Schools 为例子介绍 Stan 的使用，为空间广义线性混合效应模型的 Stan 实现作铺垫，第<a href="algorithms.html#subsec:stan-hmc">4.4.4</a>小节介绍 STAN-HMC 算法实现过程。</p>
 <div id="sec:mle" class="section level2">
 <h2><span class="header-section-number">4.1</span> 极大似然估计</h2>
 <p>设研究区域 <span class="math inline">\(D \subseteq \mathbb{R}^2\)</span>， 对于第 <span class="math inline">\(i\)</span> 次观测， <span class="math inline">\(s_i\)</span> 表示区域 <span class="math inline">\(D\)</span> 内的位置，<span class="math inline">\(y(s_i)\)</span> 表示响应变量，<span class="math inline">\(\mathbf{x}(s_i), i = 1, \ldots, n\)</span> 是一个 <span class="math inline">\(p\)</span> 维的固定效应，定义如下的 SGLMM 模型：</p>
@@ -491,18 +491,60 @@ S(x) \approx \sum_{i = 1}^r K(\|x-\tilde{x}_{i}\|; \phi, \kappa) U_{i} \tag{4.30
 </div>
 <div id="sec:stan-hmc" class="section level2">
 <h2><span class="header-section-number">4.4</span> 贝叶斯 STAN-HMC 算法</h2>
+<div id="subsec:Curse-of-Dimensionality" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> 蒙特卡罗积分</h3>
+<p>一般地，空间广义线性混合效应模型的统计推断总是不可避免的要面对高维积分，处理高维积分的方法一个是寻找近似方法避免求积分，一个是寻找有效的随机模拟方法直接求积分。这里，介绍蒙特卡罗方法求积分，以计算 <span class="math inline">\(N\)</span> 维超立方体的内切球的体积为例说明。</p>
+<p>假设我们有一个 <span class="math inline">\(N\)</span> 维超立方体，其中心在坐标 <span class="math inline">\(\mathbf{0} = (0,\ldots,0)\)</span>。超立方体在点 <span class="math inline">\((\pm 1/2,\ldots,\pm 1/2)\)</span>，有 <span class="math inline">\(2^{N}\)</span> 个角落，超立方体边长是1，<span class="math inline">\(1^{N}=1\)</span>，所以它的体积是1。如果 <span class="math inline">\(N=1\)</span>，超立方体是一条从 <span class="math inline">\(-\frac{1}{2}\)</span> 到 <span class="math inline">\(\frac{1}{2}\)</span> 的单位长度的线，如果 <span class="math inline">\(N=2\)</span>，超立方体是一个单位正方形，对角是 <span class="math inline">\(\left( -\frac{1}{2}, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \frac{1}{2} \right)\)</span>，如果 <span class="math inline">\(N=3\)</span>，超立方体就是单位体积的立方体，对角是 <span class="math inline">\(\left( -\frac{1}{2}, -\frac{1}{2}, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \frac{1}{2}, \frac{1}{2} \right)\)</span>，依此类推，<span class="math inline">\(N\)</span> 维超立方体体积是1，对角是 <span class="math inline">\(\left( -\frac{1}{2}, \ldots, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \ldots, \frac{1}{2} \right)\)</span>。</p>
+<p>现在，考虑 <span class="math inline">\(N\)</span> 维超立方体的内切球，我们把它称为 <span class="math inline">\(N\)</span> 维超球，它的中心在原点，半径是 <span class="math inline">\(\frac{1}{2}\)</span>。我们说点 <span class="math inline">\(y\)</span> 在超球内，意味着它到原点的距离小于半径，即 <span class="math inline">\(\| y \| &lt; \frac{1}{2}\)</span>。一维情形下，超球是从的线，包含了整个超立方体。二维情形下，超球是中心在原点，半径为 <span class="math inline">\(\frac{1}{2}\)</span> 的圆。三维情形下，超球是立方体的内切球。已知单位超立方体的体积是1，但是其内的内切球的体积是多少呢？我们已经学过如何去定义一个积分计算半径为 <span class="math inline">\(r\)</span> 的二维球（即圆）的体积（即面积）是 <span class="math inline">\(\pi r^2\)</span>，三维情形下，内切球是 <span class="math inline">\(\frac{4}{3}\pi r^3\)</span>。但是更高维的欧式空间里，内切球的体积是多少呢？</p>
+<p>在这种简单的体积积分设置下，当然可以去计算越来越复杂的多重积分，但是这里介绍采样的方法去计算积分，即所谓的蒙特卡罗方法，由梅特罗波利斯，冯<span class="math inline">\(\cdot\)</span>诺依曼和乌拉姆等在美国核武器研究实验室创立，当时正值二战期间，为了研制原子弹，出于保密的需要，与随机模拟相关的技术就代号蒙特卡罗。现在，蒙特卡罗方法占据现代统计计算的核心地位，特别是与贝叶斯相关的领域。</p>
+<p>用蒙特卡罗方法去计算单位超立方体内的超球，首先需要在单位超立方体内产生随机点，然后计算落在超球内的点的比例，即超球的体积。随着点的数目增加，估计的体积会收敛到真实的体积。因为这些点都独立同均匀分布，根据中心极限定理，误差下降的比率是 <span class="math inline">\(\mathcal{O}\left( 1 / \sqrt{n} \right)\)</span>，这也意味着每增加一个小数点的准确度，样本量要增加 100 倍。</p>
+<table>
+<caption><span id="tab:calculate-volume-of-hyperball">表 4.1: </span> 前 10 维单位超立方体内切球的体积，超立方体内随机模拟的点的个数是 100000（已经四舍五入保留小数点后三位）</caption>
+<thead>
+<tr class="header">
+<th align="left">维数</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">体积</td>
+<td align="center">1.000</td>
+<td align="center">0.784</td>
+<td align="center">0.525</td>
+<td align="center">0.307</td>
+<td align="center">0.166</td>
+<td align="center">0.081</td>
+<td align="center">0.037</td>
+<td align="center">0.016</td>
+<td align="center">0.006</td>
+<td align="center">0.0027</td>
+</tr>
+</tbody>
+</table>
+<p>表 <a href="algorithms.html#tab:calculate-volume-of-hyperball">4.1</a> 列出了前 10 维超球的体积，从上述计算过程中，我们发现随着维数增加，超球的体积迅速变小。这里有一个反直观的现象，内切球的体积竟然随着维数的增加变小，并且在 10 维的情形下，内切球的体积已不到超立方体的 0.3%，可以预见如果这个积分是 100 维甚至更多，那么内切球相比于正方体仅仅是一个极小的角落，随机点会越来越难以落在内切球内。甚至会因为所需要的随机数太多或者计算机资源的限制，而不可计算，开发更加高效的随机模拟算法也就势在必行。</p>
+</div>
 <div id="subsec:motivations" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> 算法提出的背景和意义</h3>
+<h3><span class="header-section-number">4.4.2</span> 算法提出的背景和意义</h3>
 <p>贝叶斯 MCMC 算法是一个计算密集型的算法，高效的实现对理论和应用都有非常重要的意义。因此，早在 1989 年剑桥大学研究人员开发出了 Windows 上的应用程序 WinBUGS，并被广泛使用。随着个人电脑的普及、Linux 和 MacOS 系统的蓬勃发展， 只能运行于 Windows 系统上的 WinBUGS 逐渐落后于时代，并在 2008 年宣布停止开发。 随后， OpenBUGS 以开源的开发方式重现了 WinBUGS 的功能，还可跨平台运行，弥补了 WinBUGS 的一些不足，而后又出现了同类的开源软件 JAGS。 无论是 OpenBUGS 还是 JAGS 都无法适应当代计算机硬件的迅猛发展， 它们的设计由于历史局限性， 已经无法满足在兼容性、 扩展性和高效性方面的要求。 所以， 哥伦比亚大学的统计系以开源的方式开发了新一代贝叶斯推断子程序库 Stan， 它与前辈们最明显的最直观的不同在于，它不是一个像 WinBUGS/OpenBUGS/JAGS 那样的软件有菜单窗口或软件内的命令行环境， <a href="http://mc-stan.org/">Stan</a> 是一种概率编程语言 <span class="citation">(Carpenter et al. <a href="#ref-Stan2017JSS">2017</a>)</span>， 可以替代 BUGS （Bayesian inference Using Gibbs Sampling） <span class="citation">(Lunn et al. <a href="#ref-BUGS2009">2009</a>)</span> 作为 MCMC 算法的高效实现。相比较于同类软件，Stan 的优势有：底层完全基于 C++ 实现；拥有活跃和快速发展的社区；支持在CPU/GPU上大规模并行计算；独立于系统和硬件平台；提供多种编程语言的接口，如 PyStan、 RStan 等等。 在大数据的背景下， 拥有数千台服务器的企业越来越多， 计算机资源达到前所未有的规模， 这为 Stan 的广泛应用打下了基础。</p>
 </div>
 <div id="subsec:stan-samplers" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Stan 简介</h3>
+<h3><span class="header-section-number">4.4.3</span> Stan 简介</h3>
 <p>在上世纪 40~50 年代，由梅特罗波利斯，冯<span class="math inline">\(\cdot\)</span>诺依曼和乌拉姆 （Stanislaw Ulam） 创立蒙特卡罗方法，为了纪念乌拉姆，Stan 就以他的名字命名。Stan 是一门基于 C++ 的概率编程语言，主要用于贝叶斯推断，它的代码完全<a href="http://mc-stan.org/">开源</a>的，托管在 <a href="https://github.com/stan-dev/stan">Github</a> 上，自 2012 年 8 月 30 日发布第一个 1.0 版本以来，截至写作时间已发布 33 个版本，目前最新版本是 2.18.0。使用 Stan，用户需提供数据、Stan 代码写的脚本模型，编译 Stan 写的程序，然后与数据一起运行，模型参数的后验模拟过程是自动实现的。除了可以在命令行环境下编译运行 Stan 脚本中写模型外，Stan 还提供其他编程语言的接口，如 R、Python、Matlab、Mathematica、Julia 等等，这使得熟悉其他编程语言的用户可以方便地调用和分析数据。但是，与 Python、R等 这类解释型编程语言不同， Stan 代码需要先翻译成 C++ 代码，然后使用系统编译器 （如 GCC） 编译，若使用 R 语言接口，编译后的动态链接库可以载入 R 内存中，再被其他 R 函数调用执行。</p>
 <p>随机模拟的前提是有能产生高质量高效的伪随机数发生器，只有周期长，生成速度快，能通过一系列统计检验的伪随机数才能用作统计模拟，Stan 内置了 Mersenne-Twister 发生器，它的周期长达 <span class="math inline">\(2^{19937}-1\)</span>，通过了一系列严格的检验，被广泛采用到现代软件中，如 Octave 和 Matlab 等 <span class="citation">(黄湘云 <a href="#ref-Huang2017COS">2017</a>)</span>。除了 Mersenne Twister 随机数发生器，Stan 还使用了 <a href="https://www.boost.org/">Boost C++</a> 和 <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen C++</a> 等模版库用于线性代数计算，这样的底层设计路线使得 Stan 的运算效率很高。</p>
 <p>Stan 内置的采样器 No-U-Turn （简称 NUTS） 源于汉密尔顿蒙特卡罗算法 （Hamiltonian Monte Carlo，简称 HMC），最早由 Hoffman 和 Gelman （2014年） <span class="citation">(Hoffman and Gelman <a href="#ref-hoffman2014">2014</a>)</span> 提出。与 Stan 有相似功能的软件 BUGS 和 JAGS 主要采用的是 Gibbs 采样器，前者基于 Pascal 语言开发于 1989 年至 2004 年，后者基于 C++ 活跃开发于 2007 年至 2013 年。在时间上， Stan 具有后发优势，特别在灵活性和扩展性方面，它支持任意的目标函数，模型语言也更加简单易于推广学习，其每一行都是命令式的语句，而 BUGS 和 JAGS 采用声明式；在大量数据的建模分析中， Stan 可以更快地处理复杂模型，这一部分归功于它高效的算法实现和内存管理，另一部分在于高级的 MCMC 算法 — 带 NUTS 采样器的 HMC 算法。</p>
-<p>Rubin （1981年） <span class="citation">(Rubin <a href="#ref-Rubin1981">1981</a>)</span> 分析了 Alderman 和 Powers <span class="citation">(Alderman and Powers <a href="#ref-Alderman1980">1980</a>)</span> 收集的原始数据，得出表 <a href="algorithms.html#tab:eight-high-schools">4.1</a>， Gelman 和 Carlin 等 （2003年） <span class="citation">(Gelman et al. <a href="#ref-Gelman2003">2003</a>)</span> 建立分层正态模型 <a href="algorithms.html#eq:hierarchical-normal-models">(4.31)</a> 分析 Eight Schools 数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了 8 所高中，学生的成绩作为培训效应的估计 <span class="math inline">\(y_j\)</span>，其样本方差 <span class="math inline">\(\sigma^2_j\)</span>，数据集见表 <a href="algorithms.html#tab:eight-high-schools">4.1</a>。这里再次以该数据集和模型为例介绍 Stan 的使用。</p>
+<p>Rubin （1981年） <span class="citation">(Rubin <a href="#ref-Rubin1981">1981</a>)</span> 分析了 Alderman 和 Powers <span class="citation">(Alderman and Powers <a href="#ref-Alderman1980">1980</a>)</span> 收集的原始数据，得出表 <a href="algorithms.html#tab:eight-high-schools">4.2</a>， Gelman 和 Carlin 等 （2003年） <span class="citation">(Gelman et al. <a href="#ref-Gelman2003">2003</a>)</span> 建立分层正态模型 <a href="algorithms.html#eq:hierarchical-normal-models">(4.31)</a> 分析 Eight Schools 数据集，由美国教育考试服务调查搜集，用以分析不同的培训项目对学生考试分数的影响，其随机调查了 8 所高中，学生的成绩作为培训效应的估计 <span class="math inline">\(y_j\)</span>，其样本方差 <span class="math inline">\(\sigma^2_j\)</span>，数据集见表 <a href="algorithms.html#tab:eight-high-schools">4.2</a>。这里再次以该数据集和模型为例介绍 Stan 的使用。</p>
 <table>
-<caption><span id="tab:eight-high-schools">表 4.1: </span> Eight Schools 数据集</caption>
+<caption><span id="tab:eight-high-schools">表 4.2: </span> Eight Schools 数据集</caption>
 <thead>
 <tr class="header">
 <th align="center">School</th>
@@ -578,9 +620,9 @@ model {
 }</code></pre>
 <p>上述 Stan 代码的第一段提供数据：学校的数目 <span class="math inline">\(J\)</span>，估计值 <span class="math inline">\(y_1,\ldots,y_{J}\)</span>，标准差 <span class="math inline">\(\sigma_1,\ldots,\sigma_{J}\)</span>，数据类型可以是整数、实数，结构可以是向量，或更一般的数组，还可以带约束，如在这个模型中 <span class="math inline">\(J\)</span> 限制为非负， <span class="math inline">\(\sigma_{J}\)</span> 必须是正的，另外两个反斜杠 // 表示注释。第二段代码声明参数：模型中的待估参数，学校总体的效应 <span class="math inline">\(\theta_j\)</span>，均值 <span class="math inline">\(\mu\)</span>，标准差 <span class="math inline">\(\tau\)</span>，学校水平上的误差 <span class="math inline">\(\eta\)</span> 和效应 <span class="math inline">\(\theta\)</span>。在这个模型中，用 <span class="math inline">\(\mu,\tau,\eta\)</span> 表示 <span class="math inline">\(\theta\)</span> 而不是直接声明 <span class="math inline">\(\theta\)</span> 作一个参数，通过这种参数化，采样器的运行效率会提高，还应该尽量使用向量化操作代替 for 循环语句。最后一段是模型：稍微注意的是，正文中正态分布 <span class="math inline">\(\mathcal{N}(\cdot,\cdot)\)</span> 中后一个位置是方差，而 Stan 代码中使用的是标准差。<code>target += normal_lpdf(y | theta, sigma)</code> 和 <code>y ~ normal(theta, sigma)</code> 对模型的贡献是一样的，都使用正态分布的对数概率密度函数，只是后者扔掉了对数后验密度的常数项而已，这对于 Stan 的采样、近似和优化算法没有影响。</p>
 <p>算法运行的硬件环境是 16 核 32 线程主频 2.8 GHz 英特尔至强 E5-2680 处理器，系统环境 CentOS 7，R 软件版本 3.5.1，RStan 版本 2.17.3。算法参数设置了 4 条迭代链，每条链迭代 10000 次，为复现模型结果随机数种子设为 2018。</p>
-<p>分层正态模型<a href="algorithms.html#eq:hierarchical-normal-models">(4.31)</a> 的参数 <span class="math inline">\(\mu,\tau\)</span>，及其参数化引入的中间参数 <span class="math inline">\(\eta_i,\theta_i,i=1,\ldots,8\)</span>，还有对数后验 <span class="math inline">\(\mathrm{lp}\_\_\)</span> 的估计值见表 <a href="algorithms.html#tab:eight-schools-output">4.2</a>。</p>
+<p>分层正态模型<a href="algorithms.html#eq:hierarchical-normal-models">(4.31)</a> 的参数 <span class="math inline">\(\mu,\tau\)</span>，及其参数化引入的中间参数 <span class="math inline">\(\eta_i,\theta_i,i=1,\ldots,8\)</span>，还有对数后验 <span class="math inline">\(\mathrm{lp}\_\_\)</span> 的估计值见表 <a href="algorithms.html#tab:eight-schools-output">4.3</a>。</p>
 <table>
-<caption><span id="tab:eight-schools-output">表 4.2: </span> 对 Eight Schools 数据集建立分层正态模型 <a href="algorithms.html#eq:hierarchical-normal-models">(4.31)</a>，采用 HMC 算法估计模型各参数值</caption>
+<caption><span id="tab:eight-schools-output">表 4.3: </span> 对 Eight Schools 数据集建立分层正态模型 <a href="algorithms.html#eq:hierarchical-normal-models">(4.31)</a>，采用 HMC 算法估计模型各参数值</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -846,7 +888,7 @@ model {
 </tr>
 </tbody>
 </table>
-<p>表 <a href="algorithms.html#tab:eight-schools-output">4.2</a> 的列为后验量的估计值：依次是后验均值 <span class="math inline">\(\mathsf{E}(\mu|Y)\)</span>、 蒙特卡罗标准误（Monte Carlo standard error）、后验标准差 （standard deviation） <span class="math inline">\(\mathsf{E}(\sigma|Y)\)</span> 、后验分布的 5 个分位点、有效样本数 <span class="math inline">\(n_{eff}\)</span> 和潜在尺度缩减因子 （potential scale reduction factor），最后两个量 用来分析采样效率和评估迭代序列的平稳性；最后一行表示每次迭代的未正则的对数后验密度 （unnormalized log-posterior density） <span class="math inline">\(\hat{R}\)</span>，当链条都收敛到同一平稳分布的时候，<span class="math inline">\(\hat{R}\)</span> 接近 1。</p>
+<p>表 <a href="algorithms.html#tab:eight-schools-output">4.3</a> 的列为后验量的估计值：依次是后验均值 <span class="math inline">\(\mathsf{E}(\mu|Y)\)</span>、 蒙特卡罗标准误（Monte Carlo standard error）、后验标准差 （standard deviation） <span class="math inline">\(\mathsf{E}(\sigma|Y)\)</span> 、后验分布的 5 个分位点、有效样本数 <span class="math inline">\(n_{eff}\)</span> 和潜在尺度缩减因子 （potential scale reduction factor），最后两个量 用来分析采样效率和评估迭代序列的平稳性；最后一行表示每次迭代的未正则的对数后验密度 （unnormalized log-posterior density） <span class="math inline">\(\hat{R}\)</span>，当链条都收敛到同一平稳分布的时候，<span class="math inline">\(\hat{R}\)</span> 接近 1。</p>
 <p>这里对 <span class="math inline">\(\tau\)</span> 采用的非信息先验是均匀先验，参数 <span class="math inline">\(\tau\)</span> 的 95% 的置信区间是 <span class="math inline">\((0.22,20.5)\)</span>， 数据支持 <span class="math inline">\(\tau\)</span> 的范围低于 20.5。</p>
 <div class="figure" style="text-align: center"><span id="fig:posterior-mu-tau"></span>
 <img src="figures/posterior_mu_tau.png" alt="对 $\mu,\tau$ 给定均匀先验，后验均值 $\mu$ 和标准差 $\tau$ 的直方图" width="70%" />
@@ -854,7 +896,7 @@ model {
 图 4.1: 对 <span class="math inline">\(\mu,\tau\)</span> 给定均匀先验，后验均值 <span class="math inline">\(\mu\)</span> 和标准差 <span class="math inline">\(\tau\)</span> 的直方图
 </p>
 </div>
-<p>为了得到可靠的后验估计，做出合理的推断，诊断序列的平稳性是必不可少的部分，前 5000 次迭代作为 warm-up 阶段，后 5000 次迭代用作参数的推断，图 <a href="algorithms.html#fig:posterior-mu-tau">4.1</a> (a) 给出 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\log(\tau)\)</span> 的迭代序列图，其中橘黄色线分别是对应的后验均值（表 <a href="algorithms.html#tab:eight-schools-output">4.2</a>的第一列），图 <a href="algorithms.html#fig:posterior-mu-tau">4.1</a> (b) 分别给出 <span class="math inline">\(\log(\tau)\)</span> 的蒙特卡罗误差，图中显示随着迭代次数增加，蒙特卡罗误差趋于稳定，说明参数 <span class="math inline">\(\tau\)</span> 的迭代序列达到平稳分布，即迭代点列可以看作来自参数的后验分布的样本。</p>
+<p>为了得到可靠的后验估计，做出合理的推断，诊断序列的平稳性是必不可少的部分，前 5000 次迭代作为 warm-up 阶段，后 5000 次迭代用作参数的推断，图 <a href="algorithms.html#fig:posterior-mu-tau">4.1</a> (a) 给出 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\log(\tau)\)</span> 的迭代序列图，其中橘黄色线分别是对应的后验均值（表 <a href="algorithms.html#tab:eight-schools-output">4.3</a>的第一列），图 <a href="algorithms.html#fig:posterior-mu-tau">4.1</a> (b) 分别给出 <span class="math inline">\(\log(\tau)\)</span> 的蒙特卡罗误差，图中显示随着迭代次数增加，蒙特卡罗误差趋于稳定，说明参数 <span class="math inline">\(\tau\)</span> 的迭代序列达到平稳分布，即迭代点列可以看作来自参数的后验分布的样本。</p>
 <div class="figure" style="text-align: center"><span id="fig:diagnostic"></span>
 <img src="figures/trace_mu_log_tau.png" alt="诊断参数$\mu,\log(\tau)$迭代序列的平稳性" width="70%" /><img src="figures/mcmc_mean_tau_div.png" alt="诊断参数$\mu,\log(\tau)$迭代序列的平稳性" width="70%" />
 <p class="caption">
@@ -877,12 +919,12 @@ model {
 <p><span class="math display">\[\begin{equation}
 \hat{R} = \sqrt{\frac{\widehat{\mathsf{Var}}^{+}(\omega|Y)}{W}}
 \end{equation}\]</span></p>
-<p>随着 <span class="math inline">\(n \to \infty\)</span>， <span class="math inline">\(\hat{R}\)</span> 下降到 1。如果 <span class="math inline">\(\hat{R}\)</span> 比较大，我们有理由认为需要增加模拟次数以改进待估参数 <span class="math inline">\(\omega\)</span> 的后验分布。从表 <a href="algorithms.html#tab:eight-schools-output">4.2</a> 来看，各参数的 <span class="math inline">\(\hat{R}\)</span> 值都是 1，说明各个迭代链混合得好。</p>
+<p>随着 <span class="math inline">\(n \to \infty\)</span>， <span class="math inline">\(\hat{R}\)</span> 下降到 1。如果 <span class="math inline">\(\hat{R}\)</span> 比较大，我们有理由认为需要增加模拟次数以改进待估参数 <span class="math inline">\(\omega\)</span> 的后验分布。从表 <a href="algorithms.html#tab:eight-schools-output">4.3</a> 来看，各参数的 <span class="math inline">\(\hat{R}\)</span> 值都是 1，说明各个迭代链混合得好。</p>
 </div>
 <div id="subsec:stan-hmc" class="section level3">
-<h3><span class="header-section-number">4.4.3</span> 实现 STAN-HMC 算法的过程</h3>
-<p>为了与本章第 <a href="algorithms.html#sec:MCMC">4.3.3</a> 节提出的贝叶斯 MCMC 算法比较，我们基于 Stan 实现求解 SGLMM 模型的贝叶斯 MCMC 算法 (简称 STAN-MCMC)。目前，我与 Bürkner 一起开发了 brms 包 <span class="citation">(Bürkner <a href="#ref-brms2017JSS">2017</a>)</span>， 主要工作是修复程序调用和文档书写错误， 特别是与求解 SGLMM 模型相关的 <code>gp</code> 函数，相关细节见 brms 的 Github 开发仓库。</p>
-<p>在 SGLMM 模型下，STAN-MCMC 算法，先从条件分布 <span class="math inline">\([S|\boldsymbol{\theta},\boldsymbol{\beta},Y]\)</span> 抽样，然后是 <span class="math inline">\([\boldsymbol{\theta}|S]\)</span> ，最后是 <span class="math inline">\([\boldsymbol{\beta}|S,Y]\)</span>，这里符号 <span class="math inline">\([\cdot]\)</span> 表示随机变（向）量的分布，具体步骤如下：</p>
+<h3><span class="header-section-number">4.4.4</span> 实现 STAN-HMC 算法的过程</h3>
+<p>为了与本章第 <a href="algorithms.html#sec:MCMC">4.3.3</a> 节提出的贝叶斯 MCMC 算法比较，我们基于 Stan 实现求解 SGLMM 模型的贝叶斯 MCMC 算法 (简称 STAN-HMC)。目前，我与 Bürkner 一起开发了 brms 包 <span class="citation">(Bürkner <a href="#ref-brms2017JSS">2017</a>)</span>， 主要工作是修复程序调用和文档书写错误， 特别是与求解 SGLMM 模型相关的 <code>gp</code> 函数，相关细节见 brms 的 Github 开发仓库。</p>
+<p>在 SGLMM 模型下，STAN-MCMC 算法，先从条件分布 <span class="math inline">\(S|\boldsymbol{\theta},\boldsymbol{\beta},Y\)</span> 抽样，然后从条件分布 <span class="math inline">\(\boldsymbol{\theta}|S\)</span> 抽样，最后从条件分布 <span class="math inline">\(\boldsymbol{\beta}|S,Y\)</span> 抽样，具体步骤如下：</p>
 <ol style="list-style-type: decimal">
 <li>选择初始值 <span class="math inline">\(\boldsymbol{\theta},\boldsymbol{\beta},S\)</span>，如 <span class="math inline">\(\boldsymbol{\beta}\)</span> 的初始值来自正态分布，<span class="math inline">\(\boldsymbol{\theta}\)</span> 的初始值来自对数正态分布；</li>
 <li>更新参数向量 <span class="math inline">\(\boldsymbol{\theta}\)</span> ：
@@ -918,9 +960,9 @@ model {
 <ol style="list-style-type: decimal">
 <li><code>formula</code> ：设置 SGLMM 模型的结构，其中波浪号左侧是响应变量，<code>trials</code> 表示在每个采样点抽取的样本量；波浪号右侧 <code>0 + intercept</code> 表示截距项， <code>x1</code> 和 <code>x2</code> 表示协变量，<code>gp(d1, d2)</code> 表示采样坐标为 <code>(d1,d2)</code> 自相关函数为幂指数族的平稳高斯过程</li>
 <li><code>data</code> ： SGLMM 模型拟合的数据<code>sim_binom_data</code></li>
-<li><code>prior</code> ： 设置SGLMM模型参数的先验分布</li>
+<li><code>prior</code> ： 设置 SGLMM 模型参数的先验分布</li>
 <li><code>chains</code> ： 指定同时生成马尔科夫链的数目</li>
-<li><code>iter</code> ： STAN-MCMC 算法总迭代次数</li>
+<li><code>iter</code> ： 算法总迭代次数</li>
 <li><code>thin</code> ： <code>burn-in</code> 位置之后，每隔 <code>thin</code> 的间距就采一个样本</li>
 <li><code>family</code> : 指定响应变量服从的分布，如二项分布，泊松分布等</li>
 </ol>
@@ -928,9 +970,9 @@ model {
 </div>
 <div id="subsec:sglmm-with-r" class="section level2">
 <h2><span class="header-section-number">4.5</span> 实现参数估计的 R 包</h2>
-<p>R 语言作为免费自由的统计计算和绘图环境，因其更新快，社区庞大，扩展包更是超过了 13000 个，提供了大量前沿统计方法的代码实现。如 spBayes 包使用贝叶斯 MCMC 算法估计 SGLMM 模型的参数 <span class="citation">(Finley, Banerjee, and E.Gelfand <a href="#ref-spBayes2015">2015</a>)</span>； coda 包诊断马尔科夫链的平稳性 <span class="citation">(Plummer et al. <a href="#ref-coda2006">2006</a>)</span>；MCMCvis 包分析和可视化贝叶斯 MCMC 算法的输出， 提取模型参数， 转化 JAGS、Stan 和 BUGS 软件的输出结果到 R 对象，以利后续分析；geoR 包 在空间线性混合效应模型上基于 Langevin-Hastings 实现了贝叶斯 MCMC 算法 <span class="citation">(Ribeiro Jr. and Diggle <a href="#ref-geoR2001">2001</a>)</span>；geoRglm 包在 geoR 包的基础上将模型范围扩展到 SGLMM 模型 <span class="citation">(Christensen and Ribeiro Jr. <a href="#ref-geoRglm2002">2002</a>)</span>；glmmBUGS 包提供了 WinBUGS、 OpenBUGS 和 JAGS 软件的统一接口 <span class="citation">(Brown and Zhou <a href="#ref-glmmBUGS2010MCMC">2010</a>)</span>。 目前，R 语言社区提供的求解 SGLMM 模型的 R 包和功能实现，见表 <a href="algorithms.html#tab:sglmm-packages">4.3</a>。</p>
+<p>R 语言作为免费自由的统计计算和绘图环境，因其更新快，社区庞大，扩展包更是超过了 13000 个，提供了大量前沿统计方法的代码实现。如 spBayes 包使用贝叶斯 MCMC 算法估计 SGLMM 模型的参数 <span class="citation">(Finley, Banerjee, and E.Gelfand <a href="#ref-spBayes2015">2015</a>)</span>； coda 包诊断马尔科夫链的平稳性 <span class="citation">(Plummer et al. <a href="#ref-coda2006">2006</a>)</span>；MCMCvis 包分析和可视化贝叶斯 MCMC 算法的输出， 提取模型参数， 转化 JAGS、Stan 和 BUGS 软件的输出结果到 R 对象，以利后续分析；geoR 包 在空间线性混合效应模型上基于 Langevin-Hastings 实现了贝叶斯 MCMC 算法 <span class="citation">(Ribeiro Jr. and Diggle <a href="#ref-geoR2001">2001</a>)</span>；geoRglm 包在 geoR 包的基础上将模型范围扩展到 SGLMM 模型 <span class="citation">(Christensen and Ribeiro Jr. <a href="#ref-geoRglm2002">2002</a>)</span>；glmmBUGS 包提供了 WinBUGS、 OpenBUGS 和 JAGS 软件的统一接口 <span class="citation">(Brown and Zhou <a href="#ref-glmmBUGS2010MCMC">2010</a>)</span>。 目前，R 语言社区提供的求解 SGLMM 模型的 R 包和功能实现，见表 <a href="algorithms.html#tab:sglmm-packages">4.4</a>。</p>
 <table>
-<caption><span id="tab:sglmm-packages">表 4.3: </span> 求解空间广义线性混合效应模型的 R 包功能比较：加号 + 表示可用，减号 - 表示不可用，星号 * 标记的只在空间线性混合效应模型下可用</caption>
+<caption><span id="tab:sglmm-packages">表 4.4: </span> 求解空间广义线性混合效应模型的 R 包功能比较：加号 + 表示可用，减号 - 表示不可用，星号 * 标记的只在空间线性混合效应模型下可用</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>

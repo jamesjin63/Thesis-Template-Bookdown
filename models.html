@@ -152,8 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>2.5</b> 拉普拉斯近似</a></li>
 <li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.6</b> 先验和后验分布</a></li>
 <li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.7</b> 常用贝叶斯估计</a></li>
-<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>2.8</b> 蒙特卡罗积分</a></li>
-<li class="chapter" data-level="2.9" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.9</b> 本章小结</a></li>
+<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.8</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
 <li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#sec:Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 简单线性模型</a></li>
@@ -177,9 +176,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.3.4</b> 低秩近似算法</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.4</b> 贝叶斯 STAN-HMC 算法</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.1</b> 算法提出的背景和意义</a></li>
-<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.2</b> Stan 简介</a></li>
-<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.3</b> 实现 STAN-HMC 算法的过程</a></li>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.4.1</b> 蒙特卡罗积分</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.2</b> 算法提出的背景和意义</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.3</b> Stan 简介</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.4</b> 实现 STAN-HMC 算法的过程</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.5</b> 实现参数估计的 R 包</a></li>
 <li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.6</b> 本章小结</a></li>
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="models" class="section level1">
 <h1><span class="header-section-number">第 3 章</span> 统计模型</h1>
-<p>在实际数据分析和建模过程中，模型应该是从简单到复杂以逐步提取数据信息的，并不是直接套用复杂的空间广义线性混合效应模型。就模型的应用来说，如果能用简单模型描述主要的数据特征，那么模型不必往复杂的方向上拓展。但是，在提高少量精度却能带来巨大收益的情况下，模型可以适当增加复杂度。从空间数据建模的角度，我们首先应考虑带空间效应的线性模型和广义线性模型，有时候也叫线性混合效应模型和广义线性混合效应模型，为了突出空间效应，我们把它统一地称作空间线性混合效应模型和空间广义线性混合效应模型。因此，在第 <a href="models.html#sec:Linear-Models">3.1</a> 节，第 <a href="models.html#sec:Generalized-Linear-Models">3.2</a> 节和第 <a href="models.html#sec:Generalized-Linear-Mixed-Effects-Models">3.3</a> 节分别回顾了简单线性模型， 广义线性模型和广义线性混合效应模型的结构及其数学表示，并随同模型给出了模型求解的 R 包或函数。第 <a href="models.html#sec:Spatial-Generalized-linear-mixed-effects-models">3.4</a> 节作为重点介绍了空间广义线性混合效应模型（简称 SGLMM），分四个小节介绍模型中的重要成分， 第 <a href="models.html#subsec:structure-sglmm">3.4.1</a> 小节介绍 SGLMM 模型的各个成分，协变量相关的固定效应和空间位置相关的随机效应，从而引出平稳空间高斯过程，第 <a href="models.html#subsec:covariance-function">3.4.2</a> 小节介绍决定平稳空间高斯过程的关键部分 — 自协方差函数或自相关函数， 第 <a href="models.html#subsec:identify">3.4.3</a> 小节介绍非空间的随机效应，在地质统计中常称为块金效应，以及它带来的 SGLMM 模型可识别问题与相应处理方式，第<a href="models.html#subsec:prior-sglmm">3.4.4</a>节介绍文献中使用的先验分布。</p>
+<p>在实际数据分析和建模过程中，模型应该是从简单到复杂以逐步提取数据信息的，并不是直接套用复杂的空间广义线性混合效应模型。就模型的应用来说，如果能用简单模型描述主要的数据特征，那么模型不必往复杂的方向上拓展。但是，在提高少量精度却能带来巨大收益的情况下，模型可以适当增加复杂度。从空间数据建模的角度，我们首先应考虑带空间效应的线性模型和广义线性模型，有时候也叫线性混合效应模型和广义线性混合效应模型，为了突出空间效应，我们把它统一地称作空间线性混合效应模型和空间广义线性混合效应模型。因此，在第 <a href="models.html#sec:Linear-Models">3.1</a> 节，第 <a href="models.html#sec:Generalized-Linear-Models">3.2</a> 节和第 <a href="models.html#sec:Generalized-Linear-Mixed-Effects-Models">3.3</a> 节分别回顾了简单线性模型， 广义线性模型和广义线性混合效应模型的结构及其数学表示，并随同模型给出了模型求解的 R 包或函数。第 <a href="models.html#sec:Spatial-Generalized-linear-mixed-effects-models">3.4</a> 节作为重点介绍了空间广义线性混合效应模型（简称 SGLMM），分四个小节介绍模型中的重要成分， 第 <a href="models.html#subsec:structure-sglmm">3.4.1</a> 小节介绍 SGLMM 模型的各个成分，协变量相关的固定效应和空间位置相关的随机效应，从而引出平稳空间高斯过程，第 <a href="models.html#subsec:covariance-function">3.4.2</a> 小节介绍决定平稳空间高斯过程的关键部分 — 自协方差函数或自相关函数， 第 <a href="models.html#subsec:identify">3.4.3</a> 小节介绍非空间的随机效应，以及它带来的 SGLMM 模型可识别问题与相应处理方式，第<a href="models.html#subsec:prior-sglmm">3.4.4</a>节介绍文献中使用的先验分布。</p>
 <div id="sec:Linear-Models" class="section level2">
 <h2><span class="header-section-number">3.1</span> 简单线性模型</h2>
 <p>简单线性模型的一般形式为

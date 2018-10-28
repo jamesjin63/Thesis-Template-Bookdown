@@ -152,8 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>2.5</b> 拉普拉斯近似</a></li>
 <li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.6</b> 先验和后验分布</a></li>
 <li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.7</b> 常用贝叶斯估计</a></li>
-<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>2.8</b> 蒙特卡罗积分</a></li>
-<li class="chapter" data-level="2.9" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.9</b> 本章小结</a></li>
+<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.8</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
 <li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#sec:Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 简单线性模型</a></li>
@@ -177,9 +176,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.3.4</b> 低秩近似算法</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.4</b> 贝叶斯 STAN-HMC 算法</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.1</b> 算法提出的背景和意义</a></li>
-<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.2</b> Stan 简介</a></li>
-<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.3</b> 实现 STAN-HMC 算法的过程</a></li>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.4.1</b> 蒙特卡罗积分</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.2</b> 算法提出的背景和意义</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.3</b> Stan 简介</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.4</b> 实现 STAN-HMC 算法的过程</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.5</b> 实现参数估计的 R 包</a></li>
 <li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.6</b> 本章小结</a></li>
@@ -522,51 +522,9 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 <span class="math display">\[\mathsf{MSE}(\boldsymbol{\delta}^{\pi}|x) = \mathsf{Var}(\boldsymbol{\delta}^{\pi}|x) + [\boldsymbol{\delta}^{\pi}(x) - \mathsf{E}(\boldsymbol{\theta}|x)]^2\]</span>
 可见，当贝叶斯估计<span class="math inline">\(\boldsymbol{\delta}^{\pi}(x)\)</span>为后验均值时，贝叶斯估计的精度就用<span class="math inline">\(\boldsymbol{\delta}^{\pi}\)</span>的后验方差<span class="math inline">\(\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)\)</span> 表示，或用后验标准差 <span class="math inline">\([\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)]^{1/2}\)</span> 表示 <span class="citation">(茆诗松, 王静龙, and 濮晓龙 <a href="#ref-mao2006">2006</a>)</span>。</p>
 </div>
-<div id="sec:Curse-of-Dimensionality" class="section level2">
-<h2><span class="header-section-number">2.8</span> 蒙特卡罗积分</h2>
-<p>一般地，空间广义线性混合效应模型的统计推断总是不可避免的要面对高维积分，处理高维积分的方法一个是寻找近似方法避免求积分，一个是寻找有效的随机模拟方法直接求积分。这里，介绍蒙特卡罗方法求积分，以计算 <span class="math inline">\(N\)</span> 维超立方体的内切球的体积为例说明。</p>
-<p>假设我们有一个 <span class="math inline">\(N\)</span> 维超立方体，其中心在坐标 <span class="math inline">\(\mathbf{0} = (0,\ldots,0)\)</span>。超立方体在点 <span class="math inline">\((\pm 1/2,\ldots,\pm 1/2)\)</span>，有 <span class="math inline">\(2^{N}\)</span> 个角落，超立方体边长是1，<span class="math inline">\(1^{N}=1\)</span>，所以它的体积是1。如果 <span class="math inline">\(N=1\)</span>，超立方体是一条从 <span class="math inline">\(-\frac{1}{2}\)</span> 到 <span class="math inline">\(\frac{1}{2}\)</span> 的单位长度的线，如果 <span class="math inline">\(N=2\)</span>，超立方体是一个单位正方形，对角是 <span class="math inline">\(\left( -\frac{1}{2}, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \frac{1}{2} \right)\)</span>，如果 <span class="math inline">\(N=3\)</span>，超立方体就是单位体积的立方体，对角是 <span class="math inline">\(\left( -\frac{1}{2}, -\frac{1}{2}, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \frac{1}{2}, \frac{1}{2} \right)\)</span>，依此类推，<span class="math inline">\(N\)</span> 维超立方体体积是1，对角是 <span class="math inline">\(\left( -\frac{1}{2}, \ldots, -\frac{1}{2} \right)\)</span> 和 <span class="math inline">\(\left( \frac{1}{2}, \ldots, \frac{1}{2} \right)\)</span>。</p>
-<p>现在，考虑 <span class="math inline">\(N\)</span> 维超立方体的内切球，我们把它称为 <span class="math inline">\(N\)</span> 维超球，它的中心在原点，半径是 <span class="math inline">\(\frac{1}{2}\)</span>。我们说点 <span class="math inline">\(y\)</span> 在超球内，意味着它到原点的距离小于半径，即 <span class="math inline">\(\| y \| &lt; \frac{1}{2}\)</span>。一维情形下，超球是从的线，包含了整个超立方体。二维情形下，超球是中心在原点，半径为 <span class="math inline">\(\frac{1}{2}\)</span> 的圆。三维情形下，超球是立方体的内切球。已知单位超立方体的体积是1，但是其内的内切球的体积是多少呢？我们已经学过如何去定义一个积分计算半径为 <span class="math inline">\(r\)</span> 的二维球（即圆）的体积（即面积）是 <span class="math inline">\(\pi r^2\)</span>，三维情形下，内切球是 <span class="math inline">\(\frac{4}{3}\pi r^3\)</span>。但是更高维的欧式空间里，内切球的体积是多少呢？</p>
-<p>在这种简单的体积积分设置下，当然可以去计算越来越复杂的多重积分，但是这里介绍采样的方法去计算积分，即所谓的蒙特卡罗方法，由梅特罗波利斯，冯<span class="math inline">\(\cdot\)</span>诺依曼和乌拉姆等在美国核武器研究实验室创立，当时正值二战期间，为了研制原子弹，出于保密的需要，与随机模拟相关的技术就代号蒙特卡罗。现在，蒙特卡罗方法占据现代统计计算的核心地位，特别是与贝叶斯相关的领域。</p>
-<p>用蒙特卡罗方法去计算单位超立方体内的超球，首先需要在单位超立方体内产生随机点，然后计算落在超球内的点的比例，即超球的体积。随着点的数目增加，估计的体积会收敛到真实的体积。因为这些点都独立同均匀分布，根据中心极限定理，误差下降的比率是 <span class="math inline">\(\mathcal{O}\left( 1 / \sqrt{n} \right)\)</span>，这也意味着每增加一个小数点的准确度，样本量要增加 100 倍。</p>
-<table>
-<caption><span id="tab:calculate-volume-of-hyperball">表 2.2: </span> 前 10 维单位超立方体内切球的体积，超立方体内随机模拟的点的个数是 100000（已经四舍五入保留小数点后三位）</caption>
-<thead>
-<tr class="header">
-<th align="left">维数</th>
-<th align="center">1</th>
-<th align="center">2</th>
-<th align="center">3</th>
-<th align="center">4</th>
-<th align="center">5</th>
-<th align="center">6</th>
-<th align="center">7</th>
-<th align="center">8</th>
-<th align="center">9</th>
-<th align="center">10</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">体积</td>
-<td align="center">1.000</td>
-<td align="center">0.784</td>
-<td align="center">0.525</td>
-<td align="center">0.307</td>
-<td align="center">0.166</td>
-<td align="center">0.081</td>
-<td align="center">0.037</td>
-<td align="center">0.016</td>
-<td align="center">0.006</td>
-<td align="center">0.0027</td>
-</tr>
-</tbody>
-</table>
-<p>表 <a href="prepare.html#tab:calculate-volume-of-hyperball">2.2</a> 列出了前 10 维超球的体积，从上述计算过程中，我们发现随着维数增加，超球的体积迅速变小。这里有一个反直观的现象，内切球的体积竟然随着维数的增加变小，并且在 10 维的情形下，内切球的体积已不到超立方体的 0.3%，可以预见如果这个积分是 100 维甚至更多，那么内切球相比于正方体仅仅是一个极小的角落，随机点会越来越难以落在内切球内。甚至会因为所需要的随机数太多或者计算机资源的限制，而不可计算，开发更加高效的随机模拟算法也就势在必行。</p>
-</div>
 <div id="sec:foundations" class="section level2">
-<h2><span class="header-section-number">2.9</span> 本章小结</h2>
-<p>本章第<a href="prepare.html#sec:exp">2.1</a>节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第<a href="models.html#models">3</a>章统计模型和第<a href="algorithms.html#algorithms">4</a>章参数估计作铺垫。接着，第<a href="prepare.html#sec:lse">2.2</a>节和第<a href="prepare.html#sec:def-mle">2.3</a>节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第<a href="prepare.html#sec:stationary-gaussian-process">2.4</a>节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第<a href="prepare.html#sec:Laplace-approximation">2.5</a>节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节当中，用以近似似然函数中关于空间随机效应的高维积分。第<a href="prepare.html#sec:bayes-prior">2.6</a>节至第<a href="prepare.html#sec:Curse-of-Dimensionality">2.8</a>节分别是与贝叶斯相关的概念定义。</p>
+<h2><span class="header-section-number">2.8</span> 本章小结</h2>
+<p>本章第<a href="prepare.html#sec:exp">2.1</a>节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第<a href="models.html#models">3</a>章统计模型和第<a href="algorithms.html#algorithms">4</a>章参数估计作铺垫。接着，第<a href="prepare.html#sec:lse">2.2</a>节和第<a href="prepare.html#sec:def-mle">2.3</a>节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第<a href="prepare.html#sec:stationary-gaussian-process">2.4</a>节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第<a href="prepare.html#sec:Laplace-approximation">2.5</a>节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节当中，用以近似似然函数中关于空间随机效应的高维积分。第<a href="prepare.html#sec:bayes-prior">2.6</a>节至第<a href="prepare.html#sec:bayes-estimates">2.7</a>节分别是与贝叶斯相关的概念定义。</p>
 
 </div>
 </div>
