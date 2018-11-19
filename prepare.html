@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2018-11-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,7 +36,6 @@
 <link rel="next" href="models.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -48,16 +47,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -149,10 +138,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="prepare.html"><a href="prepare.html#sec:lse"><i class="fa fa-check"></i><b>2.2</b> 最小二乘估计</a></li>
 <li class="chapter" data-level="2.3" data-path="prepare.html"><a href="prepare.html#sec:def-mle"><i class="fa fa-check"></i><b>2.3</b> 极大似然估计</a></li>
 <li class="chapter" data-level="2.4" data-path="prepare.html"><a href="prepare.html#sec:stationary-gaussian-process"><i class="fa fa-check"></i><b>2.4</b> 平稳高斯过程</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>2.5</b> 拉普拉斯近似</a></li>
-<li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.6</b> 先验和后验分布</a></li>
-<li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.7</b> 常用贝叶斯估计</a></li>
-<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.8</b> 本章小结</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.5</b> 先验和后验分布</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.6</b> 常用贝叶斯估计</a></li>
+<li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.7</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
 <li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#sec:Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 简单线性模型</a></li>
@@ -169,20 +157,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>4</b> 参数估计</a><ul>
 <li class="chapter" data-level="4.1" data-path="algorithms.html"><a href="algorithms.html#sec:mle"><i class="fa fa-check"></i><b>4.1</b> 极大似然估计</a></li>
 <li class="chapter" data-level="4.2" data-path="algorithms.html"><a href="algorithms.html#sec:profile-likelihood"><i class="fa fa-check"></i><b>4.2</b> 剖面似然估计</a></li>
-<li class="chapter" data-level="4.3" data-path="algorithms.html"><a href="algorithms.html#sec:algrithms"><i class="fa fa-check"></i><b>4.3</b> 参数估计的算法</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="algorithms.html"><a href="algorithms.html#subsec:LA"><i class="fa fa-check"></i><b>4.3.1</b> 拉普拉斯近似算法</a></li>
-<li class="chapter" data-level="4.3.2" data-path="algorithms.html"><a href="algorithms.html#subsec:MCML"><i class="fa fa-check"></i><b>4.3.2</b> 蒙特卡罗极大似然算法</a></li>
-<li class="chapter" data-level="4.3.3" data-path="algorithms.html"><a href="algorithms.html#sec:MCMC"><i class="fa fa-check"></i><b>4.3.3</b> 贝叶斯 MCMC 算法</a></li>
-<li class="chapter" data-level="4.3.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.3.4</b> 低秩近似算法</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithms.html"><a href="algorithms.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>4.3</b> 拉普拉斯近似</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:algrithms"><i class="fa fa-check"></i><b>4.4</b> 参数估计的算法</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:LA"><i class="fa fa-check"></i><b>4.4.1</b> 拉普拉斯近似极大似然算法</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:MCML"><i class="fa fa-check"></i><b>4.4.2</b> 蒙特卡罗极大似然算法</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#sec:MCMC"><i class="fa fa-check"></i><b>4.4.3</b> 贝叶斯 Langevin-Hastings 算法</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.4.4</b> 低秩近似算法</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.4</b> 贝叶斯 STAN-HMC 算法</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.4.1</b> 蒙特卡罗积分</a></li>
-<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.2</b> 算法提出的背景和意义</a></li>
-<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.3</b> Stan 简介</a></li>
-<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.4</b> 实现 STAN-HMC 算法的过程</a></li>
+<li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.5</b> 贝叶斯 Stan-HMC 算法</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.5.1</b> 蒙特卡罗积分</a></li>
+<li class="chapter" data-level="4.5.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.5.2</b> 背景和意义</a></li>
+<li class="chapter" data-level="4.5.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.5.3</b> Stan 简介</a></li>
+<li class="chapter" data-level="4.5.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.5.4</b> 实现过程</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.5</b> 实现参数估计的 R 包</a></li>
-<li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.6</b> 本章小结</a></li>
+<li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.6</b> 实现参数估计的 R 包</a></li>
+<li class="chapter" data-level="4.7" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.7</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="simulations.html"><a href="simulations.html"><i class="fa fa-check"></i><b>5</b> 数值模拟</a><ul>
 <li class="chapter" data-level="5.1" data-path="simulations.html"><a href="simulations.html#spatial-gaussian-processes"><i class="fa fa-check"></i><b>5.1</b> 平稳空间高斯过程</a><ul>
@@ -197,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> 数据分析</a><ul>
 <li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#sec:spatial-random-effects"><i class="fa fa-check"></i><b>6.1</b> 小麦产量的空间分布</a></li>
-<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#case-rongelap"><i class="fa fa-check"></i><b>6.2</b> 朗格拉普岛核污染浓度的空间分布</a></li>
+<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#case-rongelap"><i class="fa fa-check"></i><b>6.2</b> 核污染浓度的空间分布</a></li>
 <li class="chapter" data-level="6.3" data-path="applications.html"><a href="applications.html#sec:cases"><i class="fa fa-check"></i><b>6.3</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> 总结与展望</a></li>
@@ -206,11 +195,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录 A</a><ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#tables-simulations"><i class="fa fa-check"></i>表格</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-code"><i class="fa fa-check"></i>代码</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#Interactive-Web-Maps"><i class="fa fa-check"></i>交互图</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compileinfo"><i class="fa fa-check"></i>编译信息</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#hardwareinfo"><i class="fa fa-check"></i>硬件环境</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sysinfo"><i class="fa fa-check"></i>系统环境</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#softwareinfo"><i class="fa fa-check"></i>软件环境</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
@@ -235,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="prepare" class="section level1">
 <h1><span class="header-section-number">第 2 章</span> 基础知识</h1>
-<p>作为第 <a href="models.html#models">3</a> 章统计模型和第 <a href="algorithms.html#algorithms">4</a> 章参数估计的知识准备，本章给出主要的知识点。第 <a href="prepare.html#sec:exp">2.1</a> 节首先介绍指数族的一般形式，包含各成分的定义，特别介绍正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 <a href="prepare.html#sec:lse">2.2</a> 节介绍线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 <a href="prepare.html#sec:def-mle">2.3</a> 节介绍极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 <a href="prepare.html#sec:stationary-gaussian-process">2.4</a> 节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 <a href="prepare.html#sec:Laplace-approximation">2.5</a> 节介绍拉普拉斯近似方法。第 <a href="prepare.html#sec:bayes-prior">2.6</a> 介绍先验、后验分布和 Jeffreys 无信息先验分布。</p>
+<p>作为第 <a href="models.html#models">3</a> 章统计模型和第 <a href="algorithms.html#algorithms">4</a> 章参数估计的知识准备，本章给出主要的知识点。第 <a href="prepare.html#sec:exp">2.1</a> 节首先介绍指数族的一般形式，包含各成分的定义，特别介绍正态分布、二项分布和泊松分布情形下均值函数、联系函数和方差函数等特征量。第 <a href="prepare.html#sec:lse">2.2</a> 节介绍线性模型下，设计矩阵保持正定时的最小二乘估计和加权最小二乘估计。第 <a href="prepare.html#sec:def-mle">2.3</a> 节介绍极大似然估计的定义，相合性，以及在一定条件下的渐近正态性。第 <a href="prepare.html#sec:stationary-gaussian-process">2.4</a> 节介绍平稳高斯过程的定义，均方连续性和可微性的定义，以及判断可微性的一个充要条件。第 <a href="prepare.html#sec:bayes-prior">2.5</a> 介绍先验、后验分布和 Jeffreys 无信息先验分布。</p>
 <div id="sec:exp" class="section level2">
 <h2><span class="header-section-number">2.1</span> 指数族</h2>
 <p>一般地，随机变量 <span class="math inline">\(Y\)</span> 的分布服从指数族，即形如
@@ -428,7 +412,8 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 <div id="sec:stationary-gaussian-process" class="section level2">
 <h2><span class="header-section-number">2.4</span> 平稳高斯过程</h2>
 <p>一般地，空间高斯过程 <span class="math inline">\(\mathcal{S} = \{S(x),x\in\mathbb{R}^2\}\)</span> 必须满足条件：任意给定一组空间位置 <span class="math inline">\(x_1,x_2,\ldots,x_n, \forall x_{i} \in \mathbb{R}^2\)</span>， 每个位置上对应的随机变量 <span class="math inline">\(S(x_i), i = 1,2,\ldots,n\)</span> 的联合分布 <span class="math inline">\(\mathcal{S} = \{S(x_1), S(x_2),\ldots,S(x_n)\}\)</span> 是多元高斯分布，其由均值 <span class="math inline">\(\mu(x) = \mathsf{E}[S(x)]\)</span> 和协方差 <span class="math inline">\(G_{ij} = \gamma(x_i,x_j) = \mathsf{Cov}\{S(x_i),S(x_j)\}\)</span> 完全确定，即 <span class="math inline">\(\mathcal{S} \sim \mathcal{N}(\mu_{S},G)\)</span>。</p>
-<p>平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， <span class="math inline">\(\mu(x) = \mu, \forall x \in \mathbb{R}^2\)</span>， 其二，自协方差函数 <span class="math inline">\(\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|\)</span>。 可见均值 <span class="math inline">\(\mu\)</span> 是一个常数， 而自协方差函数 <span class="math inline">\(\gamma(x_i,x_j)\)</span> 只与空间距离有关。 注意到平稳高斯过程 <span class="math inline">\(\mathcal{S}\)</span> 的方差是一个常数，即 <span class="math inline">\(\sigma^2 = \gamma(0)\)</span>， 然后可以定义自相关函数 <span class="math inline">\(\rho(u) = \gamma(u)/\sigma^2\)</span>， 并且 <span class="math inline">\(\rho(u)\)</span> 是关于空间距离<span class="math inline">\(u\)</span>对称的，即 <span class="math inline">\(\rho(u) = \rho(-u)\)</span>。 因为对 <span class="math inline">\(\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}\)</span>， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。不失一般性，介绍一维空间下随机过程 <span class="math inline">\(S(x)\)</span> 的均方连续性和可微性定义。</p>
+<p>平稳空间高斯过程需要空间高斯过程满足平稳性条件：其一， <span class="math inline">\(\mu(x) = \mu, \forall x \in \mathbb{R}^2\)</span>， 其二，自协方差函数 <span class="math inline">\(\gamma(x_i,x_j) = \gamma(u),u=\|x_{i} - x_{j}\|\)</span>。 可见均值 <span class="math inline">\(\mu\)</span> 是一个常数， 而自协方差函数 <span class="math inline">\(\gamma(x_i,x_j)\)</span> 只与空间距离有关。</p>
+<p>平稳高斯过程 <span class="math inline">\(\mathcal{S}\)</span> 的方差是一个常数，即 <span class="math inline">\(\sigma^2 = \gamma(0)\)</span>， 然后可以定义自相关函数 <span class="math inline">\(\rho(u) = \gamma(u)/\sigma^2\)</span>， 并且 <span class="math inline">\(\rho(u)\)</span> 是关于空间距离<span class="math inline">\(u\)</span>对称的，即 <span class="math inline">\(\rho(u) = \rho(-u)\)</span>。 因为对 <span class="math inline">\(\forall u, \mathsf{Corr}\{S(x),S(x-u)\} = \mathsf{Corr}\{S(x-u), S(x)\} = \mathsf{Corr}\{S(x),S(x+u)\}\)</span>， 这里的第二个等式是根据平稳性得来的， 由协方差的定义不难验证。 如果不特别说明， 平稳就指上述协方差意义下的平稳， 因为这种平稳性条件广泛应用于空间数据的统计建模。不失一般性，介绍一维空间下随机过程 <span class="math inline">\(S(x)\)</span> 的均方连续性和可微性定义。</p>
 
 <div class="definition">
 <span id="def:continuous-differentiable" class="definition"><strong>定义 2.3  (连续性和可微性)  </strong></span>随机过程 <span class="math inline">\(S(x)\)</span> 满足
@@ -444,31 +429,8 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 </div>
 
 </div>
-<div id="sec:Laplace-approximation" class="section level2">
-<h2><span class="header-section-number">2.5</span> 拉普拉斯近似</h2>
-<p>先回顾一下基本的泰勒展开，将一个函数 <span class="math inline">\(f(x)\)</span> 在点 <span class="math inline">\(a\)</span> 处展开成和的形式，有时候是无穷多项，可以使用其中的有限项作为近似，通常会选用前三项，即到达函数 <span class="math inline">\(f(x)\)</span> 二阶导的位置。
-<span class="math display">\[ f(x) = f(a) + \frac{f&#39;(a)}{1!}(x-a) + \frac{f&#39;&#39;(a)}{2!}(x-a)^2 + \frac{f&#39;&#39;&#39;(a)}{3!}(x-a)^3 + \ldots \]</span>
-以基本的抛物线函数 <span class="math inline">\(f(x) = x^2\)</span> 为例，考虑将它在 <span class="math inline">\(a = 2\)</span> 处展开。首先计算 <span class="math inline">\(f(x)\)</span> 的各阶导数
-<span class="math display">\[ f(x) = x^2, \quad f&#39;(x) = 2x, \quad f&#39;&#39;(x) = 2, \quad f^{(n)}(x) = 0, \quad n = 3,4,\ldots \]</span>
-因此，<span class="math inline">\(f(x)\)</span> 可以展开成有限项的和的形式
-<span class="math display">\[ f(x) = x^2 = 2^2 + 2(2)(x-2) + \frac{2}{2}(x-2)^2 \]</span>
-拉普拉斯近似本质上是用正态分布来近似任意分布 <span class="math inline">\(g(x)\)</span>，用泰勒展开的前三项近似 <span class="math inline">\(\log g(x)\)</span>，展开的位置是密度函数 <span class="math inline">\(g(x)\)</span> 的极值点 <span class="math inline">\(\hat{x}\)</span>，则有
-<span class="math display">\[ \log g(x) \approx \log g(\hat{x}) + \frac{\partial \log g(\hat{x})}{\partial x} (x - \hat{x}) + \frac{\partial^2 \log g(\hat{x})}{2\partial x^2} (x - \hat{x})^2 \]</span>
-由于是在函数 <span class="math inline">\(g(x)\)</span> 的极值点 <span class="math inline">\(\hat{x}\)</span> 展开， 所以 <span class="math inline">\(x = \hat{x}\)</span> 一阶导是 0，用曲率去估计方差是 <span class="math inline">\(\hat{\sigma}^2 = -1/\frac{\partial^2 \log g(\hat{x})}{2\partial x^2}\)</span>，再重写上述近似
-<span class="math display">\[ \log g(x) \approx \log g(\hat{x}) - \frac{1}{2\hat{\sigma}^2} (x - \hat{x})^2 \]</span>
-现在，用这个结果做正态近似，将上式两端先取指数，再积分，移去常数项
-<span class="math display">\[ \int g(x) \mathrm{d}x = \int \exp[\log g(x)] \mathrm{d}x \approx \mathrm{constant} \int \exp[- \frac{(x - \hat{x})^2}{2\hat{\sigma}^2}] \mathrm{d}x \]</span>
-则拉普拉斯方法近似任意密度函数 <span class="math inline">\(g(x)\)</span> 得到的正态分布的均值为 <span class="math inline">\(\hat{x}\)</span>， <span class="math inline">\(\hat{x}\)</span> 可以通过求解方程 <span class="math inline">\(g&#39;(x) = 0\)</span> 获得，方差为 <span class="math inline">\(\hat{\sigma}^2 = -1/g&#39;&#39;(\hat{x})\)</span>。下面以卡方分布 <span class="math inline">\(\chi^2\)</span> 为例，由于
-<span class="math display">\[\begin{align*}
-    f(x; k) &amp; = \frac{ x^{k/2-1} \mathrm{e}^{-x/2} }{ 2^{k/2}\Gamma(k/2) }, x \geq 0 \quad \log f(x) = (k/2 - 1) \log x - x/2 \\
- \log f&#39;(x) &amp; = (k/2-1)/x - 1/2 = 0 \quad \log f&#39;&#39;(x)  = -(k/2-1)/x^2
-\end{align*}\]</span>
-所以，卡方分布的拉普拉斯近似为
-<span class="math display">\[ \chi_{k}^2 \overset{LA}{\sim}  \mathcal{N}(\hat{x} = k-2, \hat{\sigma}^2 = 2(k-2)) \]</span>
-自由度越大，近似效果越好，对于多元分布的情况不难推广，使用多元泰勒展开和黑塞矩阵即可表示<span class="citation">(Tierney and Kadane <a href="#ref-Tierney1986">1986</a>)</span>。</p>
-</div>
 <div id="sec:bayes-prior" class="section level2">
-<h2><span class="header-section-number">2.6</span> 先验和后验分布</h2>
+<h2><span class="header-section-number">2.5</span> 先验和后验分布</h2>
 <p>贝叶斯推断中，常涉及模型参数的先验、后验分布，以及一种特殊的无信息先验分布 — Jeffreys 先验，下面分别给出它们的概念定义<span class="citation">(茆诗松, 王静龙, and 濮晓龙 <a href="#ref-mao2006">2006</a>)</span>。</p>
 
 <div class="definition">
@@ -492,7 +454,7 @@ a(\phi) = \phi, \quad b(\theta) = \theta^2/2, \quad c(y,\phi) = - \frac{1}{2}\{ 
 </ol>
 </div>
 <div id="sec:bayes-estimates" class="section level2">
-<h2><span class="header-section-number">2.7</span> 常用贝叶斯估计</h2>
+<h2><span class="header-section-number">2.6</span> 常用贝叶斯估计</h2>
 
 <div class="theorem">
 <span id="thm:bayes-estimate-square" class="theorem"><strong>定理 2.5  (平方损失)  </strong></span>在给定先验分布 <span class="math inline">\(\pi(\boldsymbol{\theta})\)</span> 和平方损失 <span class="math inline">\(L(\boldsymbol{\theta},\boldsymbol{\delta}) = (\boldsymbol{\delta} - \boldsymbol{\theta})^2\)</span> 下，<span class="math inline">\(\boldsymbol{\theta}\)</span> 的贝叶斯估计 <span class="math inline">\(\boldsymbol{\delta}^{\pi}(x)\)</span> 为后验分布 <span class="math inline">\(\pi(\boldsymbol{\theta}|x)\)</span> 的均值，即 <span class="math inline">\(\boldsymbol{\delta}^{\pi}(x) = \mathsf{E}(\boldsymbol{\theta}|x)\)</span><span class="citation">(茆诗松, 王静龙, and 濮晓龙 <a href="#ref-mao2006">2006</a>)</span>。
@@ -523,8 +485,8 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 可见，当贝叶斯估计<span class="math inline">\(\boldsymbol{\delta}^{\pi}(x)\)</span>为后验均值时，贝叶斯估计的精度就用<span class="math inline">\(\boldsymbol{\delta}^{\pi}\)</span>的后验方差<span class="math inline">\(\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)\)</span> 表示，或用后验标准差 <span class="math inline">\([\mathsf{Var}(\boldsymbol{\delta}^{\pi}|x)]^{1/2}\)</span> 表示 <span class="citation">(茆诗松, 王静龙, and 濮晓龙 <a href="#ref-mao2006">2006</a>)</span>。</p>
 </div>
 <div id="sec:foundations" class="section level2">
-<h2><span class="header-section-number">2.8</span> 本章小结</h2>
-<p>本章第<a href="prepare.html#sec:exp">2.1</a>节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第<a href="models.html#models">3</a>章统计模型和第<a href="algorithms.html#algorithms">4</a>章参数估计作铺垫。接着，第<a href="prepare.html#sec:lse">2.2</a>节和第<a href="prepare.html#sec:def-mle">2.3</a>节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第<a href="prepare.html#sec:stationary-gaussian-process">2.4</a>节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第<a href="prepare.html#sec:Laplace-approximation">2.5</a>节介绍了拉普拉斯近似的思想，具体以正态分布作为阐述，它是空间广义线性混合模型参数估计的重要部分，主要应用在第<a href="algorithms.html#algorithms">4</a>章第<a href="algorithms.html#subsec:LA">4.3.1</a>小节当中，用以近似似然函数中关于空间随机效应的高维积分。第<a href="prepare.html#sec:bayes-prior">2.6</a>节至第<a href="prepare.html#sec:bayes-estimates">2.7</a>节分别是与贝叶斯相关的概念定义。</p>
+<h2><span class="header-section-number">2.7</span> 本章小结</h2>
+<p>本章第<a href="prepare.html#sec:exp">2.1</a>节介绍了指数族的一般形式，指出基于样本点的对数似然函数和样本均值、样本方差的关系，以表格的形式列出了正态、泊松和二项分布的各个特征，为第<a href="models.html#models">3</a>章统计模型和第<a href="algorithms.html#algorithms">4</a>章参数估计作铺垫。接着，第<a href="prepare.html#sec:lse">2.2</a>节和第<a href="prepare.html#sec:def-mle">2.3</a>节分别介绍了最小二乘估计和极大似然估计的定义、性质，给出了线性模型的最小二乘估计，极大似然估计的相合性和渐进正态性。第<a href="prepare.html#sec:stationary-gaussian-process">2.4</a>节介绍了平稳高斯过程，给出了其均方连续性、可微性定义以及一个均方可微的判断定理，平稳高斯过程作为空间随机效应的实现，多次出现在后续章节中。第<a href="prepare.html#sec:bayes-prior">2.5</a>节至第<a href="prepare.html#sec:bayes-estimates">2.6</a>节分别是与贝叶斯相关的概念定义。</p>
 
 </div>
 </div>
@@ -544,9 +506,6 @@ L(\boldsymbol{\theta},\boldsymbol{\delta}) =
 </div>
 <div id="ref-Bartlett1955">
 <p>Bartlett, M. S. 1955. <em>An Introduction to Stochastic Process with Special Reference to Methods and Applications</em>. First. Cambridge: Cambridge University Press.</p>
-</div>
-<div id="ref-Tierney1986">
-<p>Tierney, Luke, and Joseph B. Kadane. 1986. “Accurate Approximations for Posterior Moments and Marginal Densities.” <em>Journal of the American Statistical Association</em> 81 (393): 82–86.</p>
 </div>
 </div>
             </section>
@@ -586,7 +545,7 @@ gitbook.start({
 },
 "edit": {
 "link": "https://github.com/XiangyunHuang/Thesis-Template-Bookdown/edit/master/01-foundations.Rmd",
-"text": "编辑"
+"text": "缂栬緫"
 },
 "download": ["Thesis-Template-Bookdown.pdf"],
 "toc": {
@@ -602,7 +561,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

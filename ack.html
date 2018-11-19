@@ -25,7 +25,7 @@
 <meta name="author" content="Xiang-Yun Huang">
 
 
-<meta name="date" content="2018-10-28">
+<meta name="date" content="2018-11-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,7 +36,6 @@
 <link rel="next" href="author.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -48,16 +47,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -149,10 +138,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="prepare.html"><a href="prepare.html#sec:lse"><i class="fa fa-check"></i><b>2.2</b> 最小二乘估计</a></li>
 <li class="chapter" data-level="2.3" data-path="prepare.html"><a href="prepare.html#sec:def-mle"><i class="fa fa-check"></i><b>2.3</b> 极大似然估计</a></li>
 <li class="chapter" data-level="2.4" data-path="prepare.html"><a href="prepare.html#sec:stationary-gaussian-process"><i class="fa fa-check"></i><b>2.4</b> 平稳高斯过程</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>2.5</b> 拉普拉斯近似</a></li>
-<li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.6</b> 先验和后验分布</a></li>
-<li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.7</b> 常用贝叶斯估计</a></li>
-<li class="chapter" data-level="2.8" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.8</b> 本章小结</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare.html"><a href="prepare.html#sec:bayes-prior"><i class="fa fa-check"></i><b>2.5</b> 先验和后验分布</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare.html"><a href="prepare.html#sec:bayes-estimates"><i class="fa fa-check"></i><b>2.6</b> 常用贝叶斯估计</a></li>
+<li class="chapter" data-level="2.7" data-path="prepare.html"><a href="prepare.html#sec:foundations"><i class="fa fa-check"></i><b>2.7</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>3</b> 统计模型</a><ul>
 <li class="chapter" data-level="3.1" data-path="models.html"><a href="models.html#sec:Linear-Models"><i class="fa fa-check"></i><b>3.1</b> 简单线性模型</a></li>
@@ -169,20 +157,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="algorithms.html"><a href="algorithms.html"><i class="fa fa-check"></i><b>4</b> 参数估计</a><ul>
 <li class="chapter" data-level="4.1" data-path="algorithms.html"><a href="algorithms.html#sec:mle"><i class="fa fa-check"></i><b>4.1</b> 极大似然估计</a></li>
 <li class="chapter" data-level="4.2" data-path="algorithms.html"><a href="algorithms.html#sec:profile-likelihood"><i class="fa fa-check"></i><b>4.2</b> 剖面似然估计</a></li>
-<li class="chapter" data-level="4.3" data-path="algorithms.html"><a href="algorithms.html#sec:algrithms"><i class="fa fa-check"></i><b>4.3</b> 参数估计的算法</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="algorithms.html"><a href="algorithms.html#subsec:LA"><i class="fa fa-check"></i><b>4.3.1</b> 拉普拉斯近似算法</a></li>
-<li class="chapter" data-level="4.3.2" data-path="algorithms.html"><a href="algorithms.html#subsec:MCML"><i class="fa fa-check"></i><b>4.3.2</b> 蒙特卡罗极大似然算法</a></li>
-<li class="chapter" data-level="4.3.3" data-path="algorithms.html"><a href="algorithms.html#sec:MCMC"><i class="fa fa-check"></i><b>4.3.3</b> 贝叶斯 MCMC 算法</a></li>
-<li class="chapter" data-level="4.3.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.3.4</b> 低秩近似算法</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithms.html"><a href="algorithms.html#sec:Laplace-approximation"><i class="fa fa-check"></i><b>4.3</b> 拉普拉斯近似</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:algrithms"><i class="fa fa-check"></i><b>4.4</b> 参数估计的算法</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:LA"><i class="fa fa-check"></i><b>4.4.1</b> 拉普拉斯近似极大似然算法</a></li>
+<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:MCML"><i class="fa fa-check"></i><b>4.4.2</b> 蒙特卡罗极大似然算法</a></li>
+<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#sec:MCMC"><i class="fa fa-check"></i><b>4.4.3</b> 贝叶斯 Langevin-Hastings 算法</a></li>
+<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#LowRank"><i class="fa fa-check"></i><b>4.4.4</b> 低秩近似算法</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.4</b> 贝叶斯 STAN-HMC 算法</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.4.1</b> 蒙特卡罗积分</a></li>
-<li class="chapter" data-level="4.4.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.4.2</b> 算法提出的背景和意义</a></li>
-<li class="chapter" data-level="4.4.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.4.3</b> Stan 简介</a></li>
-<li class="chapter" data-level="4.4.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.4.4</b> 实现 STAN-HMC 算法的过程</a></li>
+<li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#sec:stan-hmc"><i class="fa fa-check"></i><b>4.5</b> 贝叶斯 Stan-HMC 算法</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="algorithms.html"><a href="algorithms.html#subsec:Curse-of-Dimensionality"><i class="fa fa-check"></i><b>4.5.1</b> 蒙特卡罗积分</a></li>
+<li class="chapter" data-level="4.5.2" data-path="algorithms.html"><a href="algorithms.html#subsec:motivations"><i class="fa fa-check"></i><b>4.5.2</b> 背景和意义</a></li>
+<li class="chapter" data-level="4.5.3" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-samplers"><i class="fa fa-check"></i><b>4.5.3</b> Stan 简介</a></li>
+<li class="chapter" data-level="4.5.4" data-path="algorithms.html"><a href="algorithms.html#subsec:stan-hmc"><i class="fa fa-check"></i><b>4.5.4</b> 实现过程</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.5</b> 实现参数估计的 R 包</a></li>
-<li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.6</b> 本章小结</a></li>
+<li class="chapter" data-level="4.6" data-path="algorithms.html"><a href="algorithms.html#subsec:sglmm-with-r"><i class="fa fa-check"></i><b>4.6</b> 实现参数估计的 R 包</a></li>
+<li class="chapter" data-level="4.7" data-path="algorithms.html"><a href="algorithms.html#sec:estimations"><i class="fa fa-check"></i><b>4.7</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="simulations.html"><a href="simulations.html"><i class="fa fa-check"></i><b>5</b> 数值模拟</a><ul>
 <li class="chapter" data-level="5.1" data-path="simulations.html"><a href="simulations.html#spatial-gaussian-processes"><i class="fa fa-check"></i><b>5.1</b> 平稳空间高斯过程</a><ul>
@@ -197,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> 数据分析</a><ul>
 <li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#sec:spatial-random-effects"><i class="fa fa-check"></i><b>6.1</b> 小麦产量的空间分布</a></li>
-<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#case-rongelap"><i class="fa fa-check"></i><b>6.2</b> 朗格拉普岛核污染浓度的空间分布</a></li>
+<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#case-rongelap"><i class="fa fa-check"></i><b>6.2</b> 核污染浓度的空间分布</a></li>
 <li class="chapter" data-level="6.3" data-path="applications.html"><a href="applications.html#sec:cases"><i class="fa fa-check"></i><b>6.3</b> 本章小结</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> 总结与展望</a></li>
@@ -206,11 +195,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>附录 A</a><ul>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#tables-simulations"><i class="fa fa-check"></i>表格</a></li>
 <li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simulate-code"><i class="fa fa-check"></i>代码</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#Interactive-Web-Maps"><i class="fa fa-check"></i>交互图</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#compileinfo"><i class="fa fa-check"></i>编译信息</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#hardwareinfo"><i class="fa fa-check"></i>硬件环境</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#sysinfo"><i class="fa fa-check"></i>系统环境</a></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#softwareinfo"><i class="fa fa-check"></i>软件环境</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
@@ -237,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>致谢</h1>
 
 <p>三年时间说短不短，说长不长，但是对我却是意义重大的三年，无论是学习还是生活，学校对我的影响都是终生难忘的。首先，我要感谢父母一如既往的默默支持，没有他们就没有我的今天，虽然远隔千山万里，也照顾不到我的学习和生活，但只要想到不管我做怎样的决定，他们都会全力支持，我很感动。</p>
-<p>然后，我要感谢我的导师李再兴教授，从他那里我学到严谨治学的态度，感谢他三年来细心的指导，在我论文遇到困难的时候给予了关键的帮助。除了在学校的学习，导师也让我去一些技术公司实习，接触到最前沿的正在发生深刻变革的人工智能领域，这段实习经历除了让我开阔眼界，接触了深度学习技术和计算框架，更重要的是结识了老师木和一些志同道合的同事，如深度学习算法研究者陈新鹏，计算框架开发者王笑舒等；此外，还要感谢新浪的总监高鹏，实习期间，除了基本业务外，让我做了很多我感兴趣的事，如学习 R 语言绘图系统和 R Markdown 生态系统，这让我后来决定基于 R Markdown 写了这篇论文；接着，我要感谢 Stan 开发团队，特别是 R 包 <strong>brms</strong> 的创建者和维护者 Paul Bürkner，基于他的工作我实现了论文当中的 STAN-MCMC 算法。</p>
+<p>然后，我要感谢我的导师李再兴教授，从他那里我学到严谨治学的态度，感谢他三年来细心的指导，在我论文遇到困难的时候给予了关键的帮助。除了在学校的学习，导师也让我去一些技术公司实习，接触到最前沿的正在发生深刻变革的人工智能领域，这段实习经历除了让我开阔眼界，接触了深度学习技术和计算框架，更重要的是结识了老师木和一些志同道合的同事，如深度学习算法研究者陈新鹏，计算框架开发者王笑舒等；此外，还要感谢新浪的总监高鹏，实习期间，除了基本业务外，让我做了很多我感兴趣的事，如学习 R 语言绘图系统和 R Markdown 生态系统，这让我后来决定基于 R Markdown 写了这篇论文；接着，我要感谢 Stan 开发团队，特别是 R 包 <strong>brms</strong> 的创建者和维护者 Paul Bürkner，基于他的工作我实现了论文当中的 Stan-HMC 算法。</p>
 <p>最后我要感谢统计之都， 特别是创始人谢益辉， 除了使用他开发的工具打造毕业论文模板，使得论文排版工作量大大减轻，一年多以来，还一直对我的问题有问必答。三年来，帮助过我的老师，同学，同事，朋友太多，他们当中很多都直接或间接地帮助了我的毕业论文，人生最大的幸运莫过于结识你们。</p>
 
 </div>
@@ -278,7 +262,7 @@ gitbook.start({
 },
 "edit": {
 "link": "https://github.com/XiangyunHuang/Thesis-Template-Bookdown/edit/master/07-acknowledge.Rmd",
-"text": "编辑"
+"text": "缂栬緫"
 },
 "download": ["Thesis-Template-Bookdown.pdf"],
 "toc": {
@@ -294,7 +278,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
